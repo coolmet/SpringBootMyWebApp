@@ -117,32 +117,4 @@ public class WebLinkController
 		mav.setViewName("th_users");
 		return mav;
 	}
-	
-	@RequestMapping(value=
-	{"admin/test"})
-	public ModelAndView adminTest()
-	{
-		ModelAndView mav=new ModelAndView();
-		mav.setViewName("j_test");
-		return mav;
-	}
-	
-	@RequestMapping(value=
-	{"admin/particle"})
-	public ModelAndView adminParticle()
-	{
-		ModelAndView mav=new ModelAndView();
-		mav.setViewName("j_particle");
-		return mav;
-	}
-		
-	
-	@RequestMapping(value=
-	{"admin/register"})
-	public ModelAndView adminRegister()
-	{
-		ModelAndView mav=new ModelAndView();
-		mav.setViewName("j_register");
-		return mav;
-	}
 }
