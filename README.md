@@ -1,2 +1,0 @@
-# SprinBootMyWebApp
-SprinBootMyWebApp

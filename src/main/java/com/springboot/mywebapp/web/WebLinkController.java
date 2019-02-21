@@ -31,7 +31,6 @@ public class WebLinkController
 	}
 	
 	@RequestMapping("admin")
-	@ResponseBody
 	public ModelAndView admin()
 	{
 		ModelAndView mav=new ModelAndView();
@@ -56,7 +55,7 @@ public class WebLinkController
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("usersString",usersString);
 		mav.addObject("users",users);
-		mav.addObject("userDetail",userDetail);		
+		mav.addObject("userDetail",userDetail);
 		mav.setViewName("j_users");
 		return mav;
 	}
@@ -97,4 +96,53 @@ public class WebLinkController
 		return "redirect:/";
 	}
 	
+	@RequestMapping(value=
+	{"admin/th/users"})
+	public ModelAndView adminTHUsers()
+	{
+		List<String> usersString=sessionRegistry.getAllPrincipals().stream()
+		                                        .filter(u->!sessionRegistry.getAllSessions(u,false).isEmpty())
+		                                        .map(Object::toString)
+		                                        .collect(Collectors.toList());
+		List<UserDetails> users=sessionRegistry.getAllPrincipals().stream()
+		                                       .filter(u->!sessionRegistry.getAllSessions(u,false).isEmpty())
+		                                       .map(u->(UserDetails)u)
+		                                       .collect(Collectors.toList());
+		UserDetails userDetail=(UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("usersString",usersString);
+		mav.addObject("users",users);
+		mav.addObject("userDetail",userDetail);
+		mav.setViewName("th_users");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"admin/test"})
+	public ModelAndView adminTest()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("j_test");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"admin/particle"})
+	public ModelAndView adminParticle()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("j_particle");
+		return mav;
+	}
+		
+	
+	@RequestMapping(value=
+	{"admin/register"})
+	public ModelAndView adminRegister()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("j_register");
+		return mav;
+	}
 }

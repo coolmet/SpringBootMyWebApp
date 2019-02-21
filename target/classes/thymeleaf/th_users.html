@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+	<style>
+table, th, td {
+	border: 1px solid black;
+}
+​
+</style>
+
+	<div style="float: top; padding-left: 10px">
+		<table>
+			<thead>
+				<tr style="font-weight: bold;" bgcolor="lightblue">
+					<td>ID</td>
+				</tr>
+			</thead>
+			<th:block th:each="user,iterStat:${usersString}">
+				<tr th:bgcolor="${iterStat.odd}?white:lightgray">
+					<td th:text="${user}" />
+				</tr>
+			</th:block>
+		</table>
+	</div>
+	<!-- ################################## -->
+	<div style="float: left; padding-left: 10px">
+		<table>
+			<thead>
+				<tr style="font-weight: bold;" bgcolor="lightblue">
+					<td>Username</td>
+					<td>Password</td>
+					<td>Enabled</td>
+					<td>AccountNonExpired</td>
+					<td>credentialsNonExpired</td>
+					<td>AccountNonLocked</td>
+					<td>Granted Authorities</td>
+				</tr>
+			</thead>
+			<th:block th:each="user,iterStat:${users}">
+				<tr th:bgcolor="${iterStat.odd}?white:lightgray">
+					<td th:text="${user.getUsername()}" />
+					<td th:text="${user.getPassword()}" />
+					<td th:text="${user.isEnabled()}" />
+					<td th:text="${user.isAccountNonExpired()}" />
+					<td th:text="${user.isCredentialsNonExpired()}" />
+					<td th:text="${user.isAccountNonLocked()}" />
+					<td th:text="${user.getAuthorities().toString()}" />
+				</tr>
+			</th:block>
+		</table>
+	</div>
+	<!-- ################################## -->
+	<div style="float: left; padding-left: 10px">
+		<table>
+			<thead>
+				<tr style="font-weight: bold;" bgcolor="lightblue">
+					<td>Username</td>
+					<td>Password</td>
+					<td>Enabled</td>
+					<td>AccountNonExpired</td>
+					<td>credentialsNonExpired</td>
+					<td>AccountNonLocked</td>
+					<td>Granted Authorities</td>
+				</tr>
+			</thead>
+			<th:block>
+				<td th:text="${userDetail.getUsername()}">
+				<td th:text="${userDetail.getPassword()}">
+				<td th:text="${userDetail.isEnabled()}">
+				<td th:text="${userDetail.isAccountNonExpired()}">
+				<td th:text="${userDetail.isCredentialsNonExpired()}">
+				<td th:text="${userDetail.isAccountNonLocked()}">
+				<td th:text="${userDetail.getAuthorities().toString()}">
+			</th:block>
+		</table>
+	</div>
+</body>

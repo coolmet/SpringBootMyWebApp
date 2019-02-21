@@ -13,7 +13,7 @@ table, th, td {
 ​
 </style>
 
-	<div style="float: left; padding-left: 10px" >
+	<div style="float: left; padding-left: 10px">
 		<table>
 			<thead>
 				<tr style="font-weight: bold;" bgcolor="lightblue">
@@ -130,9 +130,9 @@ table, th, td {
 			</tr>
 		</table>
 	</div>
-	
+
 	<!-- ################################## -->
-	<div style="float: left; padding-left: 10px" >
+	<div style="float: left; padding-left: 10px">
 		<table>
 			<thead>
 				<tr style="font-weight: bold;" bgcolor="lightblue">
@@ -144,7 +144,7 @@ table, th, td {
 			<tr>
 				<td><a href="/admin">/admin</a></td>
 				<td>/admin</td>
-				<td>/admin</td>
+				<td>j_admin.jsp</td>
 			</tr>
 			<tr>
 				<td><a href="/admin/welcome">/admin/welcome</a></td>
@@ -170,9 +170,35 @@ table, th, td {
 				<td><a href="/admin/users">/admin/users</a></td>
 				<td>/admin/users</td>
 				<td>j_users.jsp</td>
+			</tr>			
+			<tr>
+				<td><a href="/admin/test">/admin/test</a></td>
+				<td>/admin/test</td>
+				<td>j_test.jsp</td>
+			</tr>			
+			<tr>
+				<td><a href="/admin/particle">/admin/particle</a></td>
+				<td>/admin/particle</td>
+				<td>j_particle.jsp</td>
 			</tr>
 		</table>
 	</div>
-
+	<!-- ################################## -->
+	<div style="float: left; padding-left: 10px">
+		<table>
+			<thead>
+				<tr style="font-weight: bold;" bgcolor="lightblue">
+					<td>Link</td>
+					<td>Path</td>
+					<td>Page</td>
+				</tr>
+			</thead>
+			<tr>
+				<td><a href="/admin/th/users">/admin/th/users</a></td>
+				<td>admin/th/users</td>
+				<td>th_users.html</td>
+			</tr>
+		</table>
+	</div>
 </body>
 </html>

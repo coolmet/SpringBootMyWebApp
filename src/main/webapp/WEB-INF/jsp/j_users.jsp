@@ -29,31 +29,6 @@ table, th, td {
 	</div>
 	<!-- ################################## -->
 	<div style="float: left; padding-left: 10px">
-		<table>
-			<thead>
-				<tr style="font-weight: bold;" bgcolor="lightblue">
-					<td>Username</td>
-					<td>Password</td>
-					<td>Enabled</td>
-					<td>AccountNonExpired</td>
-					<td>credentialsNonExpired</td>
-					<td>AccountNonLocked</td>
-					<td>Granted Authorities</td>
-				</tr>
-			</thead>
-			<tr>
-				<td>${userDetail.getUsername()}</td>
-				<td>${auserDetailuth.getPassword()}</td>
-				<td>${userDetail.isEnabled()}</td>
-				<td>${userDetail.isAccountNonExpired()}</td>
-				<td>${userDetail.isCredentialsNonExpired()}</td>
-				<td>${userDetail.isAccountNonLocked()}</td>
-				<td>${userDetail.getAuthorities().toString()}</td>
-			</tr>
-		</table>
-	</div>
-	<!-- ################################## -->
-	<div style="float: left; padding-left: 10px">
 
 		<table>
 			<thead>
@@ -80,6 +55,30 @@ table, th, td {
 			</c:forEach>
 		</table>
 	</div>
-
+	<!-- ################################## -->
+	<div style="float: left; padding-left: 10px">
+		<table>
+			<thead>
+				<tr style="font-weight: bold;" bgcolor="lightblue">
+					<td>Username</td>
+					<td>Password</td>
+					<td>Enabled</td>
+					<td>AccountNonExpired</td>
+					<td>credentialsNonExpired</td>
+					<td>AccountNonLocked</td>
+					<td>Granted Authorities</td>
+				</tr>
+			</thead>
+			<tr>
+				<td>${userDetail.getUsername()}</td>
+				<td>${userDetail.getPassword()}</td>
+				<td>${userDetail.isEnabled()}</td>
+				<td>${userDetail.isAccountNonExpired()}</td>
+				<td>${userDetail.isCredentialsNonExpired()}</td>
+				<td>${userDetail.isAccountNonLocked()}</td>
+				<td>${userDetail.getAuthorities().toString()}</td>
+			</tr>
+		</table>
+	</div>
 </body>
 </html>
