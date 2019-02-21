@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "myprop",
+      "type": "com.springboot.mywebapp.SpringBootMyWebAppProperties",
+      "sourceType": "com.springboot.mywebapp.SpringBootMyWebAppProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "myprop.test-boolean-value",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.springboot.mywebapp.SpringBootMyWebAppProperties"
+    }
+  ],
+  "hints": []
+}
