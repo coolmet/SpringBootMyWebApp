@@ -171,6 +171,21 @@ table, th, td {
 				<td>/admin/users</td>
 				<td>j_users.jsp</td>
 			</tr>
+			<tr>
+				<td><a href="/admin/test">/admin/test</a></td>
+				<td>/admin/test</td>
+				<td>j_test.jsp</td>
+			</tr>
+			<tr>
+				<td><a href="/admin/testlogin">/admin/testlogin</a></td>
+				<td>/admin/testlogin</td>
+				<td>j_testlogin.jsp</td>
+			</tr>
+			<tr>
+				<td><a href="/admin/particle">/admin/particle</a></td>
+				<td>/admin/particle</td>
+				<td>j_particle.jsp</td>
+			</tr>
 		</table>
 	</div>
 	<!-- ################################## -->
@@ -184,7 +199,7 @@ table, th, td {
 				</tr>
 			</thead>
 			<tr>
-				<td><a href="/admin/th/users">admin/th/users</a></td>
+				<td><a href="/admin/th/users">/admin/th/users</a></td>
 				<td>admin/th/users</td>
 				<td>th_users.html</td>
 			</tr>
