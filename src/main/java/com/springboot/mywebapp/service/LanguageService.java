@@ -22,6 +22,30 @@ public class LanguageService
 		languages.add(new Language(0,"/custom/images/locale-DE_2.png","Deutsch","de",new Locale("de_DE")));
 	}
 	
+	public String getLanguageImagePathByLocale(Locale locale)
+	{
+		for(Language lang:languages)
+		{
+			if(lang.getLocale().equals(locale))
+			{
+				return lang.getImagePath();
+			}
+		}
+		return "";
+	}
+	
+	public String getLanguageImagePathByLocaleName(String localeName)
+	{
+		for(Language lang:languages)
+		{
+			if(lang.getLocaleName().equals(localeName))
+			{
+				return lang.getImagePath();
+			}
+		}
+		return "";
+	}
+	
 	public List<Language> getLanguages()
 	{
 		return languages;

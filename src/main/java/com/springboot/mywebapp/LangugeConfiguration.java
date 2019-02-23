@@ -35,7 +35,7 @@ public class LangugeConfiguration implements WebMvcConfigurer
 	public LocaleResolver localeResolver()
 	{
 		SessionLocaleResolver sessionLocaleResolver=new SessionLocaleResolver();
-		sessionLocaleResolver.setDefaultLocale(Locale.US);
+		sessionLocaleResolver.setDefaultLocale(new Locale("tr", "TR"));
 		return sessionLocaleResolver;
 	}
 	

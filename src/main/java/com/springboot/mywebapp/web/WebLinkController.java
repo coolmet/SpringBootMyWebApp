@@ -5,6 +5,7 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionRegistry;
@@ -127,8 +128,20 @@ public class WebLinkController
 	public ModelAndView adminTest()
 	{
 		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
 		mav.addObject("languages",languageService.getLanguages());
 		mav.setViewName("j_test");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"admin/testDropDownHover"})
+	public ModelAndView adminTestDropDownHover()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.addObject("languages",languageService.getLanguages());
+		mav.setViewName("j_testDropDownHover");
 		return mav;
 	}
 	
@@ -155,6 +168,8 @@ public class WebLinkController
 	public ModelAndView adminRegister()
 	{
 		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.addObject("languages",languageService.getLanguages());
 		mav.setViewName("j_register");
 		return mav;
 	}
@@ -164,6 +179,7 @@ public class WebLinkController
 	public ModelAndView adminLocale()
 	{
 		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
 		mav.addObject("languages",languageService.getLanguages());
 		mav.setViewName("j_locale");
 		return mav;

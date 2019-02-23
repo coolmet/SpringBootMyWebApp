@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title><spring:message code="msg" /></title>
+<title><spring:message code="test.locale.msg" /></title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -32,10 +32,13 @@ legend {
 	<div style="width: 600px; margin: auto;">
 		<fieldset>
 			<legend>
-				<spring:message code="msg" />
+				<spring:message code="test.locale.msg" />
 			</legend>
 			<p>
-				<label><spring:message code="chooseLang" /></label> <select id="locales">
+				<label>
+					<spring:message code="test.locale.chooseLang" />
+				</label>
+				<select id="locales">
 					<c:forEach items="${languages}" var="language" varStatus="status">
 						<option value=${language.localeName}>${language.displayName}</option>
 					</c:forEach>
@@ -45,9 +48,9 @@ legend {
 		</fieldset>
 		<div style="clear: both"></div>
 		<div>
-			<spring:message code="copyright" />
+			<spring:message code="test.locale.copyright" />
 			©
-			<spring:message code="year" />
+			<spring:message code="test.locale.year" />
 
 		</div>
 	</div>

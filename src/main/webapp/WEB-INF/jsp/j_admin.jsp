@@ -191,6 +191,11 @@ table, th, td {
 				<td>/admin/locale</td>
 				<td>j_locale.jsp</td>
 			</tr>
+			<tr>
+				<td><a href="/admin/testDropDownHover">/admin/testDropDownHover</a></td>
+				<td>/admin/testDropDownHover</td>
+				<td>j_testDropDownHover.jsp</td>
+			</tr>
 		</table>
 	</div>
 	<!-- ################################## -->
