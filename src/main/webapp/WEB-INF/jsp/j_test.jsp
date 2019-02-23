@@ -39,44 +39,48 @@
 </head>
 <body>
 	<style>
-.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover{
-    border:none;
-}
-
-
-.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
-    outline: 0;
-}
-.navbar button {
-    outline: none !important;
+.btn:focus {
+	outline: none !important;
+	box-shadow: none !important;
 }
 </style>
-	<div style="position: relative">
-		<div id="particles-js"></div>
-		<div class="limiter">
-			<div class="container-login100">
+	<script type="text/javascript">
+		$(document).ready(function() {
+			alert("selItem:" + selItem);
+			$("dropdown-menu").change(function() {
+				var selectedCountry = $(this).children("img:selected").val();
+				alert("You have selected the country - " + selectedCountry);
+			});
+		});
+	</script>
 
-				<div class="top-right">
-					<div class="btn-group dropleft">
-						<button aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" class="btn btn-primary btn-sm dropdown-toggle" type="button" style="background-color: transparent; border: none; ">
-							<b class="caret"></b> <img class="img-thumbnail hidden-xs" src="/custom/images/locale-TR_2.png" style="width: 50px; background-color: transparent; border: none;">
-						</button>
-						<ul class="dropdown-menu" style="background-color: transparent; text-align: right; ">
-							<img class="img-thumbnail hidden-xs" src="/custom/images/locale-TR_2.png" style="width: 50px; background-color: transparent; border: none;">
-							<div class="dropdown-divider"></div>
-							<img class="img-thumbnail hidden-xs" src="/custom/images/locale-EN_2.png" style="width: 50px; background-color: transparent; border: none;">
-							<div class="dropdown-divider"></div>
-							<img class="img-thumbnail hidden-xs" src="/custom/images/locale-DE_2.png" style="width: 50px; background-color: transparent; border: none;">
-						</ul>
+	<form>
+		<div style="position: relative">
+			<div id="particles-js"></div>
+			<div class="limiter">
+				<div class="container-login100">
+
+					<div class="top-right">
+						<div class="btn-group dropleft">
+							<button aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="btn btn-primary btn-sm" type="button" style="background-color: transparent; border: none;">
+								<b class="caret"></b> <img class="img-thumbnail hidden-xs" src=${languages.get(0).imagePath } style="width: 40px; background-color: transparent; border: none;">
+							</button>
+							<ul class="dropdown-menu" id="locales" style="background-color: transparent; text-align: right; min-width: 40px; ">
+								<c:forEach items="${languages}" var="language" varStatus="status">
+									<img class="img-thumbnail hidden-xs" src=${language.imagePath } style="width: 40px; background-color: transparent; border: none;">
+									<li class="dropdown-divider"></li>
+								</c:forEach>
+
+							</ul>
+						</div>
 					</div>
 
-				</div>
 
-				<div class="wrap-login100">
-					<div class="login100-form validate-form">
-						<span class="login100-form-title p-b-26"> Login </span> <span class="login100-form-title p-b-48"> <i class="zmdi zmdi-accounts"></i>
-						</span>
-						<!-- zmdi-account-o 						
+					<div class="wrap-login100">
+						<div class="login100-form validate-form">
+							<span class="login100-form-title p-b-26"> Login </span> <span class="login100-form-title p-b-48"> <i class="zmdi zmdi-accounts"></i>
+							</span>
+							<!-- zmdi-account-o 						
 						zmdi-face 
 						zmdi-accounts-list-alt 
 						zmdi-shield-security 
@@ -87,36 +91,37 @@
 						zmdi-badge-check
 						zmdi-account-box-o
 						-->
-						<div class="wrap-input100 validate-input" data-validate="Kullanıcı Adı Girin">
-							<input class="input100" type="text" name="username" id="username"> <span class="focus-input100" data-placeholder="Kullanıcı Adı"></span>
-						</div>
-
-						<div class="wrap-input100 validate-input" data-validate="Parola Girin">
-							<span class="btn-show-pass"> <i class="zmdi zmdi-eye"></i>
-							</span> <input class="input100" type="password" name="pass" id="pass"> <span class="focus-input100" data-placeholder="Parola"></span>
-						</div>
-
-						<div class="wrap-input110">
-							<input id="rememberme" name="remember-me" type="checkbox"> <label for="rememberme">Remember Me</label>
-						</div>
-
-						<div class="container-login100-form-btn">
-							<div class="wrap-login100-form-btn">
-								<div class="login100-form-bgbtn"></div>
-								<button class="login100-form-btn" id="registerBtn" onclick="loginBtn()">Giriş</button>
+							<div class="wrap-input100 validate-input" data-validate="Kullanıcı Adı Girin">
+								<input class="input100" type="text" name="username" id="username"> <span class="focus-input100" data-placeholder="Kullanıcı Adı"></span>
 							</div>
-						</div>
 
-						${status}
-						<div class="wrap-input110">
-							<a href="register">Üye Ol</a>
+							<div class="wrap-input100 validate-input" data-validate="Parola Girin">
+								<span class="btn-show-pass"> <i class="zmdi zmdi-eye"></i>
+								</span> <input class="input100" type="password" name="pass" id="pass"> <span class="focus-input100" data-placeholder="Parola"></span>
+							</div>
+
+							<div class="wrap-input110">
+								<input id="rememberme" name="remember-me" type="checkbox"> <label for="rememberme">Remember Me</label>
+							</div>
+
+							<div class="container-login100-form-btn">
+								<div class="wrap-login100-form-btn">
+									<div class="login100-form-bgbtn"></div>
+									<button class="login100-form-btn" id="registerBtn" onclick="loginBtn()">Giriş</button>
+								</div>
+							</div>
+
+							${status}
+							<div class="wrap-input110">
+								<a href="register">Üye Ol</a>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 
-	</div>
+		</div>
+	</form>
 	<!--===============================================================================================-->
 	<script src="/logines/vendor/jquery/jquery-3.2.1.min.js"></script>
 	<!--===============================================================================================-->

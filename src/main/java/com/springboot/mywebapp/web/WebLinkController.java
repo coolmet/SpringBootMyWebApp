@@ -16,12 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import com.springboot.mywebapp.service.LanguageService;
 
 @Controller
 public class WebLinkController
 {
 	@Autowired
 	private SessionRegistry sessionRegistry;
+	
+	@Autowired
+	private LanguageService languageService;
 	
 	@RequestMapping("admin/welcome")
 	@ResponseBody
@@ -123,6 +127,7 @@ public class WebLinkController
 	public ModelAndView adminTest()
 	{
 		ModelAndView mav=new ModelAndView();
+		mav.addObject("languages",languageService.getLanguages());
 		mav.setViewName("j_test");
 		return mav;
 	}
@@ -151,6 +156,16 @@ public class WebLinkController
 	{
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("j_register");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"admin/locale"})
+	public ModelAndView adminLocale()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("languages",languageService.getLanguages());
+		mav.setViewName("j_locale");
 		return mav;
 	}
 }

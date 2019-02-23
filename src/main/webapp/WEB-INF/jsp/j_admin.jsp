@@ -186,6 +186,11 @@ table, th, td {
 				<td>/admin/particle</td>
 				<td>j_particle.jsp</td>
 			</tr>
+			<tr>
+				<td><a href="/admin/locale">/admin/locale</a></td>
+				<td>/admin/locale</td>
+				<td>j_locale.jsp</td>
+			</tr>
 		</table>
 	</div>
 	<!-- ################################## -->
