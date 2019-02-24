@@ -24,7 +24,7 @@ public class LangugeConfiguration implements WebMvcConfigurer
 	
 	@Bean
 	public MessageSource messageSource()
-	{
+	{  
 		ReloadableResourceBundleMessageSource messageSource=new ReloadableResourceBundleMessageSource();
 		messageSource.setBasename("classpath:messages/message");
 		messageSource.setDefaultEncoding("UTF-8");
