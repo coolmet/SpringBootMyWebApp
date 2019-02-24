@@ -46,9 +46,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 		http.formLogin()
 		    .loginPage("/login")
 		    .loginProcessingUrl("/login")
-		    .defaultSuccessUrl("/default")
+		    .defaultSuccessUrl("/default",true)
 		    .failureUrl("/login?loginFailed=true");
-		http.rememberMe().userDetailsService(userDetailsService);
+		//http.rememberMe().userDetailsService(userDetailsService);
 		http
 		    .sessionManagement()
 		    .maximumSessions(1).sessionRegistry(sessionRegistry());

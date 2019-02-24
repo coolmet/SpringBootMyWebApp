@@ -9,6 +9,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="/logines/fonts/font-awesome-4.7.0/css/font-awesome.min.css"
+>
+<!--===============================================================================================-->
 <link rel="icon" type="image/png" href="/logines/images/icons/favicon.ico" />
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
@@ -30,21 +34,27 @@
 <body>
 	<script type="text/javascript">
 		function selectLanguage(imagePath, localeName) {
-			//$('.langmainimage').src(imagePath);
-			//$('.langmainimage').val(imagePath);
-			//alert(selectedOption);
-			window.location.replace('?lang=' + localeName);
 			localStorage.setItem("locales", localeName);
 			$('#dropdownmenu').val(imagePath);
 			var selectedOption = $('#dropdownmenu').val();
 			document.getElementById("langmainimage").src = imagePath;
+			//window.location.replace('?lang=' + localeName);
+			//history.pushState({}, null, window.location.href.split('?')[0]+ '?lang=' + localeName);
+			history.replaceState({}, window.location.href, window.location.href
+					.split('?')[0]
+					+ '?lang=' + localeName);
+			$.post(window.location.href.split('?')[0] + '?lang=' + localeName,
+					function(data, status) {
+					});
+
+			$("#limiter").load(location.href + " #limiter", "");
 		}
 	</script>
 	<form>
 		<div style="position: relative">
 			<div id="particles-js"></div>
-			<div class="limiter">
-				<div class="container-login100">
+			<div id="limiter" class="limiter">
+				<div id="containerlogin100" class="container-login100">
 					<div class="top-right"
 						style="width: 100%; position: fixed; text-align: right; top: 5px; right: 5px;"
 					>
@@ -73,7 +83,7 @@
 							</ul>
 						</div>
 					</div>
-					<div class="wrap-login100">
+					<div id="wraplogin100" class="wrap-login100">
 						<div class="login100-form validate-form">
 							<span class="login100-form-title p-b-26">
 								<spring:message code="login.header" />
@@ -92,11 +102,15 @@
 						zmdi-badge-check
 						zmdi-account-box-o
 						-->
-							<div class="wrap-input100 validate-input" data-validate="Kullanıcı Adı Girin">
+							<div class="wrap-input100 validate-input"
+								data-validate="<spring:message code="login.enterusername" />"
+							>
 								<input class="input100" type="text" name="username" id="username">
 								<span class="focus-input100" data-placeholder="<spring:message code="login.username" />"></span>
 							</div>
-							<div class="wrap-input100 validate-input" data-validate="Parola Girin">
+							<div class="wrap-input100 validate-input"
+								data-validate="<spring:message code="login.enterpassword" />"
+							>
 								<span class="btn-show-pass">
 									<i class="zmdi zmdi-eye"></i>
 								</span>
