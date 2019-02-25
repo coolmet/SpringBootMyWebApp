@@ -9,26 +9,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="/logines/fonts/font-awesome-4.7.0/css/font-awesome.min.css"
->
-<!--===============================================================================================-->
 <link rel="icon" type="image/png" href="/logines/images/icons/favicon.ico" />
 <!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="/logines/fonts/iconic/css/material-design-iconic-font.min.css"
->
-<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="/logines/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/logines/fonts/iconic/css/material-design-iconic-font.min.css">
 <link rel="stylesheet" type="text/css" href="/logines/vendor/animate/animate.css">
-<!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="/logines/vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="/logines/css/main.css">
 <link rel="stylesheet" type="text/css" href="/logines/css/util.css">
-<!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="/particles/css/style.css" />
-<!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="/bootstrap-4.3.1/css/bootstrap.min.css" />
+<!--===============================================================================================-->
 <!--===============================================================================================-->
 </head>
 <body>
@@ -55,25 +46,17 @@
 			<div id="particles-js"></div>
 			<div id="limiter" class="limiter">
 				<div id="containerlogin100" class="container-login100">
-					<div class="top-right"
-						style="width: 100%; position: fixed; text-align: right; top: 5px; right: 5px;"
-					>
+					<div class="top-right" style="width: 100%; position: fixed; text-align: right; top: 5px; right: 5px;">
 						<div class="btn-group dropleft">
-							<button class="btn btn-primary btn-sm" aria-expanded="false" aria-haspopup="true"
-								data-toggle="dropdown" type="button"
+							<button class="btn btn-primary btn-sm" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button"
 								style="background-color: transparent; border: none; padding: 1px; outline: none !important; box-shadow: none !important;"
 							>
 								<b class="caret"></b>
-								<img class="img-thumbnail hidden-xs" src=${deflangimagepath } id="langmainimage"
-									style="width: 30px; background-color: transparent; border: none; padding: 0px;"
-								>
+								<img class="img-thumbnail hidden-xs" src=${deflangimagepath } id="langmainimage" style="width: 30px; background-color: transparent; border: none; padding: 0px;">
 							</button>
-							<ul class="dropdown-menu" id="dropdownmenu"
-								style="background-color: transparent; text-align: right; top: 10px; min-width: 30px; padding: 0px; margin-top: 10px;"
-							>
+							<ul class="dropdown-menu" id="dropdownmenu" style="background-color: transparent; text-align: right; top: 10px; min-width: 30px; padding: 0px; margin-top: 10px;">
 								<c:forEach items="${languages}" var="language" varStatus="status">
-									<img class="img-thumbnail hidden-xs" src=${language.imagePath }
-										style="width: 30px; background-color: transparent; border: none; padding: 0px;"
+									<img class="img-thumbnail hidden-xs" src=${language.imagePath } style="width: 30px; background-color: transparent; border: none; padding: 0px;"
 										onclick="selectLanguage('${language.imagePath}','${language.localeName}')"
 									>
 									<c:if test="${not status.last}">
@@ -102,15 +85,11 @@
 						zmdi-badge-check
 						zmdi-account-box-o
 						-->
-							<div class="wrap-input100 validate-input"
-								data-validate="<spring:message code="login.enterusername" />"
-							>
+							<div class="wrap-input100 validate-input" data-validate="<spring:message code="login.enterusername" />">
 								<input class="input100" type="text" name="username" id="username">
 								<span class="focus-input100" data-placeholder="<spring:message code="login.username" />"></span>
 							</div>
-							<div class="wrap-input100 validate-input"
-								data-validate="<spring:message code="login.enterpassword" />"
-							>
+							<div class="wrap-input100 validate-input" data-validate="<spring:message code="login.enterpassword" />">
 								<span class="btn-show-pass">
 									<i class="zmdi zmdi-eye"></i>
 								</span>
@@ -133,7 +112,9 @@
 							</div>
 							${status}
 							<div class="wrap-input110">
-								<a href="register"><spring:message code="login.registernow" /></a>
+								<a href="register">
+									<spring:message code="login.registernow" />
+								</a>
 							</div>
 						</div>
 					</div>
