@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>J/Admin</title>
 <!--===============================================================================================-->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/bootstrap-4.3.1/css/bootstrap-essentials.min.css" />
@@ -75,7 +75,6 @@ table, th, td {
 	font-size: 14px;
 	padding: 2px;
 	font-size: 14px;
-	
 }
 
 .scrollable-menu {
@@ -91,41 +90,6 @@ span.tab-1 {
 span.tab-2 {
 	word-spacing: 5em;
 }
-.dropdown:hover>.dropdown-menu {
-        animation-name: slidenavAnimation;
-        animation-duration:.2s;
-        animation-iteration-count: 1;
-        animation-timing-function: ease;
-        animation-fill-mode: forwards;
-      
-        -webkit-animation-name: slidenavAnimation;
-        -webkit-animation-duration:.2s;
-        -webkit-animation-iteration-count: 1;
-        -webkit-animation-timing-function: ease;
-        -webkit-animation-fill-mode: forwards;
-      
-        -moz-animation-name: slidenavAnimation;
-        -moz-animation-duration:.2s;
-        -moz-animation-iteration-count: 1;
-        -moz-animation-timing-function: ease;
-        -moz-animation-fill-mode: forwards;
-      }
-      @keyframes slidenavAnimation {
-        from {
-            -webkit-transform: scale(0.5);
-        }
-        to {
-            -webkit-transform: scale(1);
-        }
-      }
-      @-webkit-keyframes slidenavAnimation {
-        from {
-            -webkit-transform: scale(0.5);
-        }
-        to {
-            -webkit-transform: scale(1);
-        }
-      }    
 </style>
 
 
@@ -167,9 +131,24 @@ span.tab-2 {
 			<li class="nav-item dropdown">
 				<a class="nav-link btn btn-outline-danger mr-2 dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> Annoymus </a>
 				<div class="dropdown-menu" role="menu">
-					<a class="dropdown-item" tabindex="-1" href="/">/ | j_index.jsp</a>
-					<a class="dropdown-item" tabindex="-1" href="/index">/index | j_index.jsp</a>
-					<a class="dropdown-item" tabindex="-1" href="/login">/login | j_login.jsp</a>
+					<div class="dropdown-submenu">
+						<a class="dropdown-item" tabindex="-1" href="#">Th</a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" tabindex="-1" href="/th">/th | th_index.jsp</a>
+							<a class="dropdown-item" tabindex="-1" href="/index/th">/index/th | th_index.jsp</a>
+							<a class="dropdown-item" tabindex="-1" href="/login/th">/login/th | th_login.jsp</a>
+						</div>
+					</div>
+					<div class="dropdown-divider"></div>
+					<div class="dropdown-submenu">
+						<a class="dropdown-item" tabindex="-1" href="#">JSP</a>
+						<div class="dropdown-menu" role="menu">
+							<a class="dropdown-item" tabindex="-1" href="/">/ | j_index.jsp</a>
+							<a class="dropdown-item" tabindex="-1" href="/index">/index | j_index.jsp</a>
+							<a class="dropdown-item" tabindex="-1" href="/login">/login | j_login.jsp</a>
+
+						</div>
+					</div>
 				</div>
 			</li>
 
@@ -183,6 +162,7 @@ span.tab-2 {
 					<div class="dropdown-submenu">
 						<a class="dropdown-item" tabindex="-1" href="#">Th</a>
 						<div class="dropdown-menu">
+							<a class="dropdown-item" tabindex="-1" href="/admin/th">/admin/th | th_admin.html</a>
 							<a class="dropdown-item" tabindex="-1" href="/admin/th/users">/admin/th/users | th_users.html</a>
 						</div>
 					</div>
@@ -192,11 +172,33 @@ span.tab-2 {
 						<div class="dropdown-menu" role="menu">
 							<a class="dropdown-item" tabindex="-1" href="/admin">/admin | j_admin.jsp</a>
 							<a class="dropdown-item" tabindex="-1" href="/admin/users">/admin/users | j_users.jsp</a>
-							<a class="dropdown-item" tabindex="-1" href="/admin/test">/admin/test | j_test.jsp</a>
-							<a class="dropdown-item" tabindex="-1" href="/admin/testlogin">/admin/testlogin | j_testlogin.jsp</a>
-							<a class="dropdown-item" tabindex="-1" href="/admin/particle">/admin/particle | j_particle.jsp</a>
-							<a class="dropdown-item" tabindex="-1" href="/admin/locale"> /admin/locale | j_locale.jsp </a>
 
+						</div>
+					</div>
+				</div>
+			</li>
+
+			<!-- ################################## -->
+
+			<li class="nav-item dropdown ">
+				<a class="nav-link btn btn-outline-primary mr-2 dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> Test </a>
+				<div class="dropdown-menu" role="menu">
+					<div class="dropdown-submenu">
+						<a class="dropdown-item" tabindex="-1" href="#">Th</a>
+						<div class="dropdown-menu" role="menu">
+							<a class="dropdown-item" tabindex="-1" href="#">User 3.1</a>
+							<a class="dropdown-item" tabindex="-1" href="#">User 3.2</a>
+						</div>
+					</div>
+					<div class="dropdown-divider"></div>
+					<div class="dropdown-submenu">
+						<a class="dropdown-item" tabindex="-1" href="#">JSP</a>
+						<div class="dropdown-menu" role="menu">
+							<a class="dropdown-item" tabindex="-1" href="/admin/testloginparticles">/admin/testloginparticles | j_testloginparticles.jsp</a>
+							<a class="dropdown-item" tabindex="-1" href="/admin/testloginregister">/admin/testloginregister | j_testloginregister.jsp</a>
+							<a class="dropdown-item" tabindex="-1" href="/admin/testlogin">/admin/testlogin | j_testlogin.jsp</a>
+							<a class="dropdown-item" tabindex="-1" href="/admin/testparticles">/admin/testparticles | j_testparticles.jsp</a>
+							<a class="dropdown-item" tabindex="-1" href="/admin/testlocale"> /admin/testlocale | j_testlocale.jsp </a>
 						</div>
 					</div>
 				</div>
@@ -210,7 +212,7 @@ span.tab-2 {
 				<a class="nav-link btn btn-outline-success mr-2 dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> USER </a>
 				<div class="dropdown-menu" role="menu">
 					<a class="dropdown-item" tabindex="-1" href="#">User 1</a>
-					<a class="dropdown-item   href="#">User 2</a>
+					<a class="dropdown-item" tabindex="-1" href="#">User 2</a>
 					<div class="dropdown-submenu">
 						<a class="dropdown-item" tabindex="-1" href="#">User 3</a>
 						<div class="dropdown-menu" role="menu">
@@ -227,6 +229,7 @@ span.tab-2 {
 
 
 	<!-- ################################## -->
+
 	<div style="float: left; padding-left: 10px">
 		<table>
 			<thead>

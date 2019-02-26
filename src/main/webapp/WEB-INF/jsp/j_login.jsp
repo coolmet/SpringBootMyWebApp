@@ -4,13 +4,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>J/Login</title>
 </head>
 <body>
-	<h1>Login Page</h1>
+	<h1>J-Login Page</h1>
 	<form action="login" method="post">
-		Username:<input name="username" type="text" /><br /> Password:<input name="password" type="password" /><br /> <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-		Remember Me:<input name="remember-me" type="checkbox"><br /> <input type="submit" value="Login">
+		Username:
+		<input name="username" type="text" />
+		<br />
+		Password:
+		<input name="password" type="password" />
+		<br />
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+		Remember Me:
+		<input name="remember-me" type="checkbox">
+		<br />
+		<input type="submit" value="Login">
 	</form>
 	<font color="red"> <c:if test="${not empty param.loginFailed}">
 			<c:out value="Login Failed, Incorrect Username or Password"></c:out>

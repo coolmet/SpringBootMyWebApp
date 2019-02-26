@@ -28,14 +28,14 @@ public class WebLinkControllerAdminJsp
 	@Autowired
 	private LanguageService languageService;
 	
-	@RequestMapping("admin/welcome")
+	@RequestMapping("/admin/welcome")
 	@ResponseBody
 	public String adminWelcome()
 	{
 		return "Welcome to SprinBootMyWebApp!";
 	}
 	
-	@RequestMapping("admin")
+	@RequestMapping("/admin")
 	public ModelAndView admin()
 	{
 		ModelAndView mav=new ModelAndView();
@@ -44,7 +44,7 @@ public class WebLinkControllerAdminJsp
 	}
 	
 	@RequestMapping(value=
-	{"admin/users"})
+	{"/admin/users"})
 	public ModelAndView adminUsers()
 	{
 		List<String> usersString=sessionRegistry.getAllPrincipals().stream()
@@ -66,18 +66,18 @@ public class WebLinkControllerAdminJsp
 	}
 	
 	@RequestMapping(value=
-	{"admin/test"})
+	{"/admin/testloginparticles"})
 	public ModelAndView adminTest()
 	{
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
 		mav.addObject("languages",languageService.getLanguages());
-		mav.setViewName("j_test");
+		mav.setViewName("j_testloginparticles");
 		return mav;
 	}
 	
 	@RequestMapping(value=
-	{"admin/testlogin"})
+	{"/admin/testlogin"})
 	public ModelAndView adminTestLogin()
 	{
 		ModelAndView mav=new ModelAndView();
@@ -86,27 +86,27 @@ public class WebLinkControllerAdminJsp
 	}
 	
 	@RequestMapping(value=
-	{"admin/particle"})
+	{"/admin/testparticles"})
 	public ModelAndView adminParticle()
 	{
 		ModelAndView mav=new ModelAndView();
-		mav.setViewName("j_particle");
+		mav.setViewName("j_testparticles");
 		return mav;
 	}
 	
 	@RequestMapping(value=
-	{"admin/register"})
+	{"/admin/testloginregister"})
 	public ModelAndView adminRegister()
 	{
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
 		mav.addObject("languages",languageService.getLanguages());
-		mav.setViewName("j_register");
+		mav.setViewName("j_testloginregister");
 		return mav;
 	}
 	
 	@RequestMapping(value=
-	{"admin/locale"})
+	{"/admin/locale"})
 	public ModelAndView adminLocale()
 	{
 		ModelAndView mav=new ModelAndView();

@@ -29,8 +29,8 @@ public class WebLinkControllerAdminTh
 	private LanguageService languageService;
 	
 	@RequestMapping(value=
-	{"admin/th/users"})
-	public ModelAndView adminTHUsers()
+	{"/admin/th/users"})
+	public ModelAndView adminTHUsersTh()
 	{
 		List<String> usersString=sessionRegistry.getAllPrincipals().stream()
 		                                        .filter(u->!sessionRegistry.getAllSessions(u,false).isEmpty())
@@ -47,6 +47,15 @@ public class WebLinkControllerAdminTh
 		mav.addObject("users",users);
 		mav.addObject("userDetail",userDetail);
 		mav.setViewName("th_users");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/th"})
+	public ModelAndView adminTh()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("th_admin");
 		return mav;
 	}
 }
