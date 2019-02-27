@@ -21,6 +21,8 @@ public class ViewResolverConfigTh
 		viewResolver.setTemplateEngine(thymeleafTemplateEngine());
 		viewResolver.setCharacterEncoding("UTF-8");
 		viewResolver.setOrder(0);
+		viewResolver.setCache(true);
+		viewResolver.setCacheLimit(8);
 		// Important!!
 		// th_page1.html, th_page2.html, ...
 		viewResolver.setViewNames(new String[]

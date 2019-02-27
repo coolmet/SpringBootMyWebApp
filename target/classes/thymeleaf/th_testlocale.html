@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title th:text="#{test.locale.msg}"></title>
+<!--===============================================================================================-->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var selItem = localStorage.getItem("locales");
+		$('#locales').val(selItem ? selItem : 'en');
+		$("#locales").change(function() {
+			var selectedOption = $('#locales').val();
+			if (selectedOption) {
+				window.location.replace('?lang=' + selectedOption);
+				localStorage.setItem("locales", selectedOption);
+			}
+		});
+	});
+</script>
+<!--===============================================================================================-->
+<style>
+legend {
+	width: auto;
+	margin-left: auto;
+	margin-right: auto;
+}
+</style>
+<!--===============================================================================================-->
+</head>
+
+<body>
+
+
+	<div style="width: 600px; margin: auto;">
+		<fieldset>
+			<legend>
+				<div th:text="#{test.locale.msg}"></div>
+			</legend>
+			<p>
+				<label>
+					<div th:text="#{test.locale.chooseLang}"></div>
+				</label>
+				<select id="locales">
+					<option th:each="language : ${languages}" th:value="${language.localeName}" th:text="${language.displayName}"></option>
+				</select>
+			</p>
+		</fieldset>
+		<div style="clear: both"></div>
+		<div>
+			<div th:text="#{test.locale.copyright}"></div>
+			©
+			<div th:text="#{test.locale.year}"></div>
+		</div>
+	</div>
+
+
+</body>

@@ -68,7 +68,7 @@
 
 					${status}
 					<div class="text-center p-t-115">
-						<a href="register">Üye Ol</a>
+						<a href="testloginregister">Üye Ol</a>
 					</div>
 				</div>
 			</div>

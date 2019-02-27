@@ -186,8 +186,11 @@ span.tab-2 {
 					<div class="dropdown-submenu">
 						<a class="dropdown-item" tabindex="-1" href="#">Th</a>
 						<div class="dropdown-menu" role="menu">
-							<a class="dropdown-item" tabindex="-1" href="#">User 3.1</a>
-							<a class="dropdown-item" tabindex="-1" href="#">User 3.2</a>
+							<a class="dropdown-item" tabindex="-1" href="/admin/testloginparticles">/admin/testloginparticles | th_testloginparticles.html</a>
+							<a class="dropdown-item" tabindex="-1" href="/admin/testloginregister">/admin/testloginregister | th_testloginregister.html</a>
+							<a class="dropdown-item" tabindex="-1" href="/admin/testlogin">/admin/testlogin | th_testlogin.html</a>
+							<a class="dropdown-item" tabindex="-1" href="/admin/testparticles">/admin/testparticles | th_testparticles.html</a>
+							<a class="dropdown-item" tabindex="-1" href="/admin/testlocale"> /admin/testlocale | th_testlocale.html </a>
 						</div>
 					</div>
 					<div class="dropdown-divider"></div>

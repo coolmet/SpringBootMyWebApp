@@ -2,15 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>Th/Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin</title>
 <!--===============================================================================================-->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="/bootstrap-4.3.1/css/bootstrap-essentials.min.css" />
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/bootstrap-essentials.min.css}" />
 <!--===============================================================================================-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="/bootstrap-4.3.1/js/bootstrap-essentials.min.js"></script>
+<script th:src="@{|/bootstrap-4.3.1/js/bootstrap-essentials.min.js?v=${#dates.createNow()}|}"></script>
 <!--===============================================================================================-->
 </head>
 
@@ -184,8 +185,11 @@ span.tab-2 {
 					<div class="dropdown-submenu">
 						<a class="dropdown-item" tabindex="-1" href="#">Th</a>
 						<div class="dropdown-menu" role="menu">
-							<a class="dropdown-item" tabindex="-1" href="#">User 3.1</a>
-							<a class="dropdown-item" tabindex="-1" href="#">User 3.2</a>
+							<a class="dropdown-item" tabindex="-1" href="/admin/testloginparticles">/admin/testloginparticles | th_testloginparticles.html</a>
+							<a class="dropdown-item" tabindex="-1" href="/admin/testloginregister">/admin/testloginregister | th_testloginregister.html</a>
+							<a class="dropdown-item" tabindex="-1" href="/admin/testlogin">/admin/testlogin | th_testlogin.html</a>
+							<a class="dropdown-item" tabindex="-1" href="/admin/testparticles">/admin/testparticles | th_testparticles.html</a>
+							<a class="dropdown-item" tabindex="-1" href="/admin/testlocale"> /admin/testlocale | th_testlocale.html </a>
 						</div>
 					</div>
 					<div class="dropdown-divider"></div>
@@ -226,7 +230,7 @@ span.tab-2 {
 
 
 	<!-- ################################## -->
-	
+
 	<div style="float: left; padding-left: 10px">
 		<table>
 			<thead>

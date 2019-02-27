@@ -20,7 +20,6 @@
 <link rel="stylesheet" type="text/css" href="/particles/css/style.css" />
 <link rel="stylesheet" type="text/css" href="/bootstrap-4.3.1/css/bootstrap.min.css" />
 <!--===============================================================================================-->
-<!--===============================================================================================-->
 </head>
 <body>
 	<script type="text/javascript">
@@ -52,11 +51,16 @@
 								style="background-color: transparent; border: none; padding: 1px; outline: none !important; box-shadow: none !important;"
 							>
 								<b class="caret"></b>
-								<img class="img-thumbnail hidden-xs" src=${deflangimagepath } id="langmainimage" style="width: 30px; background-color: transparent; border: none; padding: 0px;">
+								<img class="img-thumbnail hidden-xs" src=${deflangimagepath } id="langmainimage"
+									style="width: 30px; background-color: transparent; border: none; padding: 0px;"
+								>
 							</button>
-							<ul class="dropdown-menu" id="dropdownmenu" style="background-color: transparent; text-align: right; top: 10px; min-width: 30px; padding: 0px; margin-top: 10px;">
+							<ul class="dropdown-menu" id="dropdownmenu"
+								style="background-color: transparent; text-align: right; top: 10px; min-width: 30px; padding: 0px; margin-top: 10px;"
+							>
 								<c:forEach items="${languages}" var="language" varStatus="status">
-									<img class="img-thumbnail hidden-xs" src=${language.imagePath } style="width: 30px; background-color: transparent; border: none; padding: 0px;"
+									<img class="img-thumbnail hidden-xs" src=${language.imagePath }
+										style="width: 30px; background-color: transparent; border: none; padding: 0px;"
 										onclick="selectLanguage('${language.imagePath}','${language.localeName}')"
 									>
 									<c:if test="${not status.last}">
@@ -134,5 +138,6 @@
 	<script src="/particles/js/app.js"></script>
 	<!--===============================================================================================-->
 	<script src="/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
 </body>
 </html>

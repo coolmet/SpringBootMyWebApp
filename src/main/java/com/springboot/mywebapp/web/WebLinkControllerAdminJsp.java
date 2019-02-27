@@ -28,10 +28,8 @@ public class WebLinkControllerAdminJsp
 	@Autowired
 	private LanguageService languageService;
 	
-	
-	
 	@RequestMapping("/admin/J")
-	public ModelAndView admin()
+	public ModelAndView adminJ()
 	{
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("j_admin");
@@ -40,7 +38,7 @@ public class WebLinkControllerAdminJsp
 	
 	@RequestMapping(value=
 	{"/admin/J/users"})
-	public ModelAndView adminUsers()
+	public ModelAndView adminJUsers()
 	{
 		List<String> usersString=sessionRegistry.getAllPrincipals().stream()
 		                                        .filter(u->!sessionRegistry.getAllSessions(u,false).isEmpty())
@@ -61,8 +59,26 @@ public class WebLinkControllerAdminJsp
 	}
 	
 	@RequestMapping(value=
+	{"/admin/J/testlogin"})
+	public ModelAndView adminJTestLogin()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("j_testlogin");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/J/testparticles"})
+	public ModelAndView adminJParticle()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("j_testparticles");
+		return mav;
+	}
+	
+	@RequestMapping(value=
 	{"/admin/J/testloginparticles"})
-	public ModelAndView adminTest()
+	public ModelAndView adminJTest()
 	{
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
@@ -72,26 +88,8 @@ public class WebLinkControllerAdminJsp
 	}
 	
 	@RequestMapping(value=
-	{"/admin/J/testlogin"})
-	public ModelAndView adminTestLogin()
-	{
-		ModelAndView mav=new ModelAndView();
-		mav.setViewName("j_testlogin");
-		return mav;
-	}
-	
-	@RequestMapping(value=
-	{"/admin/J/testparticles"})
-	public ModelAndView adminParticle()
-	{
-		ModelAndView mav=new ModelAndView();
-		mav.setViewName("j_testparticles");
-		return mav;
-	}
-	
-	@RequestMapping(value=
 	{"/admin/J/testloginregister"})
-	public ModelAndView adminRegister()
+	public ModelAndView adminJRegister()
 	{
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
@@ -101,13 +99,13 @@ public class WebLinkControllerAdminJsp
 	}
 	
 	@RequestMapping(value=
-	{"/admin/J/locale"})
-	public ModelAndView adminLocale()
+	{"/admin/J/testlocale"})
+	public ModelAndView adminJLocale()
 	{
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
 		mav.addObject("languages",languageService.getLanguages());
-		mav.setViewName("j_locale");
+		mav.setViewName("j_testlocale");
 		return mav;
 	}
 }

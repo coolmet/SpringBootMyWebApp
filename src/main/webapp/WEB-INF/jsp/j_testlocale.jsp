@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><spring:message code="test.locale.msg" /></title>
+<!--===============================================================================================-->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -20,6 +21,7 @@
 		});
 	});
 </script>
+<!--===============================================================================================-->
 <style>
 legend {
 	width: auto;
@@ -27,7 +29,9 @@ legend {
 	margin-right: auto;
 }
 </style>
+<!--===============================================================================================-->
 </head>
+
 <body>
 	<div style="width: 600px; margin: auto;">
 		<fieldset>

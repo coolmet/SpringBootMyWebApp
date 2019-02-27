@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Empty</title>
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" th:href="@{/particles/css/style.css}" />
+<!--===============================================================================================-->
+</head>
+<body>
+
+	<div id="particles-js"></div>
+
+	<!--===============================================================================================-->
+	<script th:src="@{|/particles/js/particles.js?v=${#dates.createNow()}|}"></script>
+	<script th:src="@{|/particles/js/particles.min.js?v=${#dates.createNow()}|}"></script>
+	<script th:src="@{|/particles/js/app.js?v=${#dates.createNow()}|}"></script>
+	<script th:src="@{|/particles/js/stats.js?v=${#dates.createNow()}|}"></script>
+	<!--===============================================================================================-->
+
+</body>

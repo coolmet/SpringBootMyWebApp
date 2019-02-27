@@ -9,15 +9,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="/logines/fonts/font-awesome-4.7.0/css/font-awesome.min.css"
->
+<link rel="stylesheet" type="text/css" href="/logines/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
 <link rel="icon" type="image/png" href="/logines/images/icons/favicon.ico" />
 <!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="/logines/fonts/iconic/css/material-design-iconic-font.min.css"
->
+<link rel="stylesheet" type="text/css" href="/logines/fonts/iconic/css/material-design-iconic-font.min.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="/logines/vendor/animate/animate.css">
 <!--===============================================================================================-->
@@ -54,12 +50,9 @@
 			<div id="particles-js"></div>
 			<div id="limiter" class="limiter">
 				<div id="containerlogin100" class="container-login100">
-					<div class="top-right"
-						style="width: 100%; position: fixed; text-align: right; top: 5px; right: 5px;"
-					>
+					<div class="top-right" style="width: 100%; position: fixed; text-align: right; top: 5px; right: 5px;">
 						<div class="btn-group dropleft">
-							<button class="btn btn-primary btn-sm" aria-expanded="false" aria-haspopup="true"
-								data-toggle="dropdown" type="button"
+							<button class="btn btn-primary btn-sm" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button"
 								style="background-color: transparent; border: none; padding: 1px; outline: none !important; box-shadow: none !important;"
 							>
 								<b class="caret"></b>
@@ -90,38 +83,38 @@
 							<span class="login100-form-title p-b-30">
 								<i class="zmdi zmdi-accounts-add"></i>
 							</span>
-
-							<div class="wrap-input100 validate-input"
-								data-validate="<spring:message code="register.entername" />"
-							>
+							<!-- zmdi-account-o 						
+						zmdi-face 
+						zmdi-accounts-list-alt 
+						zmdi-shield-security 
+						zmdi-accounts 
+						zmdi-accounts-add
+						zmdi-account
+						zmdi-account-add
+						zmdi-badge-check
+						zmdi-account-box-o
+						-->
+							<div class="wrap-input100 validate-input" data-validate="<spring:message code="register.entername" />">
 								<input class="input100" type="text" name="name" id="name">
 								<span class="focus-input100" data-placeholder="<spring:message code="register.name" />"></span>
 							</div>
 
-							<div class="wrap-input100 validate-input"
-								data-validate="<spring:message code="register.entersurname" />"
-							>
+							<div class="wrap-input100 validate-input" data-validate="<spring:message code="register.entersurname" />">
 								<input class="input100" type="text" name="surname" id="surname">
 								<span class="focus-input100" data-placeholder="<spring:message code="register.surname" />"></span>
 							</div>
 
-							<div class="wrap-input100 validate-input"
-								data-validate="<spring:message code="register.enterusername" />"
-							>
+							<div class="wrap-input100 validate-input" data-validate="<spring:message code="register.enterusername" />">
 								<input class="input100" type="text" name="username" id="username">
 								<span class="focus-input100" data-placeholder="<spring:message code="register.username" />"></span>
 							</div>
 
-							<div class="wrap-input100 validate-input"
-								data-validate="<spring:message code="register.enteremail" />"
-							>
+							<div class="wrap-input100 validate-input" data-validate="<spring:message code="register.enteremail" />">
 								<input class="input100" type="text" name="email" id="email">
 								<span class="focus-input100" data-placeholder="Email"></span>
 							</div>
 
-							<div class="wrap-input100 validate-input"
-								data-validate="<spring:message code="register.enterpassword" />"
-							>
+							<div class="wrap-input100 validate-input" data-validate="<spring:message code="register.enterpassword" />">
 								<span class="btn-show-pass">
 									<i class="zmdi zmdi-eye"></i>
 								</span>
@@ -129,16 +122,12 @@
 								<span class="focus-input100" data-placeholder="<spring:message code="register.password" />"></span>
 							</div>
 
-							<div class="wrap-input100 validate-input"
-								data-validate="<spring:message code="register.enterpasswordagain" />"
-							>
+							<div class="wrap-input100 validate-input" data-validate="<spring:message code="register.enterpasswordagain" />">
 								<span class="btn-show-pass">
 									<i class="zmdi zmdi-eye"></i>
 								</span>
 								<input class="input100" type="password" name="pass2" id="pass2">
-								<span class="focus-input100"
-									data-placeholder="<spring:message code="register.passwordagain" />"
-								></span>
+								<span class="focus-input100" data-placeholder="<spring:message code="register.passwordagain" />"></span>
 							</div>
 
 							<div class="container-login100-form-btn">

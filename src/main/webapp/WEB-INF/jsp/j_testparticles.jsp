@@ -7,7 +7,7 @@
 <title>J/Partciles</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="/particles/css/style.css" />
 <!--===============================================================================================-->
 
@@ -15,12 +15,14 @@
 <body>
 
 
-
 	<div id="particles-js"></div>
+
+	<!--===============================================================================================-->
 	<script src="/particles/js/particles.js"></script>
 	<script src="/particles/js/particles.min.js"></script>
 	<script src="/particles/js/app.js"></script>
 	<script src="/particles/js/stats.js"></script>
+	<!--===============================================================================================-->
 
 </body>
 </html>

@@ -37,7 +37,7 @@ public class WebLinkControllerAdminTh
 	
 	@RequestMapping(value=
 	{"/admin"})
-	public ModelAndView adminTh()
+	public ModelAndView admin()
 	{
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("th_admin");
@@ -46,7 +46,7 @@ public class WebLinkControllerAdminTh
 	
 	@RequestMapping(value=
 	{"/admin/users"})
-	public ModelAndView adminTHUsersTh()
+	public ModelAndView adminUsers()
 	{
 		List<String> usersString=sessionRegistry.getAllPrincipals().stream()
 		                                        .filter(u->!sessionRegistry.getAllSessions(u,false).isEmpty())
@@ -63,6 +63,57 @@ public class WebLinkControllerAdminTh
 		mav.addObject("users",users);
 		mav.addObject("userDetail",userDetail);
 		mav.setViewName("th_users");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/testlogin"})
+	public ModelAndView adminTestLogin()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("th_testlogin");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/testparticles"})
+	public ModelAndView adminParticle()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("th_testparticles");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/testloginparticles"})
+	public ModelAndView adminTest()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.addObject("languages",languageService.getLanguages());
+		mav.setViewName("th_testloginparticles");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/testloginregister"})
+	public ModelAndView adminRegister()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.addObject("languages",languageService.getLanguages());
+		mav.setViewName("th_testloginregister");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/testlocale"})
+	public ModelAndView adminLocale()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.addObject("languages",languageService.getLanguages());
+		mav.setViewName("th_testlocale");
 		return mav;
 	}
 }
