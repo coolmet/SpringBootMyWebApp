@@ -28,14 +28,9 @@ public class WebLinkControllerAdminJsp
 	@Autowired
 	private LanguageService languageService;
 	
-	@RequestMapping("/admin/welcome")
-	@ResponseBody
-	public String adminWelcome()
-	{
-		return "Welcome to SprinBootMyWebApp!";
-	}
 	
-	@RequestMapping("/admin")
+	
+	@RequestMapping("/admin/J")
 	public ModelAndView admin()
 	{
 		ModelAndView mav=new ModelAndView();
@@ -44,7 +39,7 @@ public class WebLinkControllerAdminJsp
 	}
 	
 	@RequestMapping(value=
-	{"/admin/users"})
+	{"/admin/J/users"})
 	public ModelAndView adminUsers()
 	{
 		List<String> usersString=sessionRegistry.getAllPrincipals().stream()
@@ -66,7 +61,7 @@ public class WebLinkControllerAdminJsp
 	}
 	
 	@RequestMapping(value=
-	{"/admin/testloginparticles"})
+	{"/admin/J/testloginparticles"})
 	public ModelAndView adminTest()
 	{
 		ModelAndView mav=new ModelAndView();
@@ -77,7 +72,7 @@ public class WebLinkControllerAdminJsp
 	}
 	
 	@RequestMapping(value=
-	{"/admin/testlogin"})
+	{"/admin/J/testlogin"})
 	public ModelAndView adminTestLogin()
 	{
 		ModelAndView mav=new ModelAndView();
@@ -86,7 +81,7 @@ public class WebLinkControllerAdminJsp
 	}
 	
 	@RequestMapping(value=
-	{"/admin/testparticles"})
+	{"/admin/J/testparticles"})
 	public ModelAndView adminParticle()
 	{
 		ModelAndView mav=new ModelAndView();
@@ -95,7 +90,7 @@ public class WebLinkControllerAdminJsp
 	}
 	
 	@RequestMapping(value=
-	{"/admin/testloginregister"})
+	{"/admin/J/testloginregister"})
 	public ModelAndView adminRegister()
 	{
 		ModelAndView mav=new ModelAndView();
@@ -106,7 +101,7 @@ public class WebLinkControllerAdminJsp
 	}
 	
 	@RequestMapping(value=
-	{"/admin/locale"})
+	{"/admin/J/locale"})
 	public ModelAndView adminLocale()
 	{
 		ModelAndView mav=new ModelAndView();

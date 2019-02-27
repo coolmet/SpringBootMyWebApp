@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>Th/Login</title>
+<title>Login</title>
 </head>
 <body>
-	<h1>Th-Login Page</h1>
+	<h1>Login Page</h1>
 	<p th:if="${loginFailed}" class="error">Login Failed, Incorrect Username or Password</p>
-	<form th:action="th" method="post">
+	<form th:action="login" method="post">
 		<label for="username">Username</label>
 		:
 		<input type="text" id="username" name="username" autofocus="autofocus" />

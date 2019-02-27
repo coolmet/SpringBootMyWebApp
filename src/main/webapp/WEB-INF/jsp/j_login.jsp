@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>J-Login Page</h1>
-	<form action="login" method="post">
+	<form action="J" method="post">
 		Username:
 		<input name="username" type="text" />
 		<br />

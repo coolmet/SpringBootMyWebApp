@@ -29,7 +29,7 @@ public class WebLinkControllerAnnoymusJsp
 	private LanguageService languageService;
 	
 	@RequestMapping(value=
-	{"/","/index"})
+	{"/J","/index/J"})
 	public ModelAndView index()
 	{
 		ModelAndView mav=new ModelAndView();
@@ -38,7 +38,7 @@ public class WebLinkControllerAnnoymusJsp
 	}
 	
 	@RequestMapping(value=
-	{"/login"})
+	{"/login/J"})
 	public ModelAndView login()
 	{
 		ModelAndView mav=new ModelAndView();
@@ -48,20 +48,20 @@ public class WebLinkControllerAnnoymusJsp
 		}
 		else
 		{
-			mav.setViewName("redirect:/default");
+			mav.setViewName("redirect:/default/J");
 		}
 		return mav;
 	}
 	
-	@RequestMapping("/default")
+	@RequestMapping("/default/J")
 	public String defaultAfterLogin(HttpServletRequest request)
 	{
 		if(request.isUserInRole("ROLE_ADMIN"))
 		{
-			return "redirect:/admin/";
+			return "redirect:/admin/J";
 		}
 		
-		return "redirect:/";
+		return "redirect:/J";
 	}
 	
 }

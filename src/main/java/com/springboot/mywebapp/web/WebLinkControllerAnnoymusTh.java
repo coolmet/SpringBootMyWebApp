@@ -30,7 +30,7 @@ public class WebLinkControllerAnnoymusTh
 	private LanguageService languageService;
 	
 	@RequestMapping(value=
-	{"/th","/index/th"})
+	{"/","/index"})
 	public ModelAndView indexTh()
 	{
 		ModelAndView mav=new ModelAndView();
@@ -39,7 +39,7 @@ public class WebLinkControllerAnnoymusTh
 	}
 	
 	@RequestMapping(value=
-	{"/login/th"})
+	{"/login"})
 	public ModelAndView loginTh()
 	{
 		ModelAndView mav=new ModelAndView();
@@ -49,20 +49,20 @@ public class WebLinkControllerAnnoymusTh
 		}
 		else
 		{
-			mav.setViewName("redirect:/default/th");
+			mav.setViewName("redirect:/default");
 		}
 		return mav;
 	}
 	
-	@RequestMapping("/default/th")
+	@RequestMapping("/default")
 	public String defaultAfterLoginTh(HttpServletRequest request)
 	{
 		if(request.isUserInRole("ROLE_ADMIN"))
 		{
-			return "redirect:/admin/th";
+			return "redirect:/admin/";
 		}
 		
-		return "redirect:/th";
+		return "redirect:/";
 	}
 	
 }

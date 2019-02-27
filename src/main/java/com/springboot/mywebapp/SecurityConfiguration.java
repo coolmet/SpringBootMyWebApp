@@ -41,7 +41,7 @@ public class SecurityConfiguration
 	}
 	
 	@Configuration
-	@Order(1)
+	@Order(2)
 	class THSecurity extends WebSecurityConfigurerAdapter
 	{
 		public THSecurity()
@@ -53,17 +53,17 @@ public class SecurityConfiguration
 		protected void configure(HttpSecurity http) throws Exception
 		{
 			
-			http.antMatcher("/login/th")
+			http
 			    .authorizeRequests()
-			    .antMatchers("/**/favicon.ico","/css/**","js/**","/images/**","/webjars/**","/login/th","/**/logout").permitAll()
+			    .antMatchers("/**/favicon.ico","/css/**","js/**","/images/**","/webjars/**","/login","/**/logout","logout","/logout").permitAll()
 			    .antMatchers("/admin","/admin/*","/admin/**").access("hasRole('ADMIN')")
 			    .anyRequest().authenticated();
 			
 			http.formLogin()
-			    .loginPage("/login/th")// .loginPage("/login")
-			    .loginProcessingUrl("/login/th")// .loginProcessingUrl("/login")
-			    .defaultSuccessUrl("/default/th",true)// .defaultSuccessUrl("/default",true)
-			    .failureUrl("/login/th?loginFailed=true")// .failureUrl("/login?loginFailed=true")
+			    .loginPage("/login")// .loginPage("/login")
+			    .loginProcessingUrl("/login")// .loginProcessingUrl("/login")
+			    .defaultSuccessUrl("/default",true)// .defaultSuccessUrl("/default",true)
+			    .failureUrl("/login?loginFailed=true")// .failureUrl("/login?loginFailed=true")
 			    .permitAll()
 			    .and()
 			    .logout()
@@ -93,7 +93,7 @@ public class SecurityConfiguration
 	}
 	
 	@Configuration
-	@Order(2)
+	@Order(1)
 	class JSPSecurity extends WebSecurityConfigurerAdapter
 	{
 		public JSPSecurity()
@@ -104,17 +104,17 @@ public class SecurityConfiguration
 		@Override
 		protected void configure(HttpSecurity http) throws Exception
 		{
-			http
+			http.antMatcher("/login/J")
 			    .authorizeRequests()
-			    .antMatchers("/**/favicon.ico","/css/**","js/**","/images/**","/webjars/**","/login","/**/logout","logout","/logout").permitAll()
+			    .antMatchers("/**/favicon.ico","/css/**","js/**","/images/**","/webjars/**","/login/J","/**/logout","logout","/logout").permitAll()
 			    .antMatchers("/admin","/admin/*","/admin/**").access("hasRole('ADMIN')")
 			    .anyRequest().authenticated();
 			
 			http.formLogin()
-			    .loginPage("/login")// .loginPage("/login")
-			    .loginProcessingUrl("/login")// .loginProcessingUrl("/login")
-			    .defaultSuccessUrl("/default",true)// .defaultSuccessUrl("/default",true)
-			    .failureUrl("/login?loginFailed=true")// .failureUrl("/login?loginFailed=true")
+			    .loginPage("/login/J")// .loginPage("/login")
+			    .loginProcessingUrl("/login/J")// .loginProcessingUrl("/login")
+			    .defaultSuccessUrl("/default/J",true)// .defaultSuccessUrl("/default",true)
+			    .failureUrl("/login/J?loginFailed=true")// .failureUrl("/login?loginFailed=true")
 			    .permitAll()
 			    .and()
 			    .logout()

@@ -28,8 +28,24 @@ public class WebLinkControllerAdminTh
 	@Autowired
 	private LanguageService languageService;
 	
+	@RequestMapping("/admin/welcome")
+	@ResponseBody
+	public String adminWelcome()
+	{
+		return "Welcome to SprinBootMyWebApp!";
+	}
+	
 	@RequestMapping(value=
-	{"/admin/th/users"})
+	{"/admin"})
+	public ModelAndView adminTh()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("th_admin");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/users"})
 	public ModelAndView adminTHUsersTh()
 	{
 		List<String> usersString=sessionRegistry.getAllPrincipals().stream()
@@ -47,15 +63,6 @@ public class WebLinkControllerAdminTh
 		mav.addObject("users",users);
 		mav.addObject("userDetail",userDetail);
 		mav.setViewName("th_users");
-		return mav;
-	}
-	
-	@RequestMapping(value=
-	{"/admin/th"})
-	public ModelAndView adminTh()
-	{
-		ModelAndView mav=new ModelAndView();
-		mav.setViewName("th_admin");
 		return mav;
 	}
 }
