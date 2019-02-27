@@ -52,9 +52,10 @@ public class SecurityConfiguration
 		@Override
 		protected void configure(HttpSecurity http) throws Exception
 		{
-			http
+			
+			http.antMatcher("/login/th")
 			    .authorizeRequests()
-			    .antMatchers("/**/favicon.ico","/css/**","js/**","/images/**","/webjars/**","/login/th").permitAll()
+			    .antMatchers("/**/favicon.ico","/css/**","js/**","/images/**","/webjars/**","/login/th","/**/logout").permitAll()
 			    .antMatchers("/admin","/admin/*","/admin/**").access("hasRole('ADMIN')")
 			    .anyRequest().authenticated();
 			
@@ -105,7 +106,7 @@ public class SecurityConfiguration
 		{
 			http
 			    .authorizeRequests()
-			    .antMatchers("/**/favicon.ico","/css/**","js/**","/images/**","/webjars/**","/login").permitAll()
+			    .antMatchers("/**/favicon.ico","/css/**","js/**","/images/**","/webjars/**","/login","/**/logout","logout","/logout").permitAll()
 			    .antMatchers("/admin","/admin/*","/admin/**").access("hasRole('ADMIN')")
 			    .anyRequest().authenticated();
 			
