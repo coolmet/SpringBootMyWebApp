@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<title>Index</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Index</title>
+<div th:replace="fragments/header :: header">...</div>
 </head>
+
+
 <body>
 	<h1>Index Page</h1>
-	<form action="logout" method="post">
-		<input type="submit" value="Logout">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-	</form>
+
+
+
 </body>

@@ -137,6 +137,8 @@ span.tab-2 {
 							<a class="dropdown-item" tabindex="-1" href="/">/ | th_index.html</a>
 							<a class="dropdown-item" tabindex="-1" href="/index">/index | th_index.html</a>
 							<a class="dropdown-item" tabindex="-1" href="/login">/login | th_login.html</a>
+							<a class="dropdown-item" tabindex="-1" href="/logoutpage">/logoutpage | th.logoutpage.html</a>
+							<a class="dropdown-item" tabindex="-1" href="/logout">/logout | logout</a>
 						</div>
 					</div>
 					<div class="dropdown-divider"></div>
@@ -146,6 +148,8 @@ span.tab-2 {
 							<a class="dropdown-item" tabindex="-1" href="/J">/J | j_index.jsp</a>
 							<a class="dropdown-item" tabindex="-1" href="/index/J">/index/J | j_index.jsp</a>
 							<a class="dropdown-item" tabindex="-1" href="/login/J">/login/J | j_login.jsp</a>
+							<a class="dropdown-item" tabindex="-1" href="/logoutpage/J">/logoutpage/J | j_logoutpage.jsp</a>
+							<a class="dropdown-item" tabindex="-1" href="/logout">/logout | logout</a>
 
 						</div>
 					</div>

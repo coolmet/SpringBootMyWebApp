@@ -5,6 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>J/Login</title>
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="/bootstrap-4.3.1/css/bootstrap.min.css" />
+<!--===============================================================================================-->
 </head>
 <body>
 	<h1>J-Login Page</h1>
@@ -21,8 +24,16 @@
 		<br />
 		<input type="submit" value="Login">
 	</form>
-	<font color="red"> <c:if test="${not empty param.loginFailed}">
-			<c:out value="Login Failed, Incorrect Username or Password"></c:out>
-		</c:if>
+	<c:if test="${not empty param.loginFailed}">
+		<div class="alert alert-danger" role="alert">
+			Login Failed!!!
+			<br />
+			Reason :
+
+			<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+				<c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
+			</c:if>
+		</div>
+	</c:if>
 </body>
 </html>

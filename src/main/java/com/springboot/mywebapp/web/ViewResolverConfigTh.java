@@ -3,6 +3,7 @@ package com.springboot.mywebapp.web;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
@@ -16,7 +17,7 @@ public class ViewResolverConfigTh
 	
 	@Bean
 	public ViewResolver thymeleafViewResolver()
-	{		
+	{
 		ThymeleafViewResolver viewResolver=new ThymeleafViewResolver();
 		viewResolver.setTemplateEngine(thymeleafTemplateEngine());
 		viewResolver.setCharacterEncoding("UTF-8");
@@ -26,14 +27,14 @@ public class ViewResolverConfigTh
 		// Important!!
 		// th_page1.html, th_page2.html, ...
 		viewResolver.setViewNames(new String[]
-		{"th_*"});		
+		{"th_*"});
 		return viewResolver;
 	}
 	
 	// Thymeleaf template engine with Spring integration
 	@Bean
 	public SpringTemplateEngine thymeleafTemplateEngine()
-	{		
+	{
 		SpringTemplateEngine templateEngine=new SpringTemplateEngine();
 		templateEngine.setTemplateResolver(thymeleafTemplateResolver());
 		templateEngine.setEnableSpringELCompiler(true);
@@ -49,7 +50,7 @@ public class ViewResolverConfigTh
 	// Thymeleaf template resolver serving HTML 5
 	@Bean
 	public ITemplateResolver thymeleafTemplateResolver()
-	{		
+	{
 		ClassLoaderTemplateResolver templateResolver=new ClassLoaderTemplateResolver();
 		templateResolver.setPrefix("thymeleaf/");
 		templateResolver.setCacheable(false);

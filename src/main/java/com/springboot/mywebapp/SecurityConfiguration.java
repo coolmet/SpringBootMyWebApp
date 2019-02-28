@@ -41,7 +41,7 @@ public class SecurityConfiguration
 	}
 	
 	@Configuration
-	@Order(2)
+	@Order(1)
 	class THSecurity extends WebSecurityConfigurerAdapter
 	{
 		public THSecurity()
@@ -53,9 +53,9 @@ public class SecurityConfiguration
 		protected void configure(HttpSecurity http) throws Exception
 		{
 			
-			http
+			http.antMatcher("/login")
 			    .authorizeRequests()
-			    .antMatchers("/**/favicon.ico","/css/**","js/**","/images/**","/webjars/**","/login","/**/logout","logout","/logout").permitAll()
+			    .antMatchers("/**/favicon.ico","/**/css/**","/**/js/**","/**/images/**","/**/webjars/**","/login","/**/logout","logout","/logout","/","/index","/J","/index/J").permitAll()
 			    .antMatchers("/admin","/admin/*","/admin/**").access("hasRole('ADMIN')")
 			    .anyRequest().authenticated();
 			
@@ -93,7 +93,7 @@ public class SecurityConfiguration
 	}
 	
 	@Configuration
-	@Order(1)
+	@Order(2)
 	class JSPSecurity extends WebSecurityConfigurerAdapter
 	{
 		public JSPSecurity()
@@ -104,9 +104,9 @@ public class SecurityConfiguration
 		@Override
 		protected void configure(HttpSecurity http) throws Exception
 		{
-			http.antMatcher("/login/J")
+			http
 			    .authorizeRequests()
-			    .antMatchers("/**/favicon.ico","/css/**","js/**","/images/**","/webjars/**","/login/J","/**/logout","logout","/logout").permitAll()
+			    .antMatchers("/**/favicon.ico","/**/css/**","/**/js/**","/**/images/**","/**/webjars/**","/login/J","/**/logout","logout","/logout","/","/index","/J","/index/J").permitAll()
 			    .antMatchers("/admin","/admin/*","/admin/**").access("hasRole('ADMIN')")
 			    .anyRequest().authenticated();
 			

@@ -4,10 +4,13 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Login</title>
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/bootstrap.min.css}" />
+<!--===============================================================================================-->
 </head>
 <body>
 	<h1>Login Page</h1>
-	<p th:if="${loginFailed}" class="error">Login Failed, Incorrect Username or Password</p>
+
 	<form th:action="login" method="post">
 		<label for="username">Username</label>
 		:
@@ -24,4 +27,14 @@
 		<input type="submit" value="Log in" />
 	</form>
 
+	<div th:if="${#request.getParameter('loginFailed') == 'true'}" style="color: red; margin: 10px 0px;">
+		<div class="alert alert-danger" role="alert">
+			Login Failed!!!
+			<br />
+			Reason :
+			<span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
+				th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}"
+			> Static summary </span>
+		</div>
+	</div>
 </body>

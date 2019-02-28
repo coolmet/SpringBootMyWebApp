@@ -53,6 +53,22 @@ public class WebLinkControllerAnnoymusJsp
 		return mav;
 	}
 	
+	@RequestMapping(value=
+	{"/logoutpage/J"})
+	public ModelAndView logout()
+	{
+		ModelAndView mav=new ModelAndView();
+		if((""+SecurityContextHolder.getContext().getAuthentication().getPrincipal()).equals("anonymousUser"))
+		{
+			mav.setViewName("redirect:/default/J");
+		}
+		else
+		{
+			mav.setViewName("j_logoutPage");
+		}
+		return mav;
+	}
+	
 	@RequestMapping("/default/J")
 	public String defaultAfterLogin(HttpServletRequest request)
 	{
