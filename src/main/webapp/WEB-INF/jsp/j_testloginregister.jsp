@@ -15,9 +15,9 @@
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="/logines/fonts/iconic/css/material-design-iconic-font.min.css">
 <!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="/logines/vendor/animate/animate.css">
+<link rel="stylesheet" type="text/css" href="/logines/css/animate.css">
 <!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="/logines/vendor/animsition/css/animsition.min.css">
+<link rel="stylesheet" type="text/css" href="/logines/css/animsition.min.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="/logines/css/main.css">
 <link rel="stylesheet" type="text/css" href="/logines/css/util.css">
@@ -146,9 +146,9 @@
 		</div>
 	</form>
 	<!--===============================================================================================-->
-	<script src="/logines/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/logines/js/jquery-3.2.1.min.js"></script>
 	<!--===============================================================================================-->
-	<script src="/logines/vendor/bootstrap/js/popper.min.js"></script>
+	<script src="/logines/js/popper.min.js"></script>
 	<!--===============================================================================================-->
 	<script src="/logines/js/main.js"></script>
 	<!--===============================================================================================-->

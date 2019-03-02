@@ -41,8 +41,10 @@ public class WebLinkControllerAnnoymusTh
 	@RequestMapping(value=
 	{"/login"})
 	public ModelAndView loginTh()
-	{
+	{ 
 		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.addObject("languages",languageService.getLanguages());
 		if((""+SecurityContextHolder.getContext().getAuthentication().getPrincipal()).equals("anonymousUser"))
 		{
 			mav.setViewName("th_login");

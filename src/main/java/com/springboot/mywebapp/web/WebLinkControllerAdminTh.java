@@ -76,6 +76,15 @@ public class WebLinkControllerAdminTh
 	}
 	
 	@RequestMapping(value=
+	{"/admin/testloginbasic"})
+	public ModelAndView adminTestLoginBasic()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("th_testloginbasic");
+		return mav;
+	}
+	
+	@RequestMapping(value=
 	{"/admin/testparticles"})
 	public ModelAndView adminParticle()
 	{
