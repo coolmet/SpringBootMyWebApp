@@ -7,7 +7,7 @@
 <head>
 <title><spring:message code="register.title" /></title>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" >
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="/logines/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
