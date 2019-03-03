@@ -3,14 +3,18 @@
 <head>
 <title>Index</title>
 <meta charset="UTF-8" />
-<meta name="viewport" >
+<meta name="viewport">
 <div th:replace="fragments/header :: header">...</div>
 </head>
 
 
 <body>
 	<h1>Index Page</h1>
-
-
-
+	<div sec:authorize="hasRole('USER')">Text visible to user.</div>
+	<div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
+	<div sec:authorize="isAuthenticated()">Text visible only to authenticated users.</div>
+	Authenticated username:
+	<div sec:authentication="name"></div>
+	Authenticated user roles:
+	<div sec:authentication="principal.authorities"></div>
 </body>

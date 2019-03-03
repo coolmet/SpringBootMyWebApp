@@ -342,7 +342,7 @@ iframe {
 
 /*---------------------------------------------*/
 .btn-show-pass {
-	font-size: 15px;
+	font-size: 25px;
 	color: #999999;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -485,8 +485,9 @@ iframe {
 }
 
 .alert-validate::after {
-	content: "\f06a";
+	content: "\f06a"; 
 	font-family: FontAwesome;
+	font-weight: 900;
 	font-size: 16px;
 	color: #c80000;
 	display: block;

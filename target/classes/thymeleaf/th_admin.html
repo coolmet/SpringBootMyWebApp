@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport">
@@ -8,9 +9,9 @@
 <link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/bootstrap-essentials.min.css}" />
 <!--===============================================================================================-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script th:src="@{|/logines/js/jquery-3.2.1.min.js?v=${#dates.createNow()}|}"></script>
+<script th:src="@{|/logines/js/popper.min.js?v=${#dates.createNow()}|}"></script>
+<script th:src="@{|/bootstrap-4.3.1/js/bootstrap.min.js?v=${#dates.createNow()}|}"></script>
 <script th:src="@{|/bootstrap-4.3.1/js/bootstrap-essentials.min.js?v=${#dates.createNow()}|}"></script>
 <!--===============================================================================================-->
 </head>

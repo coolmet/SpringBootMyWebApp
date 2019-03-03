@@ -19,6 +19,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @Configuration
 @EnableWebSecurity
@@ -38,6 +41,8 @@ public class SecurityConfiguration
 		    .password(passwordEncoder().encode("admin")).roles("ADMIN");
 	}
 	
+
+	
 	@Configuration
 	@Order(1)
 	class THSecurity extends WebSecurityConfigurerAdapter
@@ -49,7 +54,7 @@ public class SecurityConfiguration
 		
 		@Override
 		protected void configure(HttpSecurity http) throws Exception
-		{			
+		{
 			http.antMatcher("/login").authorizeRequests()
 			    .antMatchers(// @formatter:off
 					       "/**/favicon.ico", 
