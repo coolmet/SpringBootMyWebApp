@@ -1,20 +1,117 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 <head>
 <title>Index</title>
 <meta charset="UTF-8" />
 <meta name="viewport">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/bootstrap-4.3.1/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/bootstrap-4.3.1/css/bootstrap-essentials.min.css}" />
+<!--===============================================================================================-->
+<script
+	th:src="@{|/logines/js/jquery-3.2.1.min.js?v=${#dates.createNow()}|}"></script>
+<script th:src="@{|/logines/js/popper.min.js?v=${#dates.createNow()}|}"></script>
+<script
+	th:src="@{|/bootstrap-4.3.1/js/bootstrap.min.js?v=${#dates.createNow()}|}"></script>
+<script
+	th:src="@{|/bootstrap-4.3.1/js/bootstrap-essentials.min.js?v=${#dates.createNow()}|}"></script>
+<!--===============================================================================================-->
+<style>
+table, th, td {
+	border: 1px solid black;
+}
+
+.dropdown-submenu {
+	position: relative;
+}
+
+.dropdown, .dropleft, .dropright, .dropup {
+	position: relative;
+	padding-left: 5px;
+}
+
+.dropdown-submenu>.dropdown-menu {
+	top: 0;
+	left: 100%;
+	margin-top: -6px;
+	margin-left: -1px;
+	-webkit-border-radius: 0 6px 6px 6px;
+	-moz-border-radius: 0 6px 6px 6px;
+	border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu>a:after {
+	display: block;
+	content: " ";
+	float: right;
+	width: 0;
+	height: 0;
+	border-color: transparent;
+	border-style: solid;
+	border-width: 5px 0 5px 5px;
+	border-left-color: #cccccc;
+	margin-top: 5px;
+	margin-right: 10px;
+}
+
+.dropdown-submenu:hover>a:after {
+	border-left-color: #555;
+}
+
+.dropdown-submenu.pull-left {
+	float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+	left: -100%;
+	margin-left: 10px;
+	-webkit-border-radius: 6px 0 6px 6px;
+	-moz-border-radius: 6px 0 6px 6px;
+	border-radius: 6px 0 6px 6px;
+}
+
+.dropdown-item {
+	font-weight: 400;
+	font-size: 14px;
+	padding: 2px;
+	font-size: 14px;
+}
+
+.scrollable-menu {
+	height: auto;
+	max-height: 50vh;
+	overflow-x: hidden;
+}
+
+span.tab-1 {
+	word-spacing: 5em;
+}
+
+span.tab-2 {
+	word-spacing: 5em;
+}
+</style>
+
 <div th:replace="fragments/header :: header">...</div>
 </head>
 
 
 <body>
 	<h1>Index Page</h1>
+	<div sec:authorize="hasAuthority('USER')">Has Authority USER</div>
+	<div sec:authorize="hasAuthority('ADMIN')">Has Authority ADMIN</div>
+	<div sec:authorize="hasAuthority('ANONYMOUS')">Has Authority
+		ANONYMOUS</div>
 	<div sec:authorize="hasRole('USER')">Text visible to user.</div>
 	<div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
-	<div sec:authorize="isAuthenticated()">Text visible only to authenticated users.</div>
+	<div sec:authorize="hasRole('ANONYMOUS')">Text visible to
+		anonymous.</div>
+	<div sec:authorize="isAuthenticated()">Text visible only to
+		authenticated users.</div>
 	Authenticated username:
 	<div sec:authentication="name"></div>
 	Authenticated user roles:
-	<div sec:authentication="principal.authorities"></div>
 </body>
