@@ -1,24 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 <head>
 <title>Index</title>
 <meta charset="UTF-8" />
 <meta name="viewport">
 <!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	th:href="@{/bootstrap-4.3.1/css/bootstrap.min.css}" />
-<link rel="stylesheet" type="text/css"
-	th:href="@{/bootstrap-4.3.1/css/bootstrap-essentials.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/bootstrap-essentials.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/fontawesome-5.7.2/css/all.css}" />
 <!--===============================================================================================-->
-<script
-	th:src="@{|/logines/js/jquery-3.2.1.min.js?v=${#dates.createNow()}|}"></script>
+<script th:src="@{|/jquery-3.3.1/js/jquery.min.js?v=${#dates.createNow()}|}"></script>
 <script th:src="@{|/logines/js/popper.min.js?v=${#dates.createNow()}|}"></script>
-<script
-	th:src="@{|/bootstrap-4.3.1/js/bootstrap.min.js?v=${#dates.createNow()}|}"></script>
-<script
-	th:src="@{|/bootstrap-4.3.1/js/bootstrap-essentials.min.js?v=${#dates.createNow()}|}"></script>
+<script th:src="@{|/bootstrap-4.3.1/js/bootstrap.min.js?v=${#dates.createNow()}|}"></script>
+<script th:src="@{|/bootstrap-4.3.1/js/bootstrap-essentials.min.js?v=${#dates.createNow()}|}"></script>
+<script th:src="@{|/fontawesome-5.7.2/js/all.js?v=${#dates.createNow()}|}"></script>
 <!--===============================================================================================-->
+
 <style>
 table, th, td {
 	border: 1px solid black;
@@ -94,7 +91,32 @@ span.tab-2 {
 	word-spacing: 5em;
 }
 </style>
+<script type="text/javascript">
+	function selectLanguage(imagePath, localeName) {
+		localStorage.setItem("locales", localeName);
+		$('#dropdownmenu').val(imagePath);
+		var selectedOption = $('#dropdownmenu').val();
+		document.getElementById("langmainimage").src = imagePath;
+		//window.location.replace('?lang=' + localeName);
+		//history.pushState({}, null, window.location.href.split('?')[0]+ '?lang=' + localeName);
+		history.replaceState({}, window.location.href, window.location.href
+				.split('?')[0]
+				+ '?lang=' + localeName);
+		$.post(window.location.href.split('?')[0] + '?lang=' + localeName,
+				function(data, status) {
+				});
 
+		//$("#topnavbar").load(location.href + " #topnavbar", "");
+		//
+		//document.getElementById("topnavbar").contentWindow.location.reload(true);
+		//
+		//var container = document.getElementById("topnavbar");
+	    //var content = container.innerHTML;
+	    //container.innerHTML= content; 
+	    location.reload(true);
+
+	}
+</script>
 <div th:replace="fragments/header :: header">...</div>
 </head>
 
@@ -103,15 +125,32 @@ span.tab-2 {
 	<h1>Index Page</h1>
 	<div sec:authorize="hasAuthority('USER')">Has Authority USER</div>
 	<div sec:authorize="hasAuthority('ADMIN')">Has Authority ADMIN</div>
-	<div sec:authorize="hasAuthority('ANONYMOUS')">Has Authority
-		ANONYMOUS</div>
+	<div sec:authorize="hasAuthority('ANONYMOUS')">Has Authority ANONYMOUS</div>
 	<div sec:authorize="hasRole('USER')">Text visible to user.</div>
 	<div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
-	<div sec:authorize="hasRole('ANONYMOUS')">Text visible to
-		anonymous.</div>
-	<div sec:authorize="isAuthenticated()">Text visible only to
-		authenticated users.</div>
+	<div sec:authorize="hasRole('ANONYMOUS')">Text visible to anonymous.</div>
+	<div sec:authorize="isAuthenticated()">Text visible only to authenticated users.</div>
 	Authenticated username:
 	<div sec:authentication="name"></div>
 	Authenticated user roles:
+
+
+	<li>
+		<a href="#">
+			<span class="glyphicon glyphicon-user"></span>
+			Sign Up
+		</a>
+	</li>
+	<li>
+		<a href="#">
+			<span class="glyphicon glyphicon-log-in"></span>
+			Login
+		</a>
+	</li>
+	<i class='fas fa-sign-in-alt' style='font-size: 24px'></i>
+	<i class='fab fa-500px' style='font-size: 24px'></i>
+	<i class='fab fa-500px' style='font-size: 36px'></i>
+	<i class='fab fa-500px' style='font-size: 48px; color: red'></i>
+
+
 </body>

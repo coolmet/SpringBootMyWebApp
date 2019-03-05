@@ -34,6 +34,8 @@ public class WebLinkControllerAnnoymusTh
 	public ModelAndView indexTh()
 	{
 		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.addObject("languages",languageService.getLanguages());
 		mav.setViewName("th_index");
 		return mav;
 	}
