@@ -11,6 +11,7 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
 public class ViewResolverConfigTh
@@ -40,7 +41,8 @@ public class ViewResolverConfigTh
 		templateEngine.setTemplateResolver(thymeleafTemplateResolver());
 		templateEngine.setEnableSpringELCompiler(true);
 		templateEngine.addDialect(new SpringSecurityDialect());
-		return templateEngine;
+		templateEngine.addDialect(new LayoutDialect());
+		return templateEngine; 
 	}
 	
 	@Bean

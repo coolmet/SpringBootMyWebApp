@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{th_testfragmentslayouts}">
+<head>
+<title>Content page 1</title>
+</head>
+<body>
+	<section layout:fragment="x31">-----X31</section>
+	<section th:fragment="x32">-----X32</section>
+
+	<footer>
+		<p layout:fragment="x33">-----X33</p>
+	</footer>
+	<footer>
+		<p th:fragment="x34">-----X34</p>
+	</footer>
+
+	<th:block layout:fragment="x35">
+		<script type="text/javascript">
+			$(function() {
+				$("#js-content").html("From Javascript------x35").slideToggle();
+			});
+		</script>
+	</th:block>
+	<th:block th:fragment="x36">
+		<script type="text/javascript">
+			$(function() {
+				$("#js-content").html("From Javascript------x36").slideToggle();
+			});
+		</script>
+	</th:block>
+
+	<div layout:fragment="x37" id="x37">
+		-----x37
+		<div class="alert alert-info" style="display: none;" id="js-content"></div>
+	</div>
+	<div th:fragment="x38" id="x38">
+		-----x38
+		<div class="alert alert-info" style="display: none;" id="js-content"></div>
+	</div>
+
+	<th:block layout:fragment="x39">
+		<li class="breadcrumb-item"><a th:href="@{/}">-----x39_1</a></li>
+		<li class="breadcrumb-item">-----x39_2</li>
+	</th:block>
+		<th:block th:fragment="x40">
+		<li class="breadcrumb-item"><a th:href="@{/}">-----x40_1</a></li>
+		<li class="breadcrumb-item">-----x40_2</li>
+	</th:block>
+
+
+	<div layout:fragment="x41">-----x41</div>
+	<div th:fragment="x42">-----x42</div>
+
+	<div class="alert alert-dismissable" th:fragment="alert (type, message)" th:if="${!#strings.isEmpty(type) and !#strings.isEmpty(message)}" th:classappend="'alert-' + ${type}">      
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <span th:text="${message}">Test</span>
+    </div>
+
+</body>
+</html>

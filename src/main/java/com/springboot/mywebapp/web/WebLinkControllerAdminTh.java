@@ -97,7 +97,7 @@ public class WebLinkControllerAdminTh
 	
 	@RequestMapping(value=
 	{"/admin/testloginparticles"})
-	public ModelAndView adminTest()
+	public ModelAndView adminTestLoginParticles()
 	{
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
@@ -108,7 +108,7 @@ public class WebLinkControllerAdminTh
 	
 	@RequestMapping(value=
 	{"/admin/testloginregister"})
-	public ModelAndView adminRegister()
+	public ModelAndView adminTestRegister()
 	{
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
@@ -119,12 +119,21 @@ public class WebLinkControllerAdminTh
 	
 	@RequestMapping(value=
 	{"/admin/testlocale"})
-	public ModelAndView adminLocale()
+	public ModelAndView adminTestLocale()
 	{
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
 		mav.addObject("languages",languageService.getLanguages());
 		mav.setViewName("th_testlocale");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/testfragmentslayouts"})
+	public ModelAndView adminTestFragmentsLocales()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("th_testfragmentslayouts");
 		return mav;
 	}
 }

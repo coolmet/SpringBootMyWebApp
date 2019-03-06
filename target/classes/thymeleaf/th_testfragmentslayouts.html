@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+<title>TestFragmentsLayouts</title>
+<meta charset="UTF-8" />
+<meta name="viewport">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/bootstrap.min.css}" />
+<!--===============================================================================================-->
+<script th:src="@{|/jquery-3.3.1/js/jquery.min.js?v=${#dates.createNow()}|}"></script>
+<script th:src="@{|/bootstrap-4.3.1/js/bootstrap.min.js?v=${#dates.createNow()}|}"></script>
+<!--===============================================================================================-->
+</head>
+
+
+<body>
+	<!--===============================================================================================-->
+	w01-div:layout:insert  >  section:layout><div layout:insert="fragments/test.html :: x31"></div>
+	w02-div:th:insert  >  section:th><div th:insert="fragments/test.html :: x32"></div>
+	w03-div:th:include  >  section:th><div th:include="fragments/test.html :: x32"></div>
+	w04-div:th:replace  >  section:th><div th:replace="fragments/test.html :: x32"></div>
+	w05-div:layout:insert  >  footer:p:layout><div layout:insert="fragments/test.html :: x33"></div>
+	w06-div:th:insert  >  footer:p:th><div th:insert="fragments/test.html :: x34"></div>
+	w07-div:th:include  >  footer:p:th><div th:include="fragments/test.html :: x34"></div>
+	w08-div:th:replace  >  footer:p:th><div th:replace="fragments/test.html :: x34"></div>
+	<!--===============================================================================================-->
+	w09-div:layout:insert  > th:block:layout:js><div layout:insert="fragments/test.html :: x35"></div>
+	w10-div:layout:include  > th:block:layout:js><div layout:include="fragments/test.html :: x35"></div>
+	w11-div:layout:replace  > th:block:layout:js><div layout:replace="fragments/test.html :: x35"></div>
+	w12-div:th:insert  > th:block:th:js><div th:insert="fragments/test.html :: x36"></div>
+	w13-div:th:include  > th:block:th:js><div th:include="fragments/test.html :: x36"></div>
+	w14-div:th:replace  > th:block:th:js><div th:replace="fragments/test.html :: x36"></div>
+	<!--===============================================================================================-->
+	w15-div:layout:insert  >  div:layout><div layout:insert="fragments/test.html :: x37"></div>
+	w16-div:layout:include  >  div:layout><div layout:include="fragments/test.html :: x37"></div>
+	w17-div:layout:include  >  div:layout><div layout:replace="fragments/test.html :: x37"></div>
+	w18-div:th:insert  >  div:th><div th:insert="fragments/test.html :: x38"> </div>
+	w19-div:th:include  >  div:th><div th:include="fragments/test.html :: x38"> </div>
+	w20-div:th:include  >  div:th><div th:replace="fragments/test.html :: x38"> </div>
+	<!--===============================================================================================-->
+	w21-div:layout:insert  >  th:block:layout><div layout:insert="fragments/test.html :: x39"> </div>
+	w22-div:layout:include  >  th:block:layout><div layout:include="fragments/test.html :: x39"> </div>
+	w23-div:layout:replace  >  th:block:layout><div layout:replace="fragments/test.html :: x39"> </div>
+	w24-div:th:insert  >  th:block:th><div th:insert="fragments/test.html :: x40"> </div>
+	w25-div:th:include  >  th:block:th><div th:include="fragments/test.html :: x40"> </div>
+	w26-div:th:replace  >  th:block:th><div th:replace="fragments/test.html :: x40"> </div>
+	<!--===============================================================================================-->
+	w27-div:layout:insert  >  div:layout><div layout:insert="fragments/test.html :: x41"> </div>
+	w28-div:layout:include  >  div:layout><div layout:include="fragments/test.html :: x41"> </div>
+	w29-div:layout:replace  >  div:layout><div layout:replace="fragments/test.html :: x41"> </div>
+	w30-div:th:insert  >  div:th><div th:insert="fragments/test.html :: x42"> </div>
+	w31-div:th:include  >  div:th><div th:include="fragments/test.html :: x42"> </div>
+	w32-div:th:replace  >  div:th><div th:replace="fragments/test.html :: x42"> </div>
+	<!--===============================================================================================-->
+	<div th:replace="fragments/test.html :: alert (type='danger', message=${errorMessage})">...</div>
+	<div th:replace="fragments/test.html :: alert (type='primary', message='msg-1')">...</div>
+	<div th:replace="fragments/test.html :: alert (type='warn', message='msg-2')">...</div>
+
+</body>

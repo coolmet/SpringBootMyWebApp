@@ -69,7 +69,7 @@ public class WebLinkControllerAdminJsp
 	
 	@RequestMapping(value=
 	{"/admin/J/testparticles"})
-	public ModelAndView adminJParticle()
+	public ModelAndView adminJTestParticle()
 	{
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("j_testparticles");
@@ -78,7 +78,7 @@ public class WebLinkControllerAdminJsp
 	
 	@RequestMapping(value=
 	{"/admin/J/testloginparticles"})
-	public ModelAndView adminJTest()
+	public ModelAndView adminJTestLoginParticles()
 	{
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
@@ -89,7 +89,7 @@ public class WebLinkControllerAdminJsp
 	
 	@RequestMapping(value=
 	{"/admin/J/testloginregister"})
-	public ModelAndView adminJRegister()
+	public ModelAndView adminJTestLoginRegister()
 	{
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
@@ -100,7 +100,7 @@ public class WebLinkControllerAdminJsp
 	
 	@RequestMapping(value=
 	{"/admin/J/testlocale"})
-	public ModelAndView adminJLocale()
+	public ModelAndView adminJTestLocale()
 	{
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));

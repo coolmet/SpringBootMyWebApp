@@ -124,7 +124,7 @@ span.tab-2 {
 	</script>
 
 
-	<nav id="topnavbar" class="navbar navbar-expand-sm bg-dark navbar-dark" th:fragment="header">
+	<nav id="topnavbar" class="navbar navbar-expand-sm bg-dark navbar-dark" th:fragment="ffheader">
 		<!-- <nav class="navbar navbar-expand-sm navbar-light" style="background-color: #e3f2fd;">-->
 		<div id="container-fluid" class="container-fluid">
 			<ul class="navbar-nav">
@@ -268,10 +268,10 @@ span.tab-2 {
 					<a href="#" class="btn btn-outline-warning navbar-btn" th:text="#{index.signup}">
 						<span class='fas fa-user-plus'></span>
 					</a>
-					<a href="/login" class="btn btn-outline-success navbar-btn" th:text="#{index.login}">
+					<a th:href=@{/login} class="btn btn-outline-success navbar-btn" th:text="#{index.login}">
 						<span class='fas fa-sign-in-alt'></span>
 					</a>
-					<a href="/logout" class="btn btn-outline-danger navbar-btn disabled" th:text="#{index.logout}">
+					<a th:href=@{/logout} class="btn btn-outline-danger navbar-btn disabled" th:text="#{index.logout}">
 						<span class='fas fa-sign-out-alt'></span>
 					</a>
 
@@ -304,10 +304,10 @@ span.tab-2 {
 					<a href="#" class="btn btn-outline-warning navbar-btn disabled" th:text="#{index.signup}">
 						<span class='fas fa-user-plus'></span>
 					</a>
-					<a href="/login" class="btn btn-outline-success navbar-btn disabled" th:text="#{index.login}">
+					<a th:href=@{/login} class="btn btn-outline-success navbar-btn disabled" th:text="#{index.login}">
 						<span class='fas fa-sign-in-alt'></span>
 					</a>
-					<a href="/logout" class="btn btn-outline-danger navbar-btn " th:text="#{index.logout}">
+					<a th:href=@{/logout} class="btn btn-outline-danger navbar-btn " th:text="#{index.logout}">
 						<span class='fas fa-sign-out-alt'></span>
 					</a>
 					<div class="btn-group ">

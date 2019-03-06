@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
 <head>
 <title>Index</title>
 <meta charset="UTF-8" />
@@ -111,13 +113,13 @@ span.tab-2 {
 		//document.getElementById("topnavbar").contentWindow.location.reload(true);
 		//
 		//var container = document.getElementById("topnavbar");
-	    //var content = container.innerHTML;
-	    //container.innerHTML= content; 
-	    location.reload(true);
+		//var content = container.innerHTML;
+		//container.innerHTML= content; 
+		location.reload(true);
 
 	}
 </script>
-<div th:replace="fragments/header :: header">...</div>
+<div th:replace="fragments/header :: ffheader">...</div>
 </head>
 
 
@@ -134,23 +136,12 @@ span.tab-2 {
 	<div sec:authentication="name"></div>
 	Authenticated user roles:
 
-
-	<li>
-		<a href="#">
-			<span class="glyphicon glyphicon-user"></span>
-			Sign Up
-		</a>
-	</li>
-	<li>
-		<a href="#">
-			<span class="glyphicon glyphicon-log-in"></span>
-			Login
-		</a>
-	</li>
+	<span class='fas fa-user-plus'></span>
 	<i class='fas fa-sign-in-alt' style='font-size: 24px'></i>
 	<i class='fab fa-500px' style='font-size: 24px'></i>
 	<i class='fab fa-500px' style='font-size: 36px'></i>
 	<i class='fab fa-500px' style='font-size: 48px; color: red'></i>
 
+	
 
 </body>
