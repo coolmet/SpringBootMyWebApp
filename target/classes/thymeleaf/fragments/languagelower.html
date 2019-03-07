@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport">
+<title>..</title>
+</head>
+
+<body>
+	<th:block th:fragment="FRG_language_javascript">
+		<script type="text/javascript">
+			function selectLanguage(imagePath, localeName)
+				{
+					localStorage.setItem("locales", localeName);
+					$('#dropdownmenu').val(imagePath);
+					var selectedOption = $('#dropdownmenu').val();
+					document.getElementById("langmainimage").src = imagePath;
+					//window.location.replace('?lang=' + localeName);
+					//history.pushState({}, null, window.location.href.split('?')[0]+ '?lang=' + localeName);
+					//location.origin+location.pathname+location.search+location.hash
+					history.replaceState({}, window.location.href, window.location.href.split('#')[0].split('?')[0] + '?lang=' + localeName);
+					$.post(window.location.href.split('#')[0].split('?')[0] + '?lang=' + localeName, function(data, status)
+						{
+						});
+
+					//$("#topnavbar").load(location.href + " #topnavbar", "");
+					//
+					//document.getElementById("topnavbar").contentWindow.location.reload(true);
+					//
+					//var container = document.getElementById("topnavbar");
+					//var content = container.innerHTML;
+					//container.innerHTML= content; 
+					location.reload(true);
+					//history.replaceState({}, window.location.href, window.location.href.split('#')[0].split('?')[0]);
+
+				}
+		</script>
+	</th:block>
+
+	<div class="btn-group " th:fragment="FRG_language">
+		<button class="btn btn-primary btn-sm" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button"
+			style="background-color: transparent; border: none; padding: 1px; outline: none !important; box-shadow: none !important;"
+		>
+			<b class="caret"></b>
+			<img class="img-thumbnail hidden-xs" th:src=${deflangimagepath} id="langmainimage"
+				style="width: 45px; background-color: transparent; border: none; padding: 0px;"
+			>
+		</button>
+		<ul class="dropdown-menu" id="dropdownmenu"
+			style="background-color: transparent; text-align: right; top: 10px; min-width: 45px; padding: 0px; margin-top: 50px;"
+		>
+			<div th:each="language,status : ${languages}">
+				<img class="img-thumbnail hidden-xs" th:src=${language.imagePath} style="width: 45px; background-color: transparent; border: none; padding: 0px;"
+					th:attr="onclick=|selectLanguage('${language.imagePath}','${language.localeName}')|"
+				>
+				<li th:if="${not status.last}" class="dropdown-divider" style="margin: .2rem 0;"></li>
+			</div>
+
+		</ul>
+	</div>
+
+</body>

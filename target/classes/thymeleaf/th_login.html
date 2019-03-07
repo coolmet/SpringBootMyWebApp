@@ -19,53 +19,16 @@
 </head>
 
 <body>
-	<script type="text/javascript">
-		function selectLanguage(imagePath, localeName) {
-			localStorage.setItem("locales", localeName);
-			$('#dropdownmenu').val(imagePath);
-			var selectedOption = $('#dropdownmenu').val();
-			document.getElementById("langmainimage").src = imagePath;
-			//window.location.replace('?lang=' + localeName);
-			//history.pushState({}, null, window.location.href.split('?')[0]+ '?lang=' + localeName);
-			history.replaceState({}, window.location.href, window.location.href
-					.split('?')[0]
-					+ '?lang=' + localeName);
-			$.post(window.location.href.split('?')[0] + '?lang=' + localeName,
-					function(data, status) {
-					});
 
-			$("#limiter").load(location.href + " #limiter", "");
-		}
-	</script>
-
+	<div th:include="fragments/languageleft.html :: FRG_language_javascript"></div>
+	
 	<form th:action="login" method="post">
 		<div style="position: relative">
 			<div id="particles-js"></div>
 			<div id="limiter" class="limiter">
 				<div id="containerlogin100" class="container-login100">
 					<div class="top-right" style="width: 100%; position: fixed; text-align: right; top: 10px; right: 10px;">
-						<div class="btn-group dropleft">
-							<button class="btn btn-primary btn-sm" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button"
-								style="background-color: transparent; border: none; padding: 1px; outline: none !important; box-shadow: none !important;"
-							>
-								<b class="caret"></b>
-								<img class="img-thumbnail hidden-xs" th:src=${deflangimagepath} id="langmainimage"
-									style="width: 45px; background-color: transparent; border: none; padding: 0px;"
-								>
-							</button>
-							<ul class="dropdown-menu" id="dropdownmenu"
-								style="background-color: transparent; text-align: right; top: 10px; min-width: 45px; padding: 0px; margin-top: 10px;"
-							>
-								<div th:each="language,status : ${languages}">
-									<img class="img-thumbnail hidden-xs" th:src=${language.imagePath}
-										style="width: 45px; background-color: transparent; border: none; padding: 0px;"
-										th:attr="onclick=|selectLanguage('${language.imagePath}','${language.localeName}')|"
-									>
-									<li th:if="${not status.last}" class="dropdown-divider" style="margin: .2rem 0;"></li>
-								</div>
-
-							</ul>
-						</div>
+						<div th:replace="fragments/languageleft.html :: FRG_language"></div>
 					</div>
 					<div id="wraplogin100" class="wrap-login100">
 						<div class="login100-form validate-form">
@@ -87,10 +50,10 @@
 						zmdi-account-box-o
 						-->
 							<div class="wrap-input100 validate-input" th:attr="data-validate=#{login.enterusername}">
-								<input class="input100" type="text" name="username" id="username" >
+								<input class="input100" type="text" name="username" id="username">
 								<span class="focus-input100" th:attr="data-placeholder=#{login.username}"> </span>
 							</div>
-							
+
 							<div class="wrap-input100 validate-input" th:attr="data-validate=#{login.enterpassword}">
 								<span class="btn-show-pass">
 									<i class="zmdi zmdi-eye" style="font-size: inherit"></i>
@@ -102,12 +65,12 @@
 							<div>
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 							</div>
-							
+
 							<div class="wrap-input110">
 								<input id="rememberme" name="remember-me" type="checkbox">
 								<label for="rememberme" th:text="#{login.rememberme}"> </label>
 							</div>
-							
+
 							<div class="container-login100-form-btn">
 								<div class="wrap-login100-form-btn">
 									<div class="login100-form-bgbtn"></div>

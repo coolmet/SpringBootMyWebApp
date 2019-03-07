@@ -17,7 +17,6 @@ import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration
@@ -55,6 +54,7 @@ public class SecurityConfiguration
 					       "/**/js/**", 
 					       "/**/images/**", 
 					       "/**/fonts/**", 
+					       "/**/webfonts/**", 
 					       "/**/webjars/**",
 					       "/login", 
 					       "/**/logout", 
@@ -111,6 +111,7 @@ public class SecurityConfiguration
 			                 "/**/js/**",
 			                 "/**/images/**",
 					       "/**/fonts/**", 
+					       "/**/webfonts/**", 
 			                 "/**/webjars/**",
 			                 "/login/J",
 			                 "/**/logout",
