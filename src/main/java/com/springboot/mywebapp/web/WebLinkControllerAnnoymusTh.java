@@ -43,7 +43,7 @@ public class WebLinkControllerAnnoymusTh
 	@RequestMapping(value=
 	{"/login"})
 	public ModelAndView loginTh()
-	{ 
+	{
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
 		mav.addObject("languages",languageService.getLanguages());
@@ -81,7 +81,10 @@ public class WebLinkControllerAnnoymusTh
 		{
 			return "redirect:/admin/";
 		}
-		
+		else if(request.isUserInRole("ROLE_USER"))
+		{
+			return "redirect:/user/";
+		}
 		return "redirect:/";
 	}
 	

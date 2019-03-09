@@ -74,6 +74,14 @@ public class SecurityConfiguration
 			                 // @formatter:on
 				)
 			    .access("hasRole('ADMIN')").anyRequest()
+			    .authenticated()
+			    .antMatchers(// @formatter:off
+			                 "/user",
+			                 "/user/*",
+			                 "/user/**"
+			                 // @formatter:on
+				)
+			    .access("hasRole('USER')").anyRequest()
 			    .authenticated();
 				
 			http.formLogin().loginPage("/login")// .loginPage("/login")
@@ -131,6 +139,14 @@ public class SecurityConfiguration
 			                 // @formatter:on
 				)
 			    .access("hasRole('ADMIN')").anyRequest()
+			    .authenticated()
+			    .antMatchers(// @formatter:off
+			 			  "/user",
+						  "/user/*",
+						  "/user/**"
+						  // @formatter:on
+				)
+			    .access("hasRole('USER')").anyRequest()
 			    .authenticated();
 				
 			http.formLogin().loginPage("/login/J")// .loginPage("/login")

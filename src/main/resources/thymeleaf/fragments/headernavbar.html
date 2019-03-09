@@ -207,12 +207,12 @@ span.tab-2 {
 
 				<!-- invisible-->
 				<!-- <span class="tab-1" />-->
-				<li class="nav-item dropdown " sec:authorize="hasRole('ADMIN')"><a class="nav-link btn btn-outline-success mr-2 dropdown-toggle" href="#"
-						id="navbardrop" data-toggle="dropdown"
+				<li class="nav-item dropdown " sec:authorize="hasAnyRole('ADMIN','USER')"><a class="nav-link btn btn-outline-success mr-2 dropdown-toggle"
+						href="#" id="navbardrop" data-toggle="dropdown"
 					> USER </a>
 					<div class="dropdown-menu" role="menu">
 						<a class="dropdown-item" tabindex="-1" href="#">User 1</a>
-						<a class="dropdown-item" tabindex="-1" href="#">User 2</a>
+						<a class="dropdown-item" tabindex="-1" href="#">User 2</a> 
 						<div class="dropdown-submenu">
 							<a class="dropdown-item" tabindex="-1" href="#">User 3</a>
 							<div class="dropdown-menu" role="menu">

@@ -64,7 +64,7 @@ public class WebLinkControllerAdminTh
 		mav.addObject("usersString",usersString);
 		mav.addObject("users",users);
 		mav.addObject("userDetail",userDetail);
-		mav.setViewName("th_users");
+		mav.setViewName("th_adminusers");
 		return mav;
 	}
 	
