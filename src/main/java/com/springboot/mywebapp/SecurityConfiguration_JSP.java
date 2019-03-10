@@ -16,13 +16,13 @@ import org.springframework.security.web.authentication.rememberme.TokenBasedReme
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
-@Order(value=2)
+@Order(value=1)
 public class SecurityConfiguration_JSP extends WebSecurityConfigurerAdapter
 {	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception
 	{
-		http.authorizeRequests()
+		http.antMatcher("/login/J").authorizeRequests()
 		    .antMatchers(// @formatter:off
 		                 "/**/favicon.ico",
 		                 "/**/css/**",

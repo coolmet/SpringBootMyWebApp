@@ -47,7 +47,7 @@ public class WebLinkControllerAdminTh
 	}
 	
 	@RequestMapping(value=
-	{"/admin/users"})
+	{"/admin/adminloggedinusers"})
 	public ModelAndView adminUsers()
 	{
 		List<String> usersString=sessionRegistry.getAllPrincipals().stream()
@@ -64,7 +64,9 @@ public class WebLinkControllerAdminTh
 		mav.addObject("usersString",usersString);
 		mav.addObject("users",users);
 		mav.addObject("userDetail",userDetail);
-		mav.setViewName("th_adminusers");
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.addObject("languages",languageService.getLanguages());
+		mav.setViewName("th_adminloggedinusers");
 		return mav;
 	}
 	
