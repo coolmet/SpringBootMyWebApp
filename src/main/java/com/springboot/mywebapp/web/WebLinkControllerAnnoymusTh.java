@@ -74,6 +74,17 @@ public class WebLinkControllerAnnoymusTh
 		return mav;
 	}
 	
+	@RequestMapping(value=
+	{"/register"})
+	public ModelAndView registerTh()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.addObject("languages",languageService.getLanguages());
+		mav.setViewName("th_register");
+		return mav;
+	}
+	
 	@RequestMapping("/default")
 	public String defaultAfterLoginTh(HttpServletRequest request)
 	{

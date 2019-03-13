@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title th:text="#{register.title}"></title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale = 0.4, maximum-scale=1.0, user-scalable=no" />
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" href="/logines/images/icons/favicon.ico" />
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" th:href="@{/logines/fonts/font-awesome-4.7.0/css/font-awesome.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/logines/fonts/iconic/css/material-design-iconic-font.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/logines/css/animate.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/logines/css/animsition.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/logines/css/main.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/logines/css/util.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/particles/css/style.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/bootstrap.min.css}" />
+<!--===============================================================================================-->
+</head>
+
+
+<body>
+	<div th:include="fragments/languageleft.html :: FRG_language_javascript"></div>
+
+	<form>
+		<div style="position: relative">
+			<div id="particles-js"></div>
+			<div id="limiter" class="limiter">
+				<div id="containerlogin100" class="container-login100">
+					<div class="top-right" style="width: 100%; position: fixed; text-align: right; top: 10px; right: 10px;">
+						<div th:replace="fragments/languageleft.html :: FRG_language"></div>
+					</div>
+					<div id="wraplogin100" class="wrap-login100">
+						<div class="login100-form validate-form">
+							<span class="login100-form-title p-b-26">
+								<div th:text="#{register.title}">
+							</span>
+							<span class="login100-form-title p-b-48">
+								<i class="zmdi zmdi-accounts-add"></i>
+							</span>
+							<!-- zmdi-account-o 						
+						zmdi-face 
+						zmdi-accounts-list-alt 
+						zmdi-shield-security 
+						zmdi-accounts 
+						zmdi-accounts-add
+						zmdi-account
+						zmdi-account-add
+						zmdi-badge-check
+						zmdi-account-box-o
+						-->
+							<div class="wrap-input100 validate-input" th:attr="data-validate=#{register.entername}">
+								<input class="input100" type="text" name="name" id="name">
+								<span class="focus-input100" th:attr="data-placeholder=#{register.name}"> </span>
+							</div>
+
+							<div class="wrap-input100 validate-input" th:attr="data-validate=#{register.entersurname}">
+								<input class="input100" type="text" name="surname" id="surname">
+								<span class="focus-input100" th:attr="data-placeholder=#{register.surname}"> </span>
+							</div>
+
+							<div class="wrap-input100 validate-input" th:attr="data-validate=#{register.enterusername}">
+								<input class="input100" type="text" name="username" id="username">
+								<span class="focus-input100" th:attr="data-placeholder=#{register.username}"> </span>
+							</div>
+
+							<div class="wrap-input100 validate-input" th:attr="data-validate=#{register.enteremail}">
+								<input class="input100" type="text" name="email" id="email">
+								<span class="focus-input100" th:attr="data-placeholder=#{register.email}"> </span>
+							</div>
+
+
+							<div class="wrap-input100 validate-input" th:attr="data-validate=#{register.enterpassword}">
+								<span class="btn-show-pass">
+									<i class="zmdi zmdi-eye" style="font-size: inherit"></i>
+								</span>
+								<input class="input100" type="password" name="pass" id="pass">
+								<span class="focus-input100" th:attr="data-placeholder=#{register.password}"> </span>
+							</div>
+
+							<div class="wrap-input100 validate-input" th:attr="data-validate=#{register.enterpasswordagain}">
+								<span class="btn-show-pass">
+									<i class="zmdi zmdi-eye" style="font-size: inherit"></i>
+								</span>
+								<input class="input100" type="password" name="pass2" id="pass2">
+								<span class="focus-input100" th:attr="data-placeholder=#{register.passwordagain}"> </span>
+							</div>
+
+							<div class="container-login100-form-btn">
+								<div class="wrap-login100-form-btn">
+									<div class="login100-form-bgbtn"></div>
+									<button class="login100-form-btn" id="registerBtn" onclick="addUser()" th:text="#{register.title}"></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<!--===============================================================================================-->
+	<script th:src="@{|/logines/js/jquery-3.2.1.min.js?v=${#dates.createNow()}|}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{|/logines/js/popper.min.js?v=${#dates.createNow()}|}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{|/logines/js/main.js?v=${#dates.createNow()}|}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{|/particles/js/particles.js?v=${#dates.createNow()}|}"></script>
+	<script th:src="@{|/particles/js/particles.min.js?v=${#dates.createNow()}|}"></script>
+	<script th:src="@{|/particles/js/app.js?v=${#dates.createNow()}|}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{|/bootstrap-4.3.1/js/bootstrap.min.js?v=${#dates.createNow()}|}"></script>
+	<!--===============================================================================================-->
+</body>

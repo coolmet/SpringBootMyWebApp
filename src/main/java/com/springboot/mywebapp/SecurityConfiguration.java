@@ -52,7 +52,7 @@ public class SecurityConfiguration
 		auth
 		    .jdbcAuthentication()
 		    .dataSource(dataSource)
-		    .usersByUsernameQuery("select username,password, enabled from users where username=?")
+		    .usersByUsernameQuery("select username,password,active from users where username=?")
 		    .authoritiesByUsernameQuery("select username, authority from authorities where username=?")
 		    .passwordEncoder(passwordEncoder())
 		// .withDefaultSchema().withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN")
@@ -82,6 +82,7 @@ public class SecurityConfiguration
 					       "/**/webfonts/**", 
 					       "/**/webjars/**",
 					       "/login", 
+					       "/register", 
 					       "/**/logout", 
 					       "logout", 
 					       "/logout", 
