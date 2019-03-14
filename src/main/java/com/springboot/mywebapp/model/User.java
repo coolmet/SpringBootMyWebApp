@@ -10,8 +10,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name="USERS")
-public class User
+@Table(name="DB_USERS")
+public class User extends BaseEntity
 {
 	@NotEmpty
 	@Column(name="username")

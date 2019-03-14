@@ -7,7 +7,7 @@ CREATE SEQUENCE PUBLIC.USERS_ID_SEQ
   INCREMENT BY 100
   CACHE 100;
 
-create table users(
+create table DB_USERS(
       username varchar_ignorecase(50) not null ,
       password varchar_ignorecase(500) not null,
       active boolean not null,
@@ -20,9 +20,9 @@ create table users(
       );
       
       
-create table authorities (
+create table db_authorities (
       username varchar_ignorecase(50) not null,
       authority varchar_ignorecase(128) not null);
 
-create unique index idx_auth_username on authorities (username,authority);
+create unique index idx_auth_username on db_authorities (username,authority);
 

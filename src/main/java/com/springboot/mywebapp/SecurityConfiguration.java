@@ -52,8 +52,8 @@ public class SecurityConfiguration
 		auth
 		    .jdbcAuthentication()
 		    .dataSource(dataSource)
-		    .usersByUsernameQuery("select username,password,active from users where username=?")
-		    .authoritiesByUsernameQuery("select username, authority from authorities where username=?")
+		    .usersByUsernameQuery("select username,password,active from DB_USERS where username=?")
+		    .authoritiesByUsernameQuery("select username, authority from DB_AUTHORITIES where username=?")
 		    .passwordEncoder(passwordEncoder())
 		// .withDefaultSchema().withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN")
 		;

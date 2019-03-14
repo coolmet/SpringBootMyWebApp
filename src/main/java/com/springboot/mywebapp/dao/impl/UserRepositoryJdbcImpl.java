@@ -12,8 +12,10 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 import com.springboot.mywebapp.dao.UserRepository;
 import com.springboot.mywebapp.model.User;
+
 
 public class UserRepositoryJdbcImpl implements UserRepository
 {
@@ -43,43 +45,43 @@ public class UserRepositoryJdbcImpl implements UserRepository
 	@Override
 	public List<User> findAll()
 	{
-		return jdbcTemplate.query("select * from USERS ",rowMapper);
+		return jdbcTemplate.query("select * from DB_USERS ",rowMapper);
 	}
 	
 	@Override
 	public User findByUserId(Long userid)
 	{
-		return DataAccessUtils.singleResult(jdbcTemplate.query("select * from USERS where userid = ?",rowMapper,userid));
+		return DataAccessUtils.singleResult(jdbcTemplate.query("select * from DB_USERS where userid = ?",rowMapper,userid));
 	}
 	
 	@Override
 	public List<User> findAllByUserId(Long userid)
 	{
-		return jdbcTemplate.query("select * from USERS",rowMapper);
+		return jdbcTemplate.query("select * from DB_USERS",rowMapper);
 	}
 	
 	@Override
 	public User findByUserName(String userName)
 	{
-		return DataAccessUtils.singleResult(jdbcTemplate.query("select * from USERS where username like ?",rowMapper,"%"+userName+"%"));
+		return DataAccessUtils.singleResult(jdbcTemplate.query("select * from DB_USERS where username like ?",rowMapper,"%"+userName+"%"));
 	}
 	
 	@Override
 	public List<User> findAllByUserName(String userName)
 	{
-		return jdbcTemplate.query("select * from USERS where username like ?",rowMapper,"%"+userName+"%");
+		return jdbcTemplate.query("select * from DB_USERS where username like ?",rowMapper,"%"+userName+"%");
 	}
 	
 	@Override
 	public User findByEmail(String email)
 	{
-		return DataAccessUtils.singleResult(jdbcTemplate.query("select * from USERS where email like ?",rowMapper,"%"+email+"%"));
+		return DataAccessUtils.singleResult(jdbcTemplate.query("select * from DB_USERS where email like ?",rowMapper,"%"+email+"%"));
 	}
 	
 	@Override
 	public List<User> findAllByEmail(String email)
 	{
-		return jdbcTemplate.query("select * from USERS where email like ?",rowMapper,"%"+email+"%");
+		return jdbcTemplate.query("select * from DB_USERS where email like ?",rowMapper,"%"+email+"%");
 	}
 	
 	@Override
@@ -93,7 +95,7 @@ public class UserRepositoryJdbcImpl implements UserRepository
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException
 			{
 				PreparedStatement stmt=con.prepareStatement(
-				                                            "insert into USERS(username,password,active,userid,name,surname,email,confirmationtoken,createdate) "
+				                                            "insert into DB_USERS(username,password,active,userid,name,surname,email,confirmationtoken,createdate) "
 				                                            +" values(?,?,?,default,?,?,?,?,?)");
 				stmt.setString(1,user.getUsername());
 				stmt.setString(2,user.getPassword());
@@ -117,7 +119,7 @@ public class UserRepositoryJdbcImpl implements UserRepository
 	@Override
 	public User update(User user)
 	{
-		int count=jdbcTemplate.update("update USERS "
+		int count=jdbcTemplate.update("update DB_USERS "
 		+"set username = ?, password = ?, active = ?, name = ?, surname = ?, email = ?, confirmationtoken = ?, createdate = ? "
 		+"where id = ?",user.getUsername(),user.getPassword(),user.isActive(),user.getName(),user.getSurname(),user.getEmail(),user.getConfirmationtoken(),user.getCreatedate(),user.getUserId());
 		if(count!=1)
@@ -130,19 +132,19 @@ public class UserRepositoryJdbcImpl implements UserRepository
 	@Override
 	public void delete(Long userid)
 	{
-		jdbcTemplate.update("delete from USERS where userid = ?",userid);
+		jdbcTemplate.update("delete from DB_USERS where userid = ?",userid);
 	}
 	
 	@Override
 	public void deleteByUserName(String userName)
 	{
-		jdbcTemplate.update("delete from USERS where userName like ?","%"+userName+"%");
+		jdbcTemplate.update("delete from DB_USERS where userName like ?","%"+userName+"%");
 	}
 	
 	@Override
 	public void deleteByEmail(String email)
 	{
-		jdbcTemplate.update("delete from USERS where email like ?","%"+email+"%");
+		jdbcTemplate.update("delete from DB_USERS where email like ?","%"+email+"%");
 	}
 	
 }

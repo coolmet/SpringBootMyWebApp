@@ -1,6 +1,7 @@
 package com.springboot.mywebapp.service.impl;
 
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -20,6 +21,7 @@ public class UserServiceImpl implements UserService
 		return userRepository;
 	}
 	
+	@Autowired
 	public void setUserRepository(UserRepository userRepository)
 	{
 		this.userRepository=userRepository;

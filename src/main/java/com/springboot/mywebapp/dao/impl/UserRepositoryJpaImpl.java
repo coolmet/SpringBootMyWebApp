@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.springboot.mywebapp.dao.UserRepository;
 import com.springboot.mywebapp.model.User;
 
+//@Primary
 @Repository("userRepository")
 public class UserRepositoryJpaImpl implements UserRepository
 {
@@ -15,8 +16,8 @@ public class UserRepositoryJpaImpl implements UserRepository
 	
 	@Override
 	public List<User> findAll()
-	{
-		return entityManager.createQuery("from USERS",User.class).getResultList();
+	{		
+		return entityManager.createQuery("from User",User.class).getResultList();
 	}
 	
 	@Override
@@ -28,31 +29,31 @@ public class UserRepositoryJpaImpl implements UserRepository
 	@Override
 	public List<User> findAllByUserId(Long userid)
 	{
-		return entityManager.createQuery("from USERS where user.userid = :userid",User.class).setParameter("userid",userid).getResultList();
+		return entityManager.createQuery("from User where userid = :userid",User.class).setParameter("userid",userid).getResultList();
 	}
 	
 	@Override
 	public User findByUserName(String userName)
 	{
-		return entityManager.createQuery("from USERS where user.username = :username",User.class).setParameter("userName",userName).getSingleResult();
+		return entityManager.createQuery("from User where username = :username",User.class).setParameter("userName",userName).getSingleResult();
 	}
 	
 	@Override
 	public List<User> findAllByUserName(String userName)
 	{
-		return entityManager.createQuery("from USERS where user.username = :username",User.class).setParameter("userName",userName).getResultList();
+		return entityManager.createQuery("from User where username = :username",User.class).setParameter("userName",userName).getResultList();
 	}
 	
 	@Override
 	public User findByEmail(String email)
 	{
-		return entityManager.createQuery("from USERS where user.email = :email",User.class).setParameter("email",email).getSingleResult();
+		return entityManager.createQuery("from User where email = :email",User.class).setParameter("email",email).getSingleResult();
 	}
 	
 	@Override
 	public List<User> findAllByEmail(String email)
 	{
-		return entityManager.createQuery("from USERS where user.email = :email",User.class).setParameter("email",email).getResultList();
+		return entityManager.createQuery("from User where email = :email",User.class).setParameter("email",email).getResultList();
 	}
 	
 	@Override
@@ -76,13 +77,13 @@ public class UserRepositoryJpaImpl implements UserRepository
 	@Override
 	public void deleteByUserName(String userName)
 	{
-		entityManager.createQuery("delete from USERS where user.username = :userName").setParameter("userName",userName).executeUpdate();
+		entityManager.createQuery("delete from User where username = :userName").setParameter("userName",userName).executeUpdate();
 	}
 	
 	@Override
 	public void deleteByEmail(String email)
 	{
-		entityManager.createQuery("delete from USERS where user.email = :email").setParameter("email",email).executeUpdate();
+		entityManager.createQuery("delete from User where email = :email").setParameter("email",email).executeUpdate();
 	}
 	
 }
