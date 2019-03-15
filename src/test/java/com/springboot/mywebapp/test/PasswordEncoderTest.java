@@ -1,4 +1,4 @@
-package com.springboot.mywebapp;
+package com.springboot.mywebapp.test;
 
 import org.junit.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

@@ -20,7 +20,8 @@ public class User extends BaseEntity
 	private boolean active=false;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.TABLE)
+	@Column(name="userid",updatable=false,nullable=false)
 	private Long userid;
 	
 	private String name;

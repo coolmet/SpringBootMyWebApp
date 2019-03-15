@@ -3,7 +3,7 @@ package com.springboot.mywebapp.service;
 import java.util.List;
 import com.springboot.mywebapp.model.User;
 
-public interface UserService
+public interface UserService 
 {
 	List<User> findAll();
 	

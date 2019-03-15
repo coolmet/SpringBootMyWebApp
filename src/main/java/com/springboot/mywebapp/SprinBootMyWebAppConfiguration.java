@@ -1,18 +1,15 @@
 package com.springboot.mywebapp;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ansi.AnsiColor;
 import org.springframework.boot.ansi.AnsiOutput;
 import org.springframework.context.annotation.Configuration;
-import com.springboot.mywebapp.model.Language;
 
 @Configuration
 public class SprinBootMyWebAppConfiguration
 {
+	
 	@Autowired
 	private SpringBootMyWebAppProperties springBootMyWebAppProperties;
 	
