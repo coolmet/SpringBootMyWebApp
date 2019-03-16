@@ -83,7 +83,7 @@ public class SecurityConfiguration
 					       "/**/webjars/**",
 					       "/login", 
 					       "/register", 
-					       "/save", 
+					       "/registersave", 
 					       "/**/logout", 
 					       "logout", 
 					       "/logout", 

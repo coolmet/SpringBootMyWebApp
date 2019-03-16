@@ -4,6 +4,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionRegistry;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+import com.springboot.mywebapp.service.UtilService;
 import com.springboot.mywebapp.service.LanguageService;
 
 @Controller
@@ -27,6 +29,9 @@ public class WebLinkControllerAnnoymusTh
 	
 	@Autowired
 	private LanguageService languageService;
+	
+	@Autowired
+	private UtilService utilService;
 	
 	@RequestMapping(value=
 	{"/","/index"})
@@ -72,38 +77,33 @@ public class WebLinkControllerAnnoymusTh
 	}
 	
 	@RequestMapping(value="/register",method=RequestMethod.GET)
-	public ModelAndView registerTh(@RequestParam Map<String,String> messages,Model model)
+	public ModelAndView registerTh(HttpSession session)
 	{
-		model.asMap().clear();
 		ModelAndView mav=new ModelAndView();
-		mav.getModel().clear();
 		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
-		mav.addObject("user",new com.springboot.mywebapp.model.User());
-		mav.addObject("message",""+messages.get("message"));
+		mav.addObject("user",session.getAttribute("registeruser")==null?new com.springboot.mywebapp.model.User():session.getAttribute("registeruser"));
+		mav.addObject("message",session.getAttribute("registermessage"));
+		mav.addObject("status",session.getAttribute("registerstatus"));
 		mav.setViewName("th_register");
+		session.removeAttribute("registermessage");
+		session.removeAttribute("registerstatus");
+		session.removeAttribute("registeruser");
 		return mav;
 	}
 	
-	@RequestMapping(value="/save",method=RequestMethod.POST)
-	public RedirectView saveTh(HttpSession session,@ModelAttribute(value="user") com.springboot.mywebapp.model.User user)
+	@RequestMapping(value="/registersave",method=RequestMethod.POST)
+	public String registerSaveTh(HttpSession session,@ModelAttribute(value="user") com.springboot.mywebapp.model.User user)
 	{
 		System.out.println(user.getUserId());
 		System.out.println(user.getName());
 		System.out.println(user.getEmail());
-		String message="";
 		System.out.println(user.getPassword()+":::"+user.getConfirmationtoken());
-		
-		if(!user.getPassword().equals(user.getConfirmationtoken()))
-		{
-			message="Şifreleri farklı girdiniz ...";
-		}
 		//
-		RedirectView rv=new RedirectView();
-		//rv.setContextRelative(true);
-		//rv.setExposeModelAttributes(true);
-		rv.addStaticAttribute("message",message);
-		rv.setUrl("/register");
-		return rv;
+		Map<String,String> checkUser=utilService.registerUser(user);
+		session.setAttribute("registermessage",checkUser.get("registermessage"));
+		session.setAttribute("registerstatus",checkUser.get("registerstatus"));
+		session.setAttribute("registeruser",user);
+		return "redirect:/register";
 	}
 	
 	@RequestMapping("/default")

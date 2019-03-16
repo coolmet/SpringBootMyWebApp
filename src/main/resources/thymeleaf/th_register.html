@@ -23,7 +23,7 @@
 <body>
 	<div th:include="fragments/languageleft.html :: FRG_language_javascript"></div>
 
-	<form action="#" th:action="@{/save}" th:object="${user}" method="post">
+	<form action="#" th:action="@{/registersave}" th:object="${user}" method="post">
 		<div style="position: relative">
 			<div id="particles-js"></div>
 			<div id="limiter" class="limiter">
@@ -94,9 +94,15 @@
 								</div>
 							</div>
 
-							<div th:if="${message} != null " style="color: red; margin: 10px 0px;">
-								<div class="alert alert-danger" role="alert">
-									<span th:utext="${message}"> Static summary </span>
+							<div th:if="${message} != null and ${status} == 'ERROR' " style="color: red; margin: 10px 0px;">
+								<div class="alert alert-danger" role="alert" style="font-size: 12px;">
+									<span th:utext="${message}"></span>
+								</div>
+							</div>
+
+							<div th:if="${message} != null and ${status} == 'OK' " style="color: green; margin: 10px 0px;">
+								<div class="alert alert-success" role="alert" style="font-size: 12px;">
+									<span th:utext="${message}"></span>
 								</div>
 							</div>
 
