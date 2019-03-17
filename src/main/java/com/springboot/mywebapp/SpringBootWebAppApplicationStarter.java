@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+@EnableJpaAuditing(auditorAwareRef="myWebAppAuditorAware")
 @SpringBootApplication
 @EnableConfigurationProperties(value=SpringBootMyWebAppProperties.class)
 @ServletComponentScan

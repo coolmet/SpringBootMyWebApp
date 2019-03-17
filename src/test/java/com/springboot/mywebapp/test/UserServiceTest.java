@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.MessageSource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import com.springboot.mywebapp.model.User;
@@ -20,6 +21,9 @@ public class UserServiceTest
 {
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private MessageSource messageSource;
 	
 	@Test
 	public void testAddUsers()
@@ -34,7 +38,19 @@ public class UserServiceTest
 		user.setSurname("SURNAME");
 		user.setUsername("USERNAME");
 		userService.create(user);
-		System.out.println("Test:3#"+userService.findByEmail("MAIL@EMAIL.COM").getUserId()+"\t"+userService.findByEmail("MAIL@EMAIL.COM").getName());
+		System.out.println("Test:1#"+userService.findByEmail("MAIL@EMAIL.COM").getUserId()+"\t"+userService.findByEmail("MAIL@EMAIL.COM").getName());
+		//
+		user=new User();
+		user.setActive(true);
+		user.setConfirmationtoken("token");
+		user.setCreatedate(new java.sql.Date(new java.util.Date().getTime()));
+		user.setEmail("MAIL2@EMAIL.COM");
+		user.setName("NAME2");
+		user.setPassword("PASSWORD2");
+		user.setSurname("SURNAME2");
+		user.setUsername("USERNAME2");
+		userService.create(user);
+		System.out.println("Test:2#"+userService.findByEmail("MAIL2@EMAIL.COM").getUserId()+"\t"+userService.findByEmail("MAIL2@EMAIL.COM").getName());
 		
 	}
 	

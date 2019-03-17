@@ -19,10 +19,20 @@ public class User extends BaseEntity
 	private String password;
 	private boolean active=false;
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE)
-	@Column(name="userid",updatable=false,nullable=false)
-	private Long userid;
+	// @Id
+	// @GeneratedValue(strategy=GenerationType.TABLE)
+	// @Column(name="userid",updatable=false,nullable=false)
+	// private Long userid;
+	//
+	// public Long getUserId()
+	// {
+	// return userid;
+	// }
+	//
+	// public void setUserId(Long userid)
+	// {
+	// this.userid=userid;
+	// }
 	
 	private String name;
 	private String surname;
@@ -61,16 +71,6 @@ public class User extends BaseEntity
 	public void setActive(boolean active)
 	{
 		this.active=active;
-	}
-	
-	public Long getUserId()
-	{
-		return userid;
-	}
-	
-	public void setUserId(Long userid)
-	{
-		this.userid=userid;
 	}
 	
 	public String getName()
@@ -126,7 +126,7 @@ public class User extends BaseEntity
 	@Override
 	public String toString()
 	{
-		return "User [username="+username+", password="+password+", active="+active+", userid="+userid+", name="+name+", surname="+surname+", email="+email+", confirmationtoken="+confirmationtoken+", createdate="+createdate+"]";
+		return "User [username="+username+", password="+password+", active="+active+", name="+name+", surname="+surname+", email="+email+", confirmationtoken="+confirmationtoken+", createdate="+createdate+"]";
 	}
 	
 }

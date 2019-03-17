@@ -56,17 +56,17 @@
 							</div>
 
 							<div class="wrap-input100 validate-input" th:attr="data-validate=#{register.entersurname}">
-								<input class="input100" type="text" name="surname" id="surname" th:field="*{surname}" autofocus="autofocus">
+								<input class="input100" type="text" name="surname" id="surname" th:field="*{surname}">
 								<span class="focus-input100" th:attr="data-placeholder=#{register.surname}"> </span>
 							</div>
 
 							<div class="wrap-input100 validate-input" th:attr="data-validate=#{register.enterusername}">
-								<input class="input100" type="text" name="username" id="username" th:field="*{username}" autofocus="autofocus">
+								<input class="input100" type="text" name="username" id="username" th:field="*{username}">
 								<span class="focus-input100" th:attr="data-placeholder=#{register.username}"> </span>
 							</div>
 
 							<div class="wrap-input100 validate-input" th:attr="data-validate=#{register.enteremail}">
-								<input class="input100" type="text" name="email" id="email" th:field="*{email}" autofocus="autofocus">
+								<input class="input100" type="text" name="email" id="email" th:field="*{email}">
 								<span class="focus-input100" th:attr="data-placeholder=#{register.email}"> </span>
 							</div>
 
@@ -75,7 +75,7 @@
 								<span class="btn-show-pass">
 									<i class="zmdi zmdi-eye" style="font-size: inherit"></i>
 								</span>
-								<input class="input100" type="password" name="pass" id="pass" th:field="*{password}" autofocus="autofocus">
+								<input class="input100" type="password" name="pass" id="pass" th:field="*{password}">
 								<span class="focus-input100" th:attr="data-placeholder=#{register.password}"> </span>
 							</div>
 
@@ -83,7 +83,7 @@
 								<span class="btn-show-pass">
 									<i class="zmdi zmdi-eye" style="font-size: inherit"></i>
 								</span>
-								<input class="input100" type="password" name="pass2" id="pass2" th:field="*{confirmationtoken}" autofocus="autofocus">
+								<input class="input100" type="password" name="pass2" id="pass2" th:field="*{confirmationtoken}">
 								<span class="focus-input100" th:attr="data-placeholder=#{register.passwordagain}"> </span>
 							</div>
 
@@ -105,6 +105,8 @@
 									<span th:utext="${message}"></span>
 								</div>
 							</div>
+
+							<p id="demo"></p>
 
 						</div>
 					</div>
