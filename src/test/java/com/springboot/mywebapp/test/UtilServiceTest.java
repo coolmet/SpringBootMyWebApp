@@ -1,12 +1,20 @@
 package com.springboot.mywebapp.test;
 
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import com.springboot.mywebapp.model.User;
 import com.springboot.mywebapp.service.UserService;
 import com.springboot.mywebapp.service.UtilService;
@@ -14,6 +22,7 @@ import com.springboot.mywebapp.service.UtilService;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
+@PropertySource("file:application.properties")
 public class UtilServiceTest
 {
 	@Autowired
@@ -21,6 +30,12 @@ public class UtilServiceTest
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	Environment environment;
+	
+	@Value("${server.port}")
+	private String serverport;
 	
 	@Test
 	public void testEmailAddressIsValid()
@@ -79,6 +94,35 @@ public class UtilServiceTest
 		user.setEmail("xxemail");
 		user.setUsername("xxusername");
 		//
+		getBaseEnvLinkURL();
 		
+	}
+	
+	protected String getBaseEnvLinkURL()
+	{
+		String baseEnvLinkURL=null;
+		HttpServletRequest currentRequest=((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+		// lazy about determining protocol but can be done too
+		baseEnvLinkURL="http://"+currentRequest.getLocalName();
+		if(currentRequest.getLocalPort()!=80)
+		{
+			baseEnvLinkURL+=":"+currentRequest.getLocalPort();
+		}
+		if(!StringUtils.isEmpty(currentRequest.getContextPath()))
+		{
+			baseEnvLinkURL+=currentRequest.getContextPath();
+		}
+		System.out.println("x0:"+baseEnvLinkURL);
+		System.out.println("x1:"+currentRequest.getServerName());
+		System.out.println("x2:"+currentRequest.getServerPort());
+		System.out.println("x3:"+currentRequest.getServletPath());
+		System.out.println("x4:"+currentRequest.getServerPort());
+		System.out.println("x5:"+currentRequest.getContextPath());
+		System.out.println("x6:"+currentRequest.getLocalAddr());
+		System.out.println("x7:"+currentRequest.getPathInfo());
+		System.out.println("x8:"+environment.getProperty("local.server.port"));
+		System.out.println("x9:"+serverport);
+		
+		return baseEnvLinkURL;
 	}
 }
