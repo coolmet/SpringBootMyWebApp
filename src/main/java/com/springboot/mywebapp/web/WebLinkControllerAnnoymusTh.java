@@ -76,7 +76,7 @@ public class WebLinkControllerAnnoymusTh
 		return mav;
 	}
 	
-	@RequestMapping(value="/register",method=RequestMethod.GET)
+	@RequestMapping(value="/myweb/register",method=RequestMethod.GET)
 	public ModelAndView registerTh(HttpSession session)
 	{
 		ModelAndView mav=new ModelAndView();
@@ -91,19 +91,32 @@ public class WebLinkControllerAnnoymusTh
 		return mav;
 	}
 	
-	@RequestMapping(value="/registersave",method=RequestMethod.POST)
+	@RequestMapping(value="/myweb/registersave",method=RequestMethod.POST)
 	public String registerSaveTh(HttpSession session,@ModelAttribute(value="user") com.springboot.mywebapp.model.User user)
 	{
-		System.out.println(user.getUserId());
-		System.out.println(user.getName());
-		System.out.println(user.getEmail());
-		System.out.println(user.getPassword()+":::"+user.getConfirmationtoken());
-		//
 		Map<String,String> checkUser=utilService.registerUser(user);
 		session.setAttribute("registermessage",checkUser.get("registermessage"));
 		session.setAttribute("registerstatus",checkUser.get("registerstatus"));
 		session.setAttribute("registeruser",user);
-		return "redirect:/register";
+		return "redirect:/myweb/register";
+	}
+	
+	@RequestMapping(value="/myweb/confirm-account")
+	public ModelAndView registerConfirmAccountTh(HttpSession session,@RequestParam(value="token",required=false) String token)
+	{
+		ModelAndView mav=new ModelAndView();
+		if(token!=null)
+		{
+			session.setAttribute("confirmaccounttoken",token);
+			mav.setViewName("redirect:/myweb/confirm-account");
+		}
+		else
+		{
+			mav.addObject("token",session.getAttribute("confirmaccounttoken"));
+			mav.setViewName("th_confirmaccount");
+			session.removeAttribute("confirmaccounttoken");
+		}
+		return mav;
 	}
 	
 	@RequestMapping("/default")

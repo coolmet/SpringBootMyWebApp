@@ -13,22 +13,22 @@ import com.springboot.mywebapp.service.EmailService;
 @SpringBootTest
 public class EmailTest
 {
-	// @Autowired
-	// public JavaMailSender mailSender;
-	//
-	// @Autowired
-	// public EmailService emailService;
-	//
-	// @Test
-	// public void mailTest()
-	// {
-	// SimpleMailMessage msg=new SimpleMailMessage();
-	// msg.setFrom("k@s");
-	// msg.setTo("metehanmeral@hotmail.com");
-	// msg.setSubject("Owner created!");
-	// msg.setText("Owner entity with id :xxx created successfully.");
-	// mailSender.send(msg);
-	// //
-	// emailService.send("\"metehanmeral@hotmail.com\"","metehanmeral@hotmail.com","konu","body");
-	// }
+	@Autowired
+	public JavaMailSender mailSender;
+	
+	@Autowired
+	public EmailService emailService;
+	
+	@Test
+	public void mailTest()
+	{
+		SimpleMailMessage msg=new SimpleMailMessage();
+		msg.setFrom("k@s");
+		msg.setTo("metehanmeral@hotmail.com");
+		msg.setSubject("Owner created!");
+		msg.setText("Owner entity with id :xxx created successfully.");
+		mailSender.send(msg);
+		//
+		emailService.send("\"metehanmeral@hotmail.com\"","metehanmeral@hotmail.com","konu","body");
+	}
 }

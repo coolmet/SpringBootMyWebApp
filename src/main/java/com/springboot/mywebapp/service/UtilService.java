@@ -122,9 +122,12 @@ public class UtilService
 			user.setConfirmationtoken(UUID.randomUUID().toString());
 			userService.create(user);
 			authService.create(user.getUsername(),ROLES.ROLE_USER.stringValue);
-			System.out.println("x0:"+getBaseLinkURL());
-			////// emailService.send("metehanmeral@hotmail.com",user.getEmail(),"SpringBootMyWebApp-Registration","http://localhost:8082/confirm-account?token="+user.getConfirmationtoken());
-			registermessage=messageSource.getMessage("register.ok.registrationsccussfully",new Object[0],LocaleContextHolder.getLocale())+"\nUserId:"+user.getUserId();
+			emailService.send("SpringBootMyWebApp-Registration",
+			                  user.getEmail(),
+			                  "SpringBootMyWebApp-Registration",
+			                  messageSource.getMessage("register.mail.content1",new Object[0],LocaleContextHolder.getLocale())+"\n\n"+
+			                  getBaseLinkURL()+"/myweb/confirm-account?token="+user.getConfirmationtoken());
+			registermessage=messageSource.getMessage("register.ok.registrationsccussfully",new Object[0],LocaleContextHolder.getLocale());
 			registerstatus="OK";
 		}
 		//
