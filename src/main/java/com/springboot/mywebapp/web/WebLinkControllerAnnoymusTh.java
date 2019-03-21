@@ -1,11 +1,13 @@
 package com.springboot.mywebapp.web;
 
+import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import com.springboot.mywebapp.service.UtilService;
 import com.springboot.mywebapp.service.LanguageService;
+import com.springboot.mywebapp.service.RecaptchaService;
 
 @Controller
 public class WebLinkControllerAnnoymusTh
@@ -32,6 +35,9 @@ public class WebLinkControllerAnnoymusTh
 	
 	@Autowired
 	private UtilService utilService;
+	
+	@Autowired
+	RecaptchaService captchaService;
 	
 	@RequestMapping(value=
 	{"/","/index"})
@@ -81,13 +87,13 @@ public class WebLinkControllerAnnoymusTh
 	{
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
-		mav.addObject("user",session.getAttribute("registeruser")==null?new com.springboot.mywebapp.model.User():session.getAttribute("registeruser"));
-		mav.addObject("message",session.getAttribute("registermessage"));
-		mav.addObject("status",session.getAttribute("registerstatus"));
+		mav.addObject("user",session.getAttribute("registeruser"+session.getId())==null?new com.springboot.mywebapp.model.User():session.getAttribute("registeruser"+session.getId()));
+		mav.addObject("message",session.getAttribute("registermessage"+session.getId()));
+		mav.addObject("status",session.getAttribute("registerstatus"+session.getId()));
 		mav.setViewName("th_register");
-		session.removeAttribute("registermessage");
-		session.removeAttribute("registerstatus");
-		session.removeAttribute("registeruser");
+		session.removeAttribute("registermessage"+session.getId());
+		session.removeAttribute("registerstatus"+session.getId());
+		session.removeAttribute("registeruser"+session.getId());
 		return mav;
 	}
 	
@@ -95,10 +101,24 @@ public class WebLinkControllerAnnoymusTh
 	public String registerSaveTh(HttpSession session,@ModelAttribute(value="user") com.springboot.mywebapp.model.User user)
 	{
 		Map<String,String> checkUser=utilService.registerUser(user);
-		session.setAttribute("registermessage",checkUser.get("registermessage"));
-		session.setAttribute("registerstatus",checkUser.get("registerstatus"));
-		session.setAttribute("registeruser",user);
+		session.setAttribute("registermessage"+session.getId(),checkUser.get("registermessage"));
+		session.setAttribute("registerstatus"+session.getId(),checkUser.get("registerstatus"));
+		session.setAttribute("registeruser"+session.getId(),user);
 		return "redirect:/myweb/register";
+	}
+	
+	@RequestMapping(value="/myweb/registerconfirm",method=RequestMethod.POST)
+	public ResponseEntity<?> registerConfirmTh(@RequestParam(name="g-recaptcha-response") String recaptchaResponse,HttpServletRequest request)
+	{
+		String ip=request.getRemoteAddr();
+		String captchaVerifyMessage=captchaService.verifyRecaptcha(ip,recaptchaResponse);
+		if(!captchaVerifyMessage.equals(""))
+		{
+			Map<String,Object> response=new HashMap<>();
+			response.put("message",captchaVerifyMessage);
+			return ResponseEntity.badRequest().body(response);
+		}
+		return ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(value="/myweb/confirm-account")
@@ -107,14 +127,14 @@ public class WebLinkControllerAnnoymusTh
 		ModelAndView mav=new ModelAndView();
 		if(token!=null)
 		{
-			session.setAttribute("confirmaccounttoken",token);
+			session.setAttribute("confirmaccounttoken"+session.getId(),token);
 			mav.setViewName("redirect:/myweb/confirm-account");
 		}
 		else
 		{
-			mav.addObject("token",session.getAttribute("confirmaccounttoken"));
+			mav.addObject("token",session.getAttribute("confirmaccounttoken"+session.getId()));
 			mav.setViewName("th_confirmaccount");
-			session.removeAttribute("confirmaccounttoken");
+			session.removeAttribute("confirmaccounttoken"+session.getId());
 		}
 		return mav;
 	}

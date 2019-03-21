@@ -12,6 +12,7 @@
 <div th:include="fragments/headernavbar.html :: FRG_header_navbar_javascript"></div>
 <div th:replace="fragments/headernavbar.html :: FRG_header_navbar"></div>
 
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
 
@@ -23,5 +24,20 @@
 		Token:
 		</br>
 		<span th:utext="${token}"></span>
+		</br>
+		</br>
+		<span th:utext="${@recaptchaService.getGOOGLE_RECAPTCHA_VERIFY_URL()}">URL</span>
+		</br>
+		<span th:utext="${@recaptchaService.getRecaptchaSiteKey()}">KEY</span>
+		</br>
+		<span th:utext="${@recaptchaService.getRecaptchaSecret()}">SECRET</span>
+
+
+		<form id="signup-form" class="form-horizontal" method="POST" th:action="@{/myweb/registerconfirm}" th:object="${user}">
+
+			<div class="g-recaptcha col-sm-5" th:attr="data-sitekey=${@recaptchaService.getRecaptchaSiteKey()}"></div>
+			<button type="submit" class="btn btn-primary">Onayla</button>
+		</form>
+
 	</div>
 </body>

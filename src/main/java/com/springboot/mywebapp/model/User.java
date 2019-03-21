@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="DB_USERS")
@@ -47,7 +48,7 @@ public class User extends BaseEntity
 	{
 		return username;
 	}
-	
+
 	public void setUsername(String username)
 	{
 		this.username=username;
