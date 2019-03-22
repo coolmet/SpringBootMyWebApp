@@ -12,7 +12,14 @@
 <div th:include="fragments/headernavbar.html :: FRG_header_navbar_javascript"></div>
 <div th:replace="fragments/headernavbar.html :: FRG_header_navbar"></div>
 
-<script src='https://www.google.com/recaptcha/api.js'></script>
+
+<script src="https://www.google.com/recaptcha/api.js?render=6LcEM5kUAAAAAE4PPbeAxU9jefSG5LNtnCI3IsTF"></script>
+<script>
+  grecaptcha.ready(function() {
+      grecaptcha.execute('6LcEM5kUAAAAAE4PPbeAxU9jefSG5LNtnCI3IsTF', {action: 'homepage'});
+  });
+  </script>
+
 </head>
 
 
