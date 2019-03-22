@@ -5,7 +5,9 @@
 <title>Index</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale = 0.4, maximum-scale=1.0, user-scalable=no" />
-
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" href="/logines/images/icons/favicon.ico" />
+<!--===============================================================================================-->
 <div th:include="fragments/headernavbar.html :: FRG_header_navbar_css"></div>
 <div th:include="fragments/headernavbar.html :: FRG_header_navbar_js"></div>
 <div th:include="fragments/headernavbar.html :: FRG_header_navbar_style"></div>
@@ -13,38 +15,34 @@
 <div th:replace="fragments/headernavbar.html :: FRG_header_navbar"></div>
 
 
-<script src="https://www.google.com/recaptcha/api.js?render=6LcEM5kUAAAAAE4PPbeAxU9jefSG5LNtnCI3IsTF"></script>
-<script>
-  grecaptcha.ready(function() {
-      grecaptcha.execute('6LcEM5kUAAAAAE4PPbeAxU9jefSG5LNtnCI3IsTF', {action: 'homepage'});
-  });
-  </script>
+<script src="https://www.google.com/recaptcha/api.js"></script>
+
 
 </head>
 
 
 <body>
-	<div style="position: relative; text-align: center;">
-		</br>
-		</br>
-		</br>
-		Token:
-		</br>
-		<span th:utext="${token}"></span>
-		</br>
-		</br>
-		<span th:utext="${@recaptchaService.getGOOGLE_RECAPTCHA_VERIFY_URL()}">URL</span>
-		</br>
-		<span th:utext="${@recaptchaService.getRecaptchaSiteKey()}">KEY</span>
-		</br>
-		<span th:utext="${@recaptchaService.getRecaptchaSecret()}">SECRET</span>
 
 
-		<form id="signup-form" class="form-horizontal" method="POST" th:action="@{/myweb/registerconfirm}" th:object="${user}">
+	<form th:if="${token} != null and ${token} !=''" class="form-horizontal" method="POST" th:action="@{'/myweb/registerconfirm?token='+${token}}">
+		<div style="position: relative; text-align: center;">
+			</br>
+			</br>
 
-			<div class="g-recaptcha col-sm-5" th:attr="data-sitekey=${@recaptchaService.getRecaptchaSiteKey()}"></div>
-			<button type="submit" class="btn btn-primary">Onayla</button>
-		</form>
+			<div
+				style="margin: 15px auto !important; width: auto !important; height: auto !important; text-align: -webkit-center; text-align: -moz-center;
+	text-align: -o-center; text-align: -ms-center;"
+				class="g-recaptcha" th:attr="data-sitekey=${@recaptchaService.getRecaptchaSiteKey()}"
+			></div>
 
-	</div>
+			<button type="submit" class="btn btn-primary" th:text="#{register.confirm.save}">></button>
+
+			<div th:if="${recaptchamessage} != null " style="color: red; margin: 10px 30%; width: 40%">
+				<div class="alert alert-danger" role="alert" style="font-size: 12px;">
+					<span th:text="#{'recaptcha.message.'+${recaptchamessage}}"></span>
+				</div>
+			</div>
+		</div>
+	</form>
+
 </body>

@@ -2,6 +2,7 @@ package com.springboot.mywebapp.web;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,33 +109,44 @@ public class WebLinkControllerAnnoymusTh
 	}
 	
 	@RequestMapping(value="/myweb/registerconfirm",method=RequestMethod.POST)
-	public ResponseEntity<?> registerConfirmTh(@RequestParam(name="g-recaptcha-response") String recaptchaResponse,HttpServletRequest request)
+	public ModelAndView registerConfirmTh(@RequestParam(name="g-recaptcha-response") String recaptchaResponse,
+	                                      @RequestParam(value="token",required=false) String token,
+	                                      HttpServletRequest request)
 	{
-		String ip=request.getRemoteAddr();
-		String captchaVerifyMessage=captchaService.verifyRecaptcha(ip,recaptchaResponse);
+		ModelAndView mav=new ModelAndView();
+		String captchaVerifyMessage=captchaService.verifyRecaptcha(request.getRemoteAddr(),recaptchaResponse);
 		if(!captchaVerifyMessage.equals(""))
 		{
-			Map<String,Object> response=new HashMap<>();
-			response.put("message",captchaVerifyMessage);
-			return ResponseEntity.badRequest().body(response);
+			mav.addObject("recaptchamessage",captchaVerifyMessage);
+			mav.addObject("token",token);
+			mav.setViewName("redirect:/myweb/confirm-account");
 		}
-		return ResponseEntity.ok().build();
+		else
+		{
+			mav.setViewName("redirect:/login");
+		}
+		return mav;
 	}
 	
 	@RequestMapping(value="/myweb/confirm-account")
-	public ModelAndView registerConfirmAccountTh(HttpSession session,@RequestParam(value="token",required=false) String token)
+	public ModelAndView registerConfirmAccountTh(HttpSession session,@RequestParam(value="token",required=false) String token,
+	                                             @RequestParam(value="recaptchamessage",required=false) String recaptchamessage)
 	{
 		ModelAndView mav=new ModelAndView();
 		if(token!=null)
 		{
 			session.setAttribute("confirmaccounttoken"+session.getId(),token);
+			session.setAttribute("confirmaccountmessage"+session.getId(),recaptchamessage);
 			mav.setViewName("redirect:/myweb/confirm-account");
 		}
 		else
 		{
+			mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
 			mav.addObject("token",session.getAttribute("confirmaccounttoken"+session.getId()));
+			mav.addObject("recaptchamessage",session.getAttribute("confirmaccountmessage"+session.getId()));
 			mav.setViewName("th_confirmaccount");
 			session.removeAttribute("confirmaccounttoken"+session.getId());
+			session.removeAttribute("confirmaccountmessage"+session.getId());
 		}
 		return mav;
 	}
