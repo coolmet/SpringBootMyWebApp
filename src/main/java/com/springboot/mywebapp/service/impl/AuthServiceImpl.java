@@ -1,8 +1,11 @@
 package com.springboot.mywebapp.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +38,26 @@ public class AuthServiceImpl implements AuthService
 	public Auth findByUserName(String userName)
 	{
 		return authRepository.findByUserName(userName);
+	}
+	
+	@Override
+	@Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
+	public List<Auth> findAllByUserName(String userName)
+	{
+		return authRepository.findAllByUserName(userName);
+	}
+	
+	@Override
+	@Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
+	public List<GrantedAuthority> findAllByUserNameGrantedAuthority(String userName)
+	{
+		List<Auth> authList=authRepository.findAllByUserName(userName);
+		List<GrantedAuthority> grantedAuthorities=new ArrayList<GrantedAuthority>();
+		for(Auth auth:authList)
+		{
+			grantedAuthorities.add(new SimpleGrantedAuthority(auth.getAuthority()));
+		}
+		return grantedAuthorities;
 	}
 	
 	@Override
@@ -88,7 +111,7 @@ public class AuthServiceImpl implements AuthService
 	{"ROLE_ADMIN"})
 	public void deleteByAuthId(String authId)
 	{
-		authRepository.deleteByAuthId(authId);		
+		authRepository.deleteByAuthId(authId);
 	}
 	
 }

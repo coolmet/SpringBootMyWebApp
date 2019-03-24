@@ -1,35 +1,32 @@
 package com.springboot.mywebapp.web;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
-import com.springboot.mywebapp.service.UtilService;
+import com.springboot.mywebapp.service.AuthService;
 import com.springboot.mywebapp.service.LanguageService;
 import com.springboot.mywebapp.service.RecaptchaService;
+import com.springboot.mywebapp.service.UtilService;
 
 @Controller
 public class WebLinkControllerAnnoymusTh
 {
-	@Autowired
-	private SessionRegistry sessionRegistry;
 	
 	@Autowired
 	private LanguageService languageService;
@@ -83,7 +80,7 @@ public class WebLinkControllerAnnoymusTh
 		return mav;
 	}
 	
-	@RequestMapping(value="/myweb/register",method=RequestMethod.GET)
+	@RequestMapping(value="/myweb/register",method=RequestMethod.GET) // register page
 	public ModelAndView registerTh(HttpSession session)
 	{
 		ModelAndView mav=new ModelAndView();
@@ -98,7 +95,7 @@ public class WebLinkControllerAnnoymusTh
 		return mav;
 	}
 	
-	@RequestMapping(value="/myweb/registersave",method=RequestMethod.POST)
+	@RequestMapping(value="/myweb/registersave",method=RequestMethod.POST) // register page save
 	public String registerSaveTh(HttpSession session,@ModelAttribute(value="user") com.springboot.mywebapp.model.User user)
 	{
 		Map<String,String> checkUser=utilService.registerUser(user);
@@ -108,7 +105,7 @@ public class WebLinkControllerAnnoymusTh
 		return "redirect:/myweb/register";
 	}
 	
-	@RequestMapping(value="/myweb/registerconfirm",method=RequestMethod.POST)
+	@RequestMapping(value="/myweb/activateacoount",method=RequestMethod.POST)
 	public ModelAndView registerConfirmTh(@RequestParam(name="g-recaptcha-response") String recaptchaResponse,
 	                                      @RequestParam(value="token",required=false) String token,
 	                                      HttpServletRequest request)
@@ -123,12 +120,23 @@ public class WebLinkControllerAnnoymusTh
 		}
 		else
 		{
-			mav.setViewName("redirect:/login");
+			Map<String,Object> activateUser=utilService.activateUser(token);
+			if(activateUser.get("activatestatus").equals("ERROR"))
+			{
+				mav.addObject("recaptchamessage",activateUser.get("activatemessage"));
+				mav.addObject("token",token);
+				mav.setViewName("redirect:/myweb/confirm-account");
+			}
+			else
+			{
+				utilService.authenticateUser(request,token);
+				mav.setViewName("redirect:/");
+			}
 		}
 		return mav;
 	}
 	
-	@RequestMapping(value="/myweb/confirm-account")
+	@RequestMapping(value="/myweb/confirm-account") // mailden gelen
 	public ModelAndView registerConfirmAccountTh(HttpSession session,@RequestParam(value="token",required=false) String token,
 	                                             @RequestParam(value="recaptchamessage",required=false) String recaptchamessage)
 	{

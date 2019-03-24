@@ -59,6 +59,25 @@ public class UserRepositoryJpaImpl implements UserRepository
 	}
 	
 	@Override
+	public User findByConfirmationToken(String confirmationToken)
+	{
+		try
+		{
+			return entityManager.createQuery("from User where confirmationtoken = :pConfirmationToken",User.class).setParameter("pConfirmationToken",confirmationToken).getSingleResult();
+		}
+		catch(Exception rt)
+		{
+			return emptyUser();
+		}
+	}
+	
+	@Override
+	public List<User> findAllByConfirmationToken(String confirmationToken)
+	{
+		return entityManager.createQuery("from User where confirmationtoken = :pConfirmationtoken",User.class).setParameter("pConfirmationToken",confirmationToken).getResultList();
+	}
+	
+	@Override
 	public User findByEmail(String email)
 	{
 		try

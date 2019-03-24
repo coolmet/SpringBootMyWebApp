@@ -64,6 +64,20 @@ public class UserServiceImpl implements UserService
 	
 	@Override
 	@Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
+	public User findByConfirmationToken(String confirmationToken)
+	{
+		return userRepository.findByConfirmationToken(confirmationToken);
+	}
+	
+	@Override
+	@Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
+	public List<User> findAllByConfirmationToken(String confirmationToken)
+	{
+		return userRepository.findAllByConfirmationToken(confirmationToken);
+	}
+	
+	@Override
+	@Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
 	public User findByEmail(String email)
 	{
 		return userRepository.findByEmail(email);
@@ -83,8 +97,6 @@ public class UserServiceImpl implements UserService
 	}
 	
 	@Override
-	@Secured(value=
-	{"ROLE_ADMIN","ROLE_USER"})
 	public User update(User user)
 	{
 		return userRepository.update(user);

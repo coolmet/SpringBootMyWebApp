@@ -1,5 +1,7 @@
 package com.springboot.mywebapp.dao.impl;
 
+import java.util.Arrays;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
@@ -24,6 +26,19 @@ public class AuthRepositoryJpaImpl implements AuthRepository
 		catch(Exception rt)
 		{
 			return emptyAuth();
+		}
+	}
+	
+	@Override
+	public List<Auth> findAllByUserName(String userName)
+	{
+		try
+		{
+			return entityManager.createQuery("from Auth where username = :pUserName",Auth.class).setParameter("pUserName",userName).getResultList();
+		}
+		catch(Exception rt)
+		{
+			return (List<Auth>)Arrays.asList(emptyAuth());
 		}
 	}
 	

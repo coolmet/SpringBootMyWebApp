@@ -16,6 +16,10 @@ public interface UserRepository
 	
 	List<User> findAllByUserName(String userName);
 	
+	User findByConfirmationToken(String confirmationToken);
+	
+	List<User> findAllByConfirmationToken(String confirmationToken);
+	
 	User findByEmail(String email);
 	
 	List<User> findAllByEmail(String email);

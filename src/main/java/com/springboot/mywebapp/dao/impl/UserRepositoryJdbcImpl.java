@@ -16,7 +16,6 @@ import org.springframework.stereotype.Repository;
 import com.springboot.mywebapp.dao.UserRepository;
 import com.springboot.mywebapp.model.User;
 
-
 public class UserRepositoryJdbcImpl implements UserRepository
 {
 	
@@ -70,6 +69,18 @@ public class UserRepositoryJdbcImpl implements UserRepository
 	public List<User> findAllByUserName(String userName)
 	{
 		return jdbcTemplate.query("select * from DB_USERS where username like ?",rowMapper,"%"+userName+"%");
+	}
+	
+	@Override
+	public User findByConfirmationToken(String confirmationToken)
+	{
+		return DataAccessUtils.singleResult(jdbcTemplate.query("select * from DB_USERS where confirmationtoken like ?",rowMapper,"%"+confirmationToken+"%"));
+	}
+	
+	@Override
+	public List<User> findAllByConfirmationToken(String confirmationToken)
+	{
+		return jdbcTemplate.query("select * from DB_USERS where confirmationtoken like ?",rowMapper,"%"+confirmationToken+"%");
 	}
 	
 	@Override

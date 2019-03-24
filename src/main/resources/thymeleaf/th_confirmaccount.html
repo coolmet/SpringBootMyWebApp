@@ -24,7 +24,7 @@
 <body>
 
 
-	<form th:if="${token} != null and ${token} !=''" class="form-horizontal" method="POST" th:action="@{'/myweb/registerconfirm?token='+${token}}">
+	<form th:if="${token} != null and ${token} !=''" class="form-horizontal" method="POST" th:action="@{'/myweb/activateacoount?token='+${token}}">
 		<div style="position: relative; text-align: center;">
 			</br>
 			</br>
