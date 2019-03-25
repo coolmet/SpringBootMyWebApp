@@ -157,7 +157,6 @@ span.tab-2 {
 							<a class="dropdown-item" tabindex="-1" href="#">Th</a>
 							<div class="dropdown-menu">
 								<a class="dropdown-item" tabindex="-1" href="/admin">/admin | th_admin.html</a>
-								<a class="dropdown-item" tabindex="-1" href="/admin/adminloggedinusers">/admin/adminloggedinusers | th_adminloggedinusers.html</a>
 								<a class="dropdown-item" tabindex="-1" href="/admin/h2-console">/admin/h2-console | /admin/h2-console</a>
 							</div>
 						</div>
@@ -182,6 +181,7 @@ span.tab-2 {
 						<div class="dropdown-submenu">
 							<a class="dropdown-item" tabindex="-1" href="#">Th</a>
 							<div class="dropdown-menu" role="menu">
+								<a class="dropdown-item" tabindex="-1" href="/admin/testloggedinusers">/admin/testloggedinusers | th_testloggedinusers.html</a>
 								<a class="dropdown-item" tabindex="-1" href="/admin/testloginparticles">/admin/testloginparticles | th_testloginparticles.html</a>
 								<a class="dropdown-item" tabindex="-1" href="/admin/testloginregister">/admin/testloginregister | th_testloginregister.html</a>
 								<a class="dropdown-item" tabindex="-1" href="/admin/testlogin">/admin/testlogin | th_testlogin.html</a>
@@ -227,8 +227,39 @@ span.tab-2 {
 			</ul>
 
 			<ul class="navbar-nav navbar-right">
+				<li class="nav-item dropdown "><a class="nav-link btn btn-outline-warning mr-2 dropdown-toggle" href="#" id="navbardrop"
+						data-toggle="dropdown"
+					>
+						<span class='fas fa-user-alt'></span>
+						<th:block sec:authorize="!isAuthenticated()" th:utext="#{index.user}" />
+						<th:block sec:authorize="isAuthenticated()" th:utext="${#authentication.getPrincipal().getUsername()}" />
+					</a>
+					<div class="dropdown-menu" role="menu">
+						<a sec:authorize="!isAuthenticated()" class="dropdown-item" tabindex="1" th:href=@{/login}>
+							<span class='fas fa-sign-in-alt'></span>
+							<th:block th:utext="#{index.login}" />
+						</a>
+						<a sec:authorize="!isAuthenticated()" class="dropdown-item" tabindex="2" th:href=@{/myweb/register}>
+							<span class='fas fa-user-plus'></span>
+							<th:block th:utext="#{index.signup}" />
+						</a>
+						<a sec:authorize="isAuthenticated()" class="dropdown-item" tabindex="3" th:href=@{#}>
+							<span class='fas fa-cog'></span>
+							<th:block th:utext="#{index.settings}" />
+						</a>
+						<a sec:authorize="isAuthenticated()" class="dropdown-item" tabindex="4" th:href=@{/logout}>
+							<span class='fas fa-sign-out-alt'></span>
+							<th:block th:utext="#{index.logout}" />
+						</a>
+					</div></li>
+
+				<div th:replace="fragments/languagelower.html :: FRG_language"></div>
+			</ul>
+
+			<!--  
+			<ul class="navbar-nav navbar-right">
 				<div sec:authorize="!isAuthenticated()">
-					<a th:href=@{#} class="btn btn-outline-warning navbar-btn">
+					<a th:href=@{/myweb/register} class="btn btn-outline-warning navbar-btn">
 						<span class='fas fa-user-plus'></span>
 						<th:block th:utext="#{index.signup}" />
 					</a>
@@ -244,7 +275,7 @@ span.tab-2 {
 				</div>
 
 				<div sec:authorize="isAuthenticated()">
-					<a th:href=@{#} class="btn btn-outline-warning navbar-btn disabled">
+					<a th:href=@{/myweb/register} class="btn btn-outline-warning navbar-btn disabled">
 						<span class='fas fa-user-plus'></span>
 						<th:block th:utext="#{index.signup}" />
 					</a>
@@ -258,7 +289,10 @@ span.tab-2 {
 					</a>
 					<div th:replace="fragments/languagelower.html :: FRG_language"></div>
 				</div>
-			</ul>
+				</ul>
+				-->
+
+
 
 		</div>
 	</nav>
