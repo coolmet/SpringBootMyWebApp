@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import com.springboot.mywebapp.model.MessageInfo;
 import com.springboot.mywebapp.service.AuthService;
 import com.springboot.mywebapp.service.LanguageService;
 import com.springboot.mywebapp.service.RecaptchaService;
@@ -98,9 +99,9 @@ public class WebLinkControllerAnnoymusTh
 	@RequestMapping(value="/myweb/registersave",method=RequestMethod.POST) // register page save
 	public String registerSaveTh(HttpSession session,@ModelAttribute(value="user") com.springboot.mywebapp.model.User user)
 	{
-		Map<String,String> checkUser=utilService.registerUser(user);
-		session.setAttribute("registermessage"+session.getId(),checkUser.get("registermessage"));
-		session.setAttribute("registerstatus"+session.getId(),checkUser.get("registerstatus"));
+		com.springboot.mywebapp.model.MessageInfo registerUserMessage=utilService.registerUser(user);
+		session.setAttribute("registermessage"+session.getId(),registerUserMessage.getMessage());
+		session.setAttribute("registerstatus"+session.getId(),registerUserMessage.isStatus());
 		session.setAttribute("registeruser"+session.getId(),user);
 		return "redirect:/myweb/register";
 	}
@@ -120,10 +121,10 @@ public class WebLinkControllerAnnoymusTh
 		}
 		else
 		{
-			Map<String,Object> activateUser=utilService.activateUser(token);
-			if(activateUser.get("activatestatus").equals("ERROR"))
+			com.springboot.mywebapp.model.MessageInfo activateUserMessage=utilService.activateUser(token);
+			if(!activateUserMessage.isStatus())
 			{
-				mav.addObject("recaptchamessage",activateUser.get("activatemessage"));
+				mav.addObject("recaptchamessage",activateUserMessage.getMessage());
 				mav.addObject("token",token);
 				mav.setViewName("redirect:/myweb/confirm-account");
 			}

@@ -94,7 +94,7 @@
 								</div>
 							</div>
 
-							<div th:if="${message} != null and ${status} == 'ERROR' " style="color: red; margin: 10px 0px;">
+							<div th:if="${message} != null and ${status} == false " style="color: red; margin: 10px 0px;">
 								<div class="alert alert-danger" role="alert" style="font-size: 12px;">
 									<span th:utext="${message}"></span>
 								</div>

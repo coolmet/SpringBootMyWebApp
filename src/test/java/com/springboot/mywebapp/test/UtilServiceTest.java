@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import com.springboot.mywebapp.model.MessageInfo;
 import com.springboot.mywebapp.model.User;
 import com.springboot.mywebapp.service.UserService;
 import com.springboot.mywebapp.service.UtilService;
@@ -58,39 +59,39 @@ public class UtilServiceTest
 		user.setCreatedate(new java.sql.Date(new java.util.Date().getTime()));
 		user.setPassword("xxpass");
 		user.setConfirmationtoken("xxpass");
-		Map<String,String> checkUser;
+		MessageInfo checkUser;
 		// ###TEST-1
 		user.setName("");
 		checkUser=utilService.registerUser(user);
-		System.out.println("TEST-1:\t"+checkUser.get("registerstatus")+"\t:\t"+checkUser.get("registermessage"));
+		System.out.println("TEST-1:\t"+checkUser.isStatus()+"\t:\t"+checkUser.getMessage());
 		user.setName("xxname");
 		// ###TEST-2
 		user.setConfirmationtoken("xxpass2");
 		checkUser=utilService.registerUser(user);
-		System.out.println("TEST-2:\t"+checkUser.get("registerstatus")+"\t:\t"+checkUser.get("registermessage"));
+		System.out.println("TEST-2:\t"+checkUser.isStatus()+"\t:\t"+checkUser.getMessage());
 		user.setConfirmationtoken("xxpass");
 		// ###TEST-3
 		user.setUsername("admin");
 		checkUser=utilService.registerUser(user);
-		System.out.println("TEST-3:\t"+checkUser.get("registerstatus")+"\t:\t"+checkUser.get("registermessage"));
+		System.out.println("TEST-3:\t"+checkUser.isStatus()+"\t:\t"+checkUser.getMessage());
 		user.setUsername("xxusername");
 		// ###TEST-4
 		user.setEmail("user@email.com");
 		checkUser=utilService.registerUser(user);
-		System.out.println("TEST-4:\t"+checkUser.get("registerstatus")+"\t:\t"+checkUser.get("registermessage"));
+		System.out.println("TEST-4:\t"+checkUser.isStatus()+"\t:\t"+checkUser.getMessage());
 		user.setEmail("xxemail");
 		// ###TEST-5
 		user.setEmail("user@email.com");
 		user.setUsername("admin");
 		checkUser=utilService.registerUser(user);
-		System.out.println("TEST-5:\t"+checkUser.get("registerstatus")+"\t:\t"+checkUser.get("registermessage"));
+		System.out.println("TEST-5:\t"+checkUser.isStatus()+"\t:\t"+checkUser.getMessage());
 		user.setEmail("xxemail");
 		user.setUsername("xxusername");
 		// ###TEST-6
 		user.setEmail("user2@email.com");
 		user.setUsername("admin2");
 		checkUser=utilService.registerUser(user);
-		System.out.println("TEST-6:\t"+checkUser.get("registerstatus")+"\t:\t"+checkUser.get("registermessage"));
+		System.out.println("TEST-6:\t"+checkUser.isStatus()+"\t:\t"+checkUser.getMessage());
 		user.setEmail("xxemail");
 		user.setUsername("xxusername");
 		//

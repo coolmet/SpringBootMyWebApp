@@ -28,6 +28,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import com.springboot.mywebapp.dao.UserRepository;
+import com.springboot.mywebapp.model.MessageInfo;
 import com.springboot.mywebapp.model.ROLES;
 
 @Service
@@ -87,24 +88,19 @@ public class UtilService
 		return authenticationToken;
 	}
 	
-	public Map<String,Object> activateUser(String token)
+	public MessageInfo activateUser(String token)
 	{
-		Map<String,Object> result=new HashMap<String,Object>();
-		String activatemessage="";
-		String activatestatus="";
-		com.springboot.mywebapp.model.User activateuser=null;
+		MessageInfo result=new MessageInfo();
 		com.springboot.mywebapp.model.User user=userService.findByConfirmationToken(token);
 		if(user.getUsername().equals(""))
 		{
-			activatemessage=messageSource.getMessage("register.activation.invalidtoken",new Object[0],LocaleContextHolder.getLocale());
-			activatestatus="ERROR";
-			activateuser=null;
+			result.setMessage(messageSource.getMessage("register.activation.invalidtoken",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
 		}
 		else if(user.isActive())
 		{
-			activatemessage=messageSource.getMessage("register.activation.alreadyactivated",new Object[0],LocaleContextHolder.getLocale());
-			activatestatus="ERROR";
-			activateuser=null;
+			result.setMessage(messageSource.getMessage("register.activation.alreadyactivated",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
 		}
 		else
 		{
@@ -115,84 +111,78 @@ public class UtilService
 			                  "SpringBootMyWebApp-Activation",
 			                  messageSource.getMessage("register.activation.mail.content1",new Object[0],LocaleContextHolder.getLocale())+"\n\n"+
 			                  messageSource.getMessage("register.username",new Object[0],LocaleContextHolder.getLocale())+":"+user.getUsername());
-			activatemessage=messageSource.getMessage("register.activation.mail.content1",new Object[0],LocaleContextHolder.getLocale())+","+
-			messageSource.getMessage("register.activation.sccussfully",new Object[0],LocaleContextHolder.getLocale());
-			activatestatus="OK";
-			activateuser=user;
+			result.setMessage(messageSource.getMessage("register.activation.mail.content1",new Object[0],LocaleContextHolder.getLocale())+","+
+			messageSource.getMessage("register.activation.sccussfully",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(true);
 		}
-		result.put("activatemessage",""+activatemessage);
-		result.put("activatestatus",""+activatestatus);
-		result.put("activateuser",activateuser);
 		return result;
 	}
 	
-	public Map<String,String> registerUser(com.springboot.mywebapp.model.User user)
+	public MessageInfo registerUser(com.springboot.mywebapp.model.User user)
 	{
-		Map<String,String> result=new HashMap<String,String>();
-		String registermessage="";
-		String registerstatus="";
+		MessageInfo result=new MessageInfo();
 		//
 		if(user.getName().equals(""))
 		{
-			registermessage=messageSource.getMessage("register.entername",new Object[0],LocaleContextHolder.getLocale());
-			registerstatus="ERROR";
+			result.setMessage(messageSource.getMessage("register.entername",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
 		}
 		else if(user.getSurname().equals(""))
 		{
-			registermessage=messageSource.getMessage("register.entersurname",new Object[0],LocaleContextHolder.getLocale());
-			registerstatus="ERROR";
+			result.setMessage(messageSource.getMessage("register.entersurname",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
 		}
 		else if(user.getUsername().equals(""))
 		{
-			registermessage=messageSource.getMessage("register.enterusername",new Object[0],LocaleContextHolder.getLocale());
-			registerstatus="ERROR";
+			result.setMessage(messageSource.getMessage("register.enterusername",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
 		}
 		else if(user.getEmail().equals(""))
 		{
-			registermessage=messageSource.getMessage("register.enteremail",new Object[0],LocaleContextHolder.getLocale());
-			registerstatus="ERROR";
+			result.setMessage(messageSource.getMessage("register.enteremail",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
 		}
 		else if(user.getPassword().equals("")||user.getConfirmationtoken().equals(""))
 		{
-			registermessage=messageSource.getMessage("register.enterpassword",new Object[0],LocaleContextHolder.getLocale());
-			registerstatus="ERROR";
+			result.setMessage(messageSource.getMessage("register.enterpassword",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
 		}
 		//
 		else if(!user.getPassword().equals(user.getConfirmationtoken()))
 		{
-			registermessage=messageSource.getMessage("register.error.passwordsnotequal",new Object[0],LocaleContextHolder.getLocale());
-			registerstatus="ERROR";
+			result.setMessage(messageSource.getMessage("register.error.passwordsnotequal",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
 		}
 		else if(!checkEmailAddressIsValid(user.getEmail()))
 		{
-			registermessage=messageSource.getMessage("register.error.entervaliemailaddress",new Object[0],LocaleContextHolder.getLocale());
-			registerstatus="ERROR";
+			result.setMessage(messageSource.getMessage("register.error.entervaliemailaddress",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
 		}
 		//
 		com.springboot.mywebapp.model.User u1=userService.findByUserName(user.getUsername());
 		com.springboot.mywebapp.model.User u2=userService.findByEmail(user.getEmail());
 		if(!u1.getUsername().equals("")&&!u2.getUsername().equals("")&&u1.getUserId()==u2.getUserId()&&!u1.isActive())
 		{
-			registermessage=messageSource.getMessage("register.error.confirmemail",new Object[0],LocaleContextHolder.getLocale());
-			registerstatus="ERROR";
+			result.setMessage(messageSource.getMessage("register.error.confirmemail",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
 		}
 		else if(!u1.getUsername().equals("")&&!u2.getUsername().equals("")&&u1.getUserId()==u2.getUserId()&&u1.isActive())
 		{
-			registermessage=messageSource.getMessage("register.error.useralreadycreated",new Object[0],LocaleContextHolder.getLocale());
-			registerstatus="ERROR";
+			result.setMessage(messageSource.getMessage("register.error.useralreadycreated",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
 		}
 		else if(!u1.getUsername().equals(""))
 		{
-			registermessage=messageSource.getMessage("register.error.usernameused",new Object[0],LocaleContextHolder.getLocale());
-			registerstatus="ERROR";
+			result.setMessage(messageSource.getMessage("register.error.usernameused",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
 		}
 		else if(!u2.getEmail().equals(""))
 		{
-			registermessage=messageSource.getMessage("register.error.emailused",new Object[0],LocaleContextHolder.getLocale());
-			registerstatus="ERROR";
+			result.setMessage(messageSource.getMessage("register.error.emailused",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
 		}
 		//
-		if(registerstatus.equals(""))
+		if(result.getMessage().equals(""))
 		{
 			user.setActive(false);
 			user.setCreatedate(new java.sql.Date(new java.util.Date().getTime()));
@@ -205,12 +195,10 @@ public class UtilService
 			                  "SpringBootMyWebApp-Registration",
 			                  messageSource.getMessage("register.mail.content1",new Object[0],LocaleContextHolder.getLocale())+"\n\n"+
 			                  getBaseLinkURL()+"/myweb/confirm-account?token="+user.getConfirmationtoken());
-			registermessage=messageSource.getMessage("register.ok.registrationsccussfully",new Object[0],LocaleContextHolder.getLocale());
-			registerstatus="OK";
+			result.setMessage(messageSource.getMessage("register.ok.registrationsccussfully",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(true);
 		}
 		//
-		result.put("registermessage",registermessage);
-		result.put("registerstatus",registerstatus);
 		return result;
 	}
 	
