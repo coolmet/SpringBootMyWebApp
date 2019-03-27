@@ -8,11 +8,7 @@
 <!--===============================================================================================-->
 <link rel="icon" type="image/png" href="/logines/images/icons/favicon.ico" />
 <!--===============================================================================================-->
-<div th:include="fragments/headernavbar.html :: FRG_header_navbar_css"></div>
-<div th:include="fragments/headernavbar.html :: FRG_header_navbar_js"></div>
-<div th:include="fragments/headernavbar.html :: FRG_header_navbar_style"></div>
-<div th:include="fragments/headernavbar.html :: FRG_header_navbar_javascript"></div>
-<div th:replace="fragments/headernavbar.html :: FRG_header_navbar"></div>
+
 
 
 <script src="https://www.google.com/recaptcha/api.js"></script>
@@ -23,26 +19,34 @@
 
 <body>
 
+	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_css"></div>
+	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_js"></div>
+	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_style"></div>
+	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_javascript"></div>
 
-	<form th:if="${token} != null and ${token} !=''" class="form-horizontal" method="POST" th:action="@{'/myweb/activateacoount?token='+${token}}">
-		<div style="position: relative; text-align: center;">
-			</br>
-			</br>
+	<div id="langid">
+		<div th:replace="fragments/headernavbar.html :: FRG_header_navbar"></div>
 
-			<div
-				style="margin: 15px auto !important; width: auto !important; height: auto !important; text-align: -webkit-center; text-align: -moz-center;
+		<form th:if="${token} != null and ${token} !=''" class="form-horizontal" method="POST" th:action="@{'/myweb/activateacoount?token='+${token}}">
+			<div style="position: relative; text-align: center;">
+				</br>
+				</br>
+
+				<div
+					style="margin: 15px auto !important; width: auto !important; height: auto !important; text-align: -webkit-center; text-align: -moz-center;
 	text-align: -o-center; text-align: -ms-center;"
-				class="g-recaptcha" th:attr="data-sitekey=${@recaptchaService.getRecaptchaSiteKey()}"
-			></div>
+					class="g-recaptcha" th:attr="data-sitekey=${@recaptchaService.getRecaptchaSiteKey()}"
+				></div>
 
-			<button type="submit" class="btn btn-primary" th:text="#{register.confirm.save}">></button>
+				<button type="submit" class="btn btn-primary" th:text="#{register.confirm.save}">></button>
 
-			<div th:if="${recaptchamessage} != null " style="color: red; margin: 10px 30%; width: 40%">
-				<div class="alert alert-danger" role="alert" style="font-size: 12px;">
-					<span th:text="#{'recaptcha.message.'+${recaptchamessage}}"></span>
+				<div th:if="${recaptchamessage} != null " style="color: red; margin: 10px 30%; width: 40%">
+					<div class="alert alert-danger" role="alert" style="font-size: 12px;">
+						<span th:text="#{'recaptcha.message.'+${recaptchamessage}}"></span>
+					</div>
 				</div>
 			</div>
-		</div>
-	</form>
+		</form>
+	</div>
 
 </body>

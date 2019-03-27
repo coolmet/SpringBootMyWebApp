@@ -31,9 +31,9 @@
 					//var container = document.getElementById("topnavbar");
 					//var content = container.innerHTML;
 					//container.innerHTML= content; 
-					location.reload(true);
 					//history.replaceState({}, window.location.href, window.location.href.split('#')[0].split('?')[0]);
-
+					$("#langid").load(location.href + " #langid", "");
+					//location.reload(true);
 				}
 		</script>
 	</th:block>

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale = 0.4, maximum-scale=1.0, user-scalable=yes" />
+<meta name="viewport" content="width=device-width, initial-scale = 0.5, maximum-scale=1.0, user-scalable=yes" />
 <title th:text="#{login.title}"></title>
 <!--===============================================================================================-->
 <link rel="icon" type="image/png" href="/logines/images/icons/favicon.ico" />
@@ -24,29 +24,30 @@
 	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_style"></div>
 	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_javascript"></div>
 	<div th:include="fragments/languageleft.html :: FRG_language_javascript"></div>
-
-	<form th:action="login" method="post">
-		<div style="position: relative; height: 100%;">
-			<div id="particles-js"></div>
-			<div id="limiter" class="limiter">
-				<div id="containerlogin100" class="container-login100">
-					<!--  <div class="top-right" style="width: 100%; position: fixed; text-align: right; top: 10px; right: 10px;">
+	
+	<div id="langid">
+		<form th:action="login" method="post">
+			<div style="position: relative; height: 100%;">
+				<div id="particles-js"></div>
+				<div id="limiter" class="limiter">
+					<div id="containerlogin100" class="container-login100">
+						<!--  <div class="top-right" style="width: 100%; position: fixed; text-align: right; top: 10px; right: 10px;">
 							<div th:replace="fragments/languageleft.html :: FRG_language"></div>
 						  </div>
 					-->
-					<div class="top-right" style="width: 100%; position: fixed; text-align: right; top: 0px; right: 0px;">
-						<div th:replace="fragments/headernavbar.html :: FRG_header_navbar"></div>
-					</div>
+						<div class="top-right" style="width: 100%; position: fixed; text-align: right; top: 0px; right: 0px;">
+							<div th:replace="fragments/headernavbar.html :: FRG_header_navbar"></div>
+						</div>
 
-					<div id="wraplogin100" class="wrap-login100">
-						<div class="login100-form validate-form">
-							<span class="login100-form-title p-b-26">
-								<div th:text="#{login.header}">
-							</span>
-							<span class="login100-form-title p-b-48">
-								<i class="zmdi zmdi-accounts"></i>
-							</span>
-							<!-- zmdi-account-o 						
+						<div id="wraplogin100" class="wrap-login100">
+							<div class="login100-form validate-form">
+								<span class="login100-form-title p-b-26">
+									<div th:text="#{login.header}">
+								</span>
+								<span class="login100-form-title p-b-48">
+									<i class="zmdi zmdi-accounts"></i>
+								</span>
+								<!-- zmdi-account-o 						
 						zmdi-face 
 						zmdi-accounts-list-alt 
 						zmdi-shield-security 
@@ -57,63 +58,63 @@
 						zmdi-badge-check
 						zmdi-account-box-o
 						-->
-							<div class="wrap-input100 validate-input" th:attr="data-validate=#{login.enterusername}">
-								<input class="input100" type="text" name="username" id="username">
-								<span class="focus-input100" th:attr="data-placeholder=#{login.username}"> </span>
-							</div>
-
-							<div class="wrap-input100 validate-input" th:attr="data-validate=#{login.enterpassword}">
-								<span class="btn-show-pass">
-									<i class="zmdi zmdi-eye" style="font-size: inherit"></i>
-								</span>
-								<input class="input100" type="password" name="password" id="password">
-								<span class="focus-input100" th:attr="data-placeholder=#{login.password}"> </span>
-							</div>
-
-							<div>
-								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-							</div>
-
-							<div class="wrap-input110">
-								<input id="rememberme" name="remember-me" type="checkbox">
-								<label for="rememberme" th:text="#{login.rememberme}"> </label>
-							</div>
-
-							<div class="container-login100-form-btn">
-								<div class="wrap-login100-form-btn">
-									<div class="login100-form-bgbtn"></div>
-									<button class="login100-form-btn" id="registerBtn" type="submit" value="Log in">
-										<div th:text="#{login.login}">
-									</button>
+								<div class="wrap-input100 validate-input" th:attr="data-validate=#{login.enterusername}">
+									<input class="input100" type="text" name="username" id="username">
+									<span class="focus-input100" th:attr="data-placeholder=#{login.username}"> </span>
 								</div>
-							</div>
 
-							<div class="wrap-input110">
-								<a href="/myweb/register">
-									<div th:text="#{login.registernow}">
-								</a>
-							</div>
-
-							<div th:if="${#request.getParameter('loginFailed') == 'true'}" style="color: red; margin: 10px 0px;">
-								<div class="alert alert-danger" role="alert">
-									Login Failed!!!
-									<br />
-									Reason :
-									<span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
-										th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}"
-									> Static summary </span>
+								<div class="wrap-input100 validate-input" th:attr="data-validate=#{login.enterpassword}">
+									<span class="btn-show-pass">
+										<i class="zmdi zmdi-eye" style="font-size: inherit"></i>
+									</span>
+									<input class="input100" type="password" name="password" id="password">
+									<span class="focus-input100" th:attr="data-placeholder=#{login.password}"> </span>
 								</div>
-							</div>
 
+								<div>
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+								</div>
+
+								<div class="wrap-input110">
+									<input id="rememberme" name="remember-me" type="checkbox">
+									<label for="rememberme" th:text="#{login.rememberme}"> </label>
+								</div>
+
+								<div class="container-login100-form-btn">
+									<div class="wrap-login100-form-btn">
+										<div class="login100-form-bgbtn"></div>
+										<button class="login100-form-btn" id="registerBtn" type="submit" value="Log in">
+											<div th:text="#{login.login}">
+										</button>
+									</div>
+								</div>
+
+								<div class="wrap-input110">
+									<a href="/myweb/register">
+										<div th:text="#{login.registernow}">
+									</a>
+								</div>
+
+								<div th:if="${#request.getParameter('loginFailed') == 'true'}" style="color: red; margin: 10px 0px;">
+									<div class="alert alert-danger" role="alert">
+										Login Failed!!!
+										<br />
+										Reason :
+										<span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
+											th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}"
+										> Static summary </span>
+									</div>
+								</div>
+
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		
 
-	</form>
 
+		</form>
+	</div>
 
 
 	<!--===============================================================================================-->
@@ -129,4 +130,5 @@
 	<!--===============================================================================================-->
 	<script th:src="@{|/bootstrap-4.3.1/js/bootstrap.min.js?v=${#dates.createNow()}|}"></script>
 	<!--===============================================================================================-->
+
 </body>

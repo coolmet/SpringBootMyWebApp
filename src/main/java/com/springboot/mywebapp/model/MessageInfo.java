@@ -8,6 +8,8 @@ public class MessageInfo
 	public MessageInfo()
 	{
 		super();
+		message="";
+		status=false;
 	}
 	
 	public MessageInfo(String message,boolean status)
