@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
+<title th:text="#{index.settings}"></title>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale = 0.4, maximum-scale=1.0, user-scalable=yes" />
-<title th:text="#{login.title}"></title>
+<meta name="viewport" content="width=device-width,height=device-height,v initial-scale = 0.4, maximum-scale=1.0, user-scalable=yes" />
 <!--===============================================================================================-->
 <link rel="icon" type="image/png" href="/logines/images/icons/favicon.ico" />
 <!--===============================================================================================-->
@@ -13,38 +14,36 @@
 <link rel="stylesheet" type="text/css" th:href="@{/logines/css/animsition.min.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/logines/css/main.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/logines/css/util.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/particles/css/style.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/bootstrap.min.css}" />
 <!--===============================================================================================-->
 </head>
 
-<body>
 
+<body>
 	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_css"></div>
 	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_style"></div>
 	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_javascript"></div>
 	<div th:include="fragments/languageleft.html :: FRG_language_javascript"></div>
 
-	<form th:action="login" method="post">
-		<div style="position: relative; height: 100%;">
-			<div id="particles-js"></div>
+	<form action="#" th:action="@{/usersettings}" th:object="${user}" method="post">
+		<div style="position: relative">
 			<div id="limiter" class="limiter">
 				<div id="containerlogin100" class="container-login100">
-					<!--  <div class="top-right" style="width: 100%; position: fixed; text-align: right; top: 10px; right: 10px;">
+					<!-- 
+						<div class="top-right" style="width: 100%; position: fixed; text-align: right; top: 10px; right: 10px;">
 							<div th:replace="fragments/languageleft.html :: FRG_language"></div>
-						  </div>
+						</div>
 					-->
 					<div class="top-right" style="width: 100%; position: fixed; text-align: right; top: 0px; right: 0px;">
 						<div th:replace="fragments/headernavbar.html :: FRG_header_navbar"></div>
 					</div>
-
 					<div id="wraplogin100" class="wrap-login100">
 						<div class="login100-form validate-form">
 							<span class="login100-form-title p-b-26">
-								<div th:text="#{login.header}">
+								<div th:text="#{index.settings}">
 							</span>
 							<span class="login100-form-title p-b-48">
-								<i class="zmdi zmdi-accounts"></i>
+								<i class="zmdi zmdi-settings-square"></i>
 							</span>
 							<!-- zmdi-account-o 						
 						zmdi-face 
@@ -57,64 +56,70 @@
 						zmdi-badge-check
 						zmdi-account-box-o
 						-->
-							<div class="wrap-input100 validate-input" th:attr="data-validate=#{login.enterusername}">
-								<input class="input100" type="text" name="username" id="username">
-								<span class="focus-input100" th:attr="data-placeholder=#{login.username}"> </span>
+							<div class="wrap-input100 validate-input" th:attr="data-validate=#{register.entername}">
+								<input class="input100" type="text" name="name" id="name" th:field="*{name}" autofocus="autofocus">
+								<span class="focus-input100" th:attr="data-placeholder=#{register.name}"> </span>
 							</div>
 
-							<div class="wrap-input100 validate-input" th:attr="data-validate=#{login.enterpassword}">
+							<div class="wrap-input100 validate-input" th:attr="data-validate=#{register.entersurname}">
+								<input class="input100" type="text" name="surname" id="surname" th:field="*{surname}">
+								<span class="focus-input100" th:attr="data-placeholder=#{register.surname}"> </span>
+							</div>
+
+							<div class="wrap-input100 validate-input" th:attr="data-validate=#{register.enterusername}">
+								<input class="input100" type="text" name="username" id="username" th:field="*{username}">
+								<span class="focus-input100" th:attr="data-placeholder=#{register.username}"> </span>
+							</div>
+
+							<div class="wrap-input100 validate-input" th:attr="data-validate=#{register.enteremail}">
+								<input class="input100" type="text" name="email" id="email" th:field="*{email}">
+								<span class="focus-input100" th:attr="data-placeholder=#{register.email}"> </span>
+							</div>
+
+
+							<div class="wrap-input100 validate-input" th:attr="data-validate=#{register.enterpassword}">
 								<span class="btn-show-pass">
 									<i class="zmdi zmdi-eye" style="font-size: inherit"></i>
 								</span>
-								<input class="input100" type="password" name="password" id="password">
-								<span class="focus-input100" th:attr="data-placeholder=#{login.password}"> </span>
+								<input class="input100" type="password" name="pass" id="pass" th:field="*{password}">
+								<span class="focus-input100" th:attr="data-placeholder=#{register.password}"> </span>
 							</div>
 
-							<div>
-								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-							</div>
-
-							<div class="wrap-input110">
-								<input id="rememberme" name="remember-me" type="checkbox">
-								<label for="rememberme" th:text="#{login.rememberme}"> </label>
+							<div class="wrap-input100 validate-input" th:attr="data-validate=#{register.enterpasswordagain}">
+								<span class="btn-show-pass">
+									<i class="zmdi zmdi-eye" style="font-size: inherit"></i>
+								</span>
+								<input class="input100" type="password" name="pass2" id="pass2" th:field="*{confirmationtoken}">
+								<span class="focus-input100" th:attr="data-placeholder=#{register.passwordagain}"> </span>
 							</div>
 
 							<div class="container-login100-form-btn">
 								<div class="wrap-login100-form-btn">
 									<div class="login100-form-bgbtn"></div>
-									<button class="login100-form-btn" id="registerBtn" type="submit" value="Log in">
-										<div th:text="#{login.login}">
-									</button>
+									<button class="login100-form-btn" id="registerBtn" type="submit" th:text="#{index.update}"></button>
 								</div>
 							</div>
 
-							<div class="wrap-input110">
-								<a href="/myweb/register">
-									<div th:text="#{login.registernow}">
-								</a>
-							</div>
-
-							<div th:if="${#request.getParameter('loginFailed') == 'true'}" style="color: red; margin: 10px 0px;">
-								<div class="alert alert-danger" role="alert">
-									Login Failed!!!
-									<br />
-									Reason :
-									<span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
-										th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}"
-									> Static summary </span>
+							<div th:if="${message} != null and ${status} == false " style="color: red; margin: 10px 0px;">
+								<div class="alert alert-danger" role="alert" style="font-size: 12px;">
+									<span th:utext="${message}"></span>
 								</div>
 							</div>
+
+							<div th:if="${message} != null and ${status} == true " style="color: green; margin: 10px 0px;">
+								<div class="alert alert-success" role="alert" style="font-size: 12px;">
+									<span th:utext="${message}"></span>
+								</div>
+							</div>
+
+							<p id="demo"></p>
 
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
-
 	</form>
-
-
 
 	<!--===============================================================================================-->
 	<script th:src="@{|/logines/js/jquery-3.2.1.min.js?v=${#dates.createNow()}|}"></script>
@@ -123,9 +128,7 @@
 	<!--===============================================================================================-->
 	<script th:src="@{|/logines/js/main.js?v=${#dates.createNow()}|}"></script>
 	<!--===============================================================================================-->
-	<script th:src="@{|/particles/js/particles.js?v=${#dates.createNow()}|}"></script>
-	<script th:src="@{|/particles/js/particles.min.js?v=${#dates.createNow()}|}"></script>
-	<script th:src="@{|/particles/js/app.js?v=${#dates.createNow()}|}"></script>
+
 	<!--===============================================================================================-->
 	<script th:src="@{|/bootstrap-4.3.1/js/bootstrap.min.js?v=${#dates.createNow()}|}"></script>
 	<!--===============================================================================================-->

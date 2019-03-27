@@ -4,7 +4,7 @@
 <head>
 <title th:text="#{register.title}"></title>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale = 0.4, maximum-scale=1.0, user-scalable=no" />
+<meta name="viewport" content="width=device-width,height=device-height,v initial-scale = 0.4, maximum-scale=1.0, user-scalable=yes" />
 <!--===============================================================================================-->
 <link rel="icon" type="image/png" href="/logines/images/icons/favicon.ico" />
 <!--===============================================================================================-->
@@ -21,6 +21,9 @@
 
 
 <body>
+	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_css"></div>
+	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_style"></div>
+	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_javascript"></div>
 	<div th:include="fragments/languageleft.html :: FRG_language_javascript"></div>
 
 	<form action="#" th:action="@{/myweb/registersave}" th:object="${user}" method="post">
@@ -28,8 +31,13 @@
 			<div id="particles-js"></div>
 			<div id="limiter" class="limiter">
 				<div id="containerlogin100" class="container-login100">
-					<div class="top-right" style="width: 100%; position: fixed; text-align: right; top: 10px; right: 10px;">
-						<div th:replace="fragments/languageleft.html :: FRG_language"></div>
+					<!-- 
+						<div class="top-right" style="width: 100%; position: fixed; text-align: right; top: 10px; right: 10px;">
+							<div th:replace="fragments/languageleft.html :: FRG_language"></div>
+						</div>
+					-->
+					<div class="top-right" style="width: 100%; position: fixed; text-align: right; top: 0px; right: 0px;">
+						<div th:replace="fragments/headernavbar.html :: FRG_header_navbar"></div>
 					</div>
 					<div id="wraplogin100" class="wrap-login100">
 						<div class="login100-form validate-form">
@@ -100,7 +108,7 @@
 								</div>
 							</div>
 
-							<div th:if="${message} != null and ${status} == 'OK' " style="color: green; margin: 10px 0px;">
+							<div th:if="${message} != null and ${status} == true " style="color: green; margin: 10px 0px;">
 								<div class="alert alert-success" role="alert" style="font-size: 12px;">
 									<span th:utext="${message}"></span>
 								</div>

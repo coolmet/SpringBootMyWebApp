@@ -160,6 +160,34 @@ public class WebLinkControllerAnnoymusTh
 		return mav;
 	}
 	
+	@RequestMapping(value="/usersettings") // mailden gelen
+	public ModelAndView userSettingsTh(HttpSession session,HttpServletRequest request,@RequestParam(value="user",required=false) com.springboot.mywebapp.model.User user)
+	{
+		
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		if(user==null)
+		{
+			if(request.isUserInRole("ROLE_ADMIN")||request.isUserInRole("ROLE_USER"))
+			{
+				mav.addObject("user",utilService.getCurrentUser());
+				mav.setViewName("th_usersettings");
+			}
+			else
+			{
+				mav.setViewName("redirect:/#");
+			}
+		}
+		else
+		{
+			com.springboot.mywebapp.model.MessageInfo updateUserMessage=utilService.updateUser(user);
+			mav.addObject("message",updateUserMessage.getMessage());
+			mav.addObject("status",updateUserMessage.isStatus());
+			mav.setViewName("redirect:/#");
+		}
+		return mav;
+	}
+	
 	@RequestMapping("/default")
 	public String defaultAfterLoginTh(HttpServletRequest request)
 	{

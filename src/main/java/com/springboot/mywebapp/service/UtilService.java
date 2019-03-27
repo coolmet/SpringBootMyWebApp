@@ -88,6 +88,37 @@ public class UtilService
 		return authenticationToken;
 	}
 	
+	public MessageInfo updateUser(com.springboot.mywebapp.model.User user)
+	{
+		MessageInfo result=new MessageInfo();
+		if(user.getName().equals(""))
+		{
+			result.setMessage(messageSource.getMessage("register.entername",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
+		}
+		else if(user.getSurname().equals(""))
+		{
+			result.setMessage(messageSource.getMessage("register.entersurname",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
+		}
+		else if(user.getUsername().equals(""))
+		{
+			result.setMessage(messageSource.getMessage("register.enterusername",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
+		}
+		else if(user.getEmail().equals(""))
+		{
+			result.setMessage(messageSource.getMessage("register.enteremail",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
+		}
+		else if(user.getPassword().equals("")||user.getConfirmationtoken().equals(""))
+		{
+			result.setMessage(messageSource.getMessage("register.enterpassword",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
+		}
+		return result;
+	}
+	
 	public MessageInfo activateUser(String token)
 	{
 		MessageInfo result=new MessageInfo();
@@ -116,6 +147,11 @@ public class UtilService
 			result.setStatus(true);
 		}
 		return result;
+	}
+	
+	public com.springboot.mywebapp.model.User getCurrentUser()
+	{
+		return userService.findByUserName(((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
 	}
 	
 	public MessageInfo registerUser(com.springboot.mywebapp.model.User user)

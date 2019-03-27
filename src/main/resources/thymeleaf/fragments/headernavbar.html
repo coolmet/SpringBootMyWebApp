@@ -243,7 +243,7 @@ span.tab-2 {
 							<span class='fas fa-user-plus'></span>
 							<th:block th:utext="#{index.signup}" />
 						</a>
-						<a sec:authorize="isAuthenticated()" class="dropdown-item" tabindex="3" th:href=@{#}>
+						<a sec:authorize="isAuthenticated()" class="dropdown-item" tabindex="3" th:href=@{/usersettings}>
 							<span class='fas fa-cog'></span>
 							<th:block th:utext="#{index.settings}" />
 						</a>
