@@ -1,6 +1,7 @@
 package com.springboot.mywebapp.dao.impl;
 
 import java.util.List;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;

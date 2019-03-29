@@ -35,7 +35,7 @@ public class LangugeConfiguration implements WebMvcConfigurer
 	public LocaleResolver localeResolver()
 	{
 		SessionLocaleResolver sessionLocaleResolver=new SessionLocaleResolver();
-		sessionLocaleResolver.setDefaultLocale(new Locale("tr", "TR"));
+		sessionLocaleResolver.setDefaultLocale(new Locale("tr","TR"));
 		return sessionLocaleResolver;
 	}
 	
@@ -53,13 +53,4 @@ public class LangugeConfiguration implements WebMvcConfigurer
 		registry.addInterceptor(localeChangeInterceptor());
 	}
 	
-	@Bean
-	@Order(Ordered.HIGHEST_PRECEDENCE)
-	CharacterEncodingFilter characterEncodingFilter()
-	{
-		CharacterEncodingFilter filter=new CharacterEncodingFilter();
-		filter.setEncoding("UTF-8");
-		filter.setForceEncoding(true);
-		return filter;
-	}
 }

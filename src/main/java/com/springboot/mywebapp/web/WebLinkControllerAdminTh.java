@@ -2,6 +2,7 @@ package com.springboot.mywebapp.web;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.springboot.mywebapp.service.LanguageService;
+import com.springboot.mywebapp.service.UserService;
+import com.springboot.mywebapp.service.UtilService;
 
 @Controller
 public class WebLinkControllerAdminTh
@@ -27,6 +30,9 @@ public class WebLinkControllerAdminTh
 	
 	@Autowired
 	private LanguageService languageService;
+	
+	@Autowired
+	private UtilService utilService;
 	
 	@RequestMapping("/admin/welcome")
 	@ResponseBody
@@ -136,6 +142,16 @@ public class WebLinkControllerAdminTh
 	{
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("th_testfragmentslayouts");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/testusertable"})
+	public ModelAndView adminTestUserTable()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.setViewName("th_testusertable");
 		return mav;
 	}
 }

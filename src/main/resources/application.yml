@@ -1,14 +1,17 @@
 logging.file: logs/springbootmywebapp.log 
 logging:
   level:
+    root: error
     org.springframework.web: error
     org.springframework.boot: error
     org.springframework.core: error
     org.springframework.beans: error
     org.springframework.webapp: error
     org.springframework.security: error
-    org.springframework.jdbc.datasource: trace
-    org.springframework.jdbc.core : trace
+    org.springframework.jdbc.datasource: error
+    org.springframework.jdbc.core : error
+    org.hibernate: error
+    org.thymeleaf: error
     web: error
   file: 
     max-history: 20

@@ -6,6 +6,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -24,7 +25,9 @@ import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled=true,prePostEnabled=true,jsr250Enabled=true)
@@ -118,12 +121,18 @@ public class SecurityConfiguration
 			    .deleteCookies("remember_me_cookie").logoutRequestMatcher(new AntPathRequestMatcher("/**/logout"))
 			    .logoutSuccessUrl("/login?logout").permitAll().and().requestCache().and().exceptionHandling()
 			    .accessDeniedPage("/403").and().csrf().disable();
-			
+			 
 			http.rememberMe().userDetailsService(userDetailsService).rememberMeServices(rememberMeServices());
 			http.sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry());
 			// http.httpBasic();
 			// http.csrf().disable();
 			// http.headers().frameOptions().sameOrigin();
+			
+			//
+			CharacterEncodingFilter filter=new CharacterEncodingFilter();
+			filter.setEncoding("UTF-8");
+			filter.setForceEncoding(true);
+			http.addFilterBefore(filter,CsrfFilter.class);
 		}
 	}
 	
@@ -158,4 +167,5 @@ public class SecurityConfiguration
 	{
 		return new SessionRegistryImpl();
 	}
+	
 }

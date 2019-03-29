@@ -90,6 +90,7 @@ public class UtilService
 	
 	public MessageInfo updateUser(com.springboot.mywebapp.model.User user)
 	{
+		user.setUserId(getCurrentUser().getUserId());
 		MessageInfo result=new MessageInfo();
 		if(user.getName().equals(""))
 		{
@@ -116,10 +117,44 @@ public class UtilService
 			result.setMessage(messageSource.getMessage("register.enterpassword",new Object[0],LocaleContextHolder.getLocale()));
 			result.setStatus(false);
 		}
+		else if(!user.getPassword().equals(user.getConfirmationtoken()))
+		{
+			result.setMessage(messageSource.getMessage("register.error.passwordsnotequal",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
+		}
+		else if(!checkEmailAddressIsValid(user.getEmail()))
+		{
+			result.setMessage(messageSource.getMessage("register.error.entervaliemailaddress",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
+		}
+		//
+		com.springboot.mywebapp.model.User user1;
+		user1=userService.findByUserName(user.getUsername());
+		if(user1.getUserId()!=0&&user1.getUserId()!=user.getUserId())
+		{
+			result.setMessage(messageSource.getMessage("register.error.usernameused",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
+		}
+		user1=userService.findByEmail(user.getEmail());
+		if(user1.getUserId()!=0&&user1.getUserId()!=user.getUserId())
+		{
+			result.setMessage(messageSource.getMessage("register.error.emailused",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(false);
+		}
+		//
+		if(result.getMessage().equals(""))
+		{
+			user.setActive(true);
+			user.setPassword(user.getPassword().contains("{bcrypt}")?user.getPassword():"{bcrypt}"+new BCryptPasswordEncoder().encode(user.getPassword()));
+			user.setConfirmationtoken("");
+			userService.update(user);
+			result.setMessage(messageSource.getMessage("register.ok.settingssuccessful",new Object[0],LocaleContextHolder.getLocale()));
+			result.setStatus(true);
+		}
 		return result;
 	}
 	
-	public MessageInfo activateUser(String token)
+	public MessageInfo activateUser(HttpServletRequest request,String token)
 	{
 		MessageInfo result=new MessageInfo();
 		com.springboot.mywebapp.model.User user=userService.findByConfirmationToken(token);
@@ -133,17 +168,21 @@ public class UtilService
 			result.setMessage(messageSource.getMessage("register.activation.alreadyactivated",new Object[0],LocaleContextHolder.getLocale()));
 			result.setStatus(false);
 		}
-		else
+		if(result.getMessage().equals(""))
 		{
 			user.setActive(true);
+			user.setPassword(user.getPassword().contains("{bcrypt}")?user.getPassword():"{bcrypt}"+new BCryptPasswordEncoder().encode(user.getPassword()));
+			user.setConfirmationtoken("");
 			userService.update(user);
+			this.authenticateUser(request,user);
 			emailService.send("SpringBootMyWebApp-Activation",
 			                  user.getEmail(),
 			                  "SpringBootMyWebApp-Activation",
+			                  "\n\n"+
 			                  messageSource.getMessage("register.activation.mail.content1",new Object[0],LocaleContextHolder.getLocale())+"\n\n"+
 			                  messageSource.getMessage("register.username",new Object[0],LocaleContextHolder.getLocale())+":"+user.getUsername());
 			result.setMessage(messageSource.getMessage("register.activation.mail.content1",new Object[0],LocaleContextHolder.getLocale())+","+
-			messageSource.getMessage("register.activation.sccussfully",new Object[0],LocaleContextHolder.getLocale()));
+			messageSource.getMessage("register.activation.successful",new Object[0],LocaleContextHolder.getLocale()));
 			result.setStatus(true);
 		}
 		return result;
@@ -152,6 +191,11 @@ public class UtilService
 	public com.springboot.mywebapp.model.User getCurrentUser()
 	{
 		return userService.findByUserName(((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+	}
+	
+	public List<com.springboot.mywebapp.model.User> getAllUsers()
+	{
+		return userService.findAll();
 	}
 	
 	public MessageInfo registerUser(com.springboot.mywebapp.model.User user)
@@ -183,7 +227,6 @@ public class UtilService
 			result.setMessage(messageSource.getMessage("register.enterpassword",new Object[0],LocaleContextHolder.getLocale()));
 			result.setStatus(false);
 		}
-		//
 		else if(!user.getPassword().equals(user.getConfirmationtoken()))
 		{
 			result.setMessage(messageSource.getMessage("register.error.passwordsnotequal",new Object[0],LocaleContextHolder.getLocale()));
@@ -221,9 +264,8 @@ public class UtilService
 		if(result.getMessage().equals(""))
 		{
 			user.setActive(false);
-			user.setCreatedate(new java.sql.Date(new java.util.Date().getTime()));
 			user.setConfirmationtoken(UUID.randomUUID().toString());
-			user.setPassword("{bcrypt}"+new BCryptPasswordEncoder().encode(user.getPassword()));
+			user.setPassword(user.getPassword().contains("{bcrypt}")?user.getPassword():"{bcrypt}"+new BCryptPasswordEncoder().encode(user.getPassword()));
 			userService.create(user);
 			authService.create(user.getUsername(),ROLES.ROLE_USER.stringValue);
 			emailService.send("SpringBootMyWebApp-Registration",
@@ -231,7 +273,7 @@ public class UtilService
 			                  "SpringBootMyWebApp-Registration",
 			                  messageSource.getMessage("register.mail.content1",new Object[0],LocaleContextHolder.getLocale())+"\n\n"+
 			                  getBaseLinkURL()+"/myweb/confirm-account?token="+user.getConfirmationtoken());
-			result.setMessage(messageSource.getMessage("register.ok.registrationsccussfully",new Object[0],LocaleContextHolder.getLocale()));
+			result.setMessage(messageSource.getMessage("register.ok.registrationsuccessful",new Object[0],LocaleContextHolder.getLocale()));
 			result.setStatus(true);
 		}
 		//

@@ -81,29 +81,30 @@ public class WebLinkControllerAnnoymusTh
 		return mav;
 	}
 	
-	@RequestMapping(value="/myweb/register",method=RequestMethod.GET) // register page
-	public ModelAndView registerTh(HttpSession session)
+	@RequestMapping(value="/myweb/register") // register page
+	public ModelAndView registerTh(HttpSession session,@ModelAttribute(value="user") com.springboot.mywebapp.model.User user)
 	{
 		ModelAndView mav=new ModelAndView();
-		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
-		mav.addObject("user",session.getAttribute("registeruser"+session.getId())==null?new com.springboot.mywebapp.model.User():session.getAttribute("registeruser"+session.getId()));
-		mav.addObject("message",session.getAttribute("registermessage"+session.getId()));
-		mav.addObject("status",session.getAttribute("registerstatus"+session.getId()));
-		mav.setViewName("th_register");
-		session.removeAttribute("registermessage"+session.getId());
-		session.removeAttribute("registerstatus"+session.getId());
-		session.removeAttribute("registeruser"+session.getId());
+		if(user==null||user.getUsername()==null)
+		{
+			mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+			mav.addObject("user",session.getAttribute("registeruser"+session.getId())==null?new com.springboot.mywebapp.model.User():session.getAttribute("registeruser"+session.getId()));
+			mav.addObject("message",session.getAttribute("registermessage"+session.getId()));
+			mav.addObject("status",session.getAttribute("registerstatus"+session.getId()));
+			mav.setViewName("th_register");
+			session.removeAttribute("registermessage"+session.getId());
+			session.removeAttribute("registerstatus"+session.getId());
+			session.removeAttribute("registeruser"+session.getId());
+		}
+		else // save butonu
+		{
+			com.springboot.mywebapp.model.MessageInfo registerUserMessage=utilService.registerUser(user);
+			session.setAttribute("registermessage"+session.getId(),registerUserMessage.getMessage());
+			session.setAttribute("registerstatus"+session.getId(),registerUserMessage.isStatus());
+			session.setAttribute("registeruser"+session.getId(),user);
+			mav.setViewName("redirect:/myweb/register");
+		}
 		return mav;
-	}
-	
-	@RequestMapping(value="/myweb/registersave",method=RequestMethod.POST) // register page save
-	public String registerSaveTh(HttpSession session,@ModelAttribute(value="user") com.springboot.mywebapp.model.User user)
-	{
-		com.springboot.mywebapp.model.MessageInfo registerUserMessage=utilService.registerUser(user);
-		session.setAttribute("registermessage"+session.getId(),registerUserMessage.getMessage());
-		session.setAttribute("registerstatus"+session.getId(),registerUserMessage.isStatus());
-		session.setAttribute("registeruser"+session.getId(),user);
-		return "redirect:/myweb/register";
 	}
 	
 	@RequestMapping(value="/myweb/activateacoount",method=RequestMethod.POST)
@@ -121,7 +122,7 @@ public class WebLinkControllerAnnoymusTh
 		}
 		else
 		{
-			com.springboot.mywebapp.model.MessageInfo activateUserMessage=utilService.activateUser(token);
+			com.springboot.mywebapp.model.MessageInfo activateUserMessage=utilService.activateUser(request,token);
 			if(!activateUserMessage.isStatus())
 			{
 				mav.addObject("recaptchamessage",activateUserMessage.getMessage());
@@ -129,8 +130,7 @@ public class WebLinkControllerAnnoymusTh
 				mav.setViewName("redirect:/myweb/confirm-account");
 			}
 			else
-			{
-				utilService.authenticateUser(request,token);
+			{				
 				mav.setViewName("redirect:/");
 			}
 		}
@@ -160,31 +160,30 @@ public class WebLinkControllerAnnoymusTh
 		return mav;
 	}
 	
-	@RequestMapping(value="/usersettings") // mailden gelen
-	public ModelAndView userSettingsTh(HttpSession session,HttpServletRequest request,@RequestParam(value="user",required=false) com.springboot.mywebapp.model.User user)
+	@RequestMapping(value="/usersettings")
+	public ModelAndView userSettingsTh(HttpSession session,HttpServletRequest request,@ModelAttribute(value="user") com.springboot.mywebapp.model.User user)
 	{
-		
 		ModelAndView mav=new ModelAndView();
-		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
-		if(user==null)
+		if(user==null||user.getUsername()==null)
 		{
-			if(request.isUserInRole("ROLE_ADMIN")||request.isUserInRole("ROLE_USER"))
-			{
-				mav.addObject("user",utilService.getCurrentUser());
-				mav.setViewName("th_usersettings");
-			}
-			else
-			{
-				mav.setViewName("redirect:/#");
-			}
+			mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+			mav.addObject("user",session.getAttribute("settingsuser"+session.getId())==null?utilService.getCurrentUser():session.getAttribute("settingsuser"+session.getId()));
+			mav.addObject("message",session.getAttribute("settingsmessage"+session.getId()));
+			mav.addObject("status",session.getAttribute("settingsstatus"+session.getId()));
+			mav.setViewName("th_usersettings");
+			session.removeAttribute("settingsmessage"+session.getId());
+			session.removeAttribute("settingsstatus"+session.getId());
+			session.removeAttribute("settingsuser"+session.getId());
 		}
-		else
+		else // save butonu
 		{
 			com.springboot.mywebapp.model.MessageInfo updateUserMessage=utilService.updateUser(user);
-			mav.addObject("message",updateUserMessage.getMessage());
-			mav.addObject("status",updateUserMessage.isStatus());
-			mav.setViewName("redirect:/#");
+			session.setAttribute("settingsmessage"+session.getId(),updateUserMessage.getMessage());
+			session.setAttribute("settingsstatus"+session.getId(),updateUserMessage.isStatus());
+			session.setAttribute("settingsuser"+session.getId(),user);
+			mav.setViewName("redirect:/usersettings");
 		}
+		
 		return mav;
 	}
 	

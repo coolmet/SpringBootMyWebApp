@@ -123,11 +123,13 @@ public class User extends BaseEntity
 	{
 		this.createdate=createdate;
 	}
-	
+
 	@Override
 	public String toString()
 	{
-		return "User [username="+username+", password="+password+", active="+active+", name="+name+", surname="+surname+", email="+email+", confirmationtoken="+confirmationtoken+", createdate="+createdate+"]";
+		return "User [username="+username+", password="+password+", active="+active+", name="+name+", surname="+surname+", email="+email+", confirmationtoken="+confirmationtoken+"]";
 	}
+	
+	
 	
 }

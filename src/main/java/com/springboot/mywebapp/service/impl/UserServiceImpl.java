@@ -1,6 +1,7 @@
 package com.springboot.mywebapp.service.impl;
 
 import java.util.List;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
@@ -80,7 +81,7 @@ public class UserServiceImpl implements UserService
 	@Transactional(propagation=Propagation.SUPPORTS,readOnly=true)
 	public User findByEmail(String email)
 	{
-		return userRepository.findByEmail(email);
+		return userRepository.findByEmail(email); 
 	}
 	
 	@Override
