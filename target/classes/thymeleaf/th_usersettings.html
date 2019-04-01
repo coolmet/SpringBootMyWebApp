@@ -21,10 +21,7 @@
 
 <body>
 
-	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_css"></div>
-	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_style"></div>
-	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_javascript"></div>
-	<div th:include="fragments/languageleft.html :: FRG_language_javascript"></div>
+
 	<div id="langid">
 		<form action="#" th:action="@{/usersettings}" th:object="${user}" method="post">
 			<div style="position: relative">
@@ -122,7 +119,7 @@
 			</div>
 		</form>
 	</div>
-	
+
 	<!--===============================================================================================-->
 	<script th:src="@{|/logines/js/jquery-3.2.1.min.js?v=${#dates.createNow()}|}"></script>
 	<!--===============================================================================================-->
@@ -131,8 +128,5 @@
 	<script th:src="@{|/logines/js/main.js?v=${#dates.createNow()}|}"></script>
 	<!--===============================================================================================-->
 
-	<!--===============================================================================================-->
-	<script th:src="@{|/bootstrap-4.3.1/js/bootstrap.min.js?v=${#dates.createNow()}|}"></script>
-	<!--===============================================================================================-->
 
 </body>

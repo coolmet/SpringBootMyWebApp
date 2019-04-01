@@ -11,11 +11,8 @@
 
 <body>
 
-	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_css"></div>
-	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_js"></div>
-	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_style"></div>
-	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_javascript"></div>
 	<div id="langid">
-		<div th:replace="fragments/headernavbar.html :: FRG_header_navbar"></div>
+		<div th:insert="fragments/headernavbar.html :: FRG_header_navbar"></div>
 	</div>
+	
 </body>

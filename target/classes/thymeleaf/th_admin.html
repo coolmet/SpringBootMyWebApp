@@ -11,30 +11,26 @@
 <body>
 
 	<!-- ################################## -->
-
-	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_css"></div>
-	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_js"></div>
-	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_style"></div>
-	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_javascript"></div>
-
 	<div id="langid">
 		<div th:replace="fragments/headernavbar.html :: FRG_header_navbar"></div>
-
-		<div style="float: left; padding-left: 10px">
-			<table>
-				<thead>
-					<tr style="font-weight: bold;" bgcolor="lightblue">
-						<td>Link</td>
-						<td>Path</td>
-						<td>Page</td>
-					</tr>
-				</thead>
-				<tr>
-					<td><a href="/admin/users">/admin/users</a></td>
-					<td>admin/users</td>
-					<td>th_users.html</td>
-				</tr>
-			</table>
-		</div>
 	</div>
+	<!-- ################################## -->
+
+	<div style="float: left; padding-left: 10px">
+		<table>
+			<thead>
+				<tr style="font-weight: bold;" bgcolor="lightblue">
+					<td>Link</td>
+					<td>Path</td>
+					<td>Page</td>
+				</tr>
+			</thead>
+			<tr>
+				<td><a href="/admin/users">/admin/users</a></td>
+				<td>admin/users</td>
+				<td>th_users.html</td>
+			</tr>
+		</table>
+	</div>
+
 </body>

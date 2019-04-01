@@ -11,15 +11,15 @@
 
 <body>
 
-	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_css"></div>
-	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_js"></div>
-	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_style"></div>
-	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_javascript"></div>
 	<div id="langid">
 		<div th:replace="fragments/headernavbar.html :: FRG_header_navbar"></div>
-	</div>
+	</div>	
 
 	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/table/bootstrap-table.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/table/dragtable.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/table/bootstrap-table-reorder-rows.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/table/jquery.resizableColumns.css}" />
+
 	<script th:src="@{|/bootstrap-4.3.1/js/table/bootstrap-table.min.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/bootstrap-4.3.1/js/table/bootstrap-table-export.min.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/bootstrap-4.3.1/js/table/bootstrap-table-reorder-columns.min.js?v=${#dates.createNow()}|}"></script>
@@ -29,6 +29,10 @@
 	<script th:src="@{|/bootstrap-4.3.1/js/table/bootstrap-table-i18n-enhance.min.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/bootstrap-4.3.1/js/table/bootstrap-table-key-events.min.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/bootstrap-4.3.1/js/table/bootstrap-table-locale-all.min.js?v=${#dates.createNow()}|}"></script>
+	<script th:src="@{|/bootstrap-4.3.1/js/table/jquery.tablednd.min.js?v=${#dates.createNow()}|}"></script>
+	<script th:src="@{|/bootstrap-4.3.1/js/table/bootstrap-table-reorder-rows.min.js?v=${#dates.createNow()}|}"></script>
+	<script th:src="@{|/bootstrap-4.3.1/js/table/jquery.resizableColumns.min.js?v=${#dates.createNow()}|}"></script>
+	<script th:src="@{|/bootstrap-4.3.1/js/table/bootstrap-table-resizable.min.js?v=${#dates.createNow()}|}"></script>
 	
 	<script th:src="@{|/jquery-3.3.1/js/jquery-ui.min.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/jquery-3.3.1/js/jquery.dragtable.js?v=${#dates.createNow()}|}"></script>
@@ -37,26 +41,16 @@
 	<script th:src="@{|/jquery-3.3.1/js/jspdf.plugin.autotable.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/jquery-3.3.1/js/jspdf.plugin.autotable.js?v=${#dates.createNow()}|}"></script>
 
-
-
-	<style>
-table.dataTable thead .sorting:after,table.dataTable thead .sorting:before,table.dataTable thead .sorting_asc:after,table.dataTable thead .sorting_asc:before,table.dataTable thead .sorting_asc_disabled:after,table.dataTable thead .sorting_asc_disabled:before,table.dataTable thead .sorting_desc:after,table.dataTable thead .sorting_desc:before,table.dataTable thead .sorting_desc_disabled:after,table.dataTable thead .sorting_desc_disabled:before
-	{
-	bottom: .5em;
-}
-
-.modal-dialog {
-	max-width: max-content;
-}
-
-.pagination > li > a, .pagination > li > span{background-color:#ffc107; color: #000; border-color:#fff;}
-.pagination > li > a:hover{background-color:#d39e00; color: #000; border-color:#fff;}
-.page-item.active .page-link {background-color:#000; color: #d39e00; border-color:#fff;}
-
+<style> 
+	.modal-dialog 									{ max-width: max-content; }
+	.pagination > li > a, .pagination > li > span	{ background-color:#ffc107; color: #000; border-color:#fff; }
+	.pagination > li > a:hover						{ background-color:#d39e00; color: #000; border-color:#fff; }
+	.page-item.active .page-link 					{ background-color:#000; color: #d39e00; border-color:#fff; }
+	a.detail-icon									{ color: #ffc107; }
+	a:hover											{ color: #000; }
 </style>
 
-
-	<script type="text/javascript">
+<script type="text/javascript">
 		$(document).ready(function()
 			{
 				$('#dtTableID').DataTable();
@@ -119,14 +113,16 @@ table.dataTable thead .sorting:after,table.dataTable thead .sorting:before,table
 		);
 		
 	
-
+		function detailFormatter(index, row) {
+		    var html = []
+		    $.each(row, function (key, value) {
+		    	if(!key.startsWith("_"))
+		      html.push('<b>' + key + ':</b> ' + value + '<br>')
+		    })
+		    return html.join('')
+		  }
 		
-	</script>
-
-
-
-
-
+</script>
 
 
 
@@ -184,11 +180,12 @@ table.dataTable thead .sorting:after,table.dataTable thead .sorting:before,table
   					data-footer-style="footerStyle"
   					data-single-select="true"
   					data-maintain-selected="true"
-  					data-checkbox-header="false"
+  					data-checkbox-header="true"
   					data-buttons-class="warning"
   					data-detail-view="true"
   					data-detail-formatter="detailFormatter"
   					data-show-columns="true"
+  					data-resizable="true"
   					data-filter-control="true"
   					data-filter-show-clear="true"
   					data-key-events="true"
@@ -206,12 +203,12 @@ table.dataTable thead .sorting:after,table.dataTable thead .sorting:before,table
 							</select>
 						</div>
 						<thead class="bg-dark text-light">
-							<tr>
-								<th data-field="state" data-checkbox="true"></th>
-								<th class="th-sm">
+							<tr>							
+								<th class="th-sm" data-field="select">Select</th>
+								<th class="th-sm" data-field="index" data-sortable="true">
 									<i class="fas fa-leaf mr-2 blue-text" aria-hidden="true"></i>
 								</th>
-								<th class="th-sm" data-field="id" data-sortable="true">UserId</th>
+								<th class="th-sm" data-field="userid" data-sortable="true">UserId</th>
 								<th class="th-sm" data-field="username" data-sortable="true">UserName</th>
 								<th class="th-sm" data-field="active">Active</th>
 								<th class="th-sm" data-field="name">Name</th>
@@ -223,7 +220,8 @@ table.dataTable thead .sorting:after,table.dataTable thead .sorting:before,table
 						<tbody>
 							<div th:each="user,status : ${@utilService.getAllUsers()}">
 								<tr>
-									<td data-field="state" data-checkbox="true"></td>
+								
+									<td data-field="select" data-checkbox="true"></td>									
 									<td th:text="${status.index}"></td>
 									<td th:text="${user.getUserId()}"></td>
 									<td th:text="${user.getUsername()}"></td>
@@ -234,20 +232,7 @@ table.dataTable thead .sorting:after,table.dataTable thead .sorting:before,table
 									<td th:text="${user.getPassword()}"></td>
 								</tr>
 							</div>
-						</tbody>
-						<tfoot>
-							<tr>
-								<th></th>
-								<th></th>
-								<th>UserID</th>
-								<th>UserName</th>
-								<th>Active</th>
-								<th>Name</th>
-								<th>SurName</th>
-								<th>Email</th>
-								<th>Password</th>
-							</tr>
-						</tfoot>
+						</tbody>						
 					</table>
 				</div>
 				<div class="modal-footer">
@@ -256,8 +241,6 @@ table.dataTable thead .sorting:after,table.dataTable thead .sorting:before,table
 			</div>
 		</div>
 	</div>
-
-	
 
 
 </body>

@@ -20,11 +20,7 @@
 
 <body>
 
-	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_css"></div>
-	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_style"></div>
-	<div th:include="fragments/headernavbar.html :: FRG_header_navbar_javascript"></div>
-	<div th:include="fragments/languageleft.html :: FRG_language_javascript"></div>
-	
+
 	<div id="langid">
 		<form th:action="login" method="post">
 			<div style="position: relative; height: 100%;">
@@ -38,6 +34,7 @@
 						<div class="top-right" style="width: 100%; position: fixed; text-align: right; top: 0px; right: 0px;">
 							<div th:replace="fragments/headernavbar.html :: FRG_header_navbar"></div>
 						</div>
+						
 
 						<div id="wraplogin100" class="wrap-login100">
 							<div class="login100-form validate-form">
@@ -127,8 +124,6 @@
 	<script th:src="@{|/particles/js/particles.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/particles/js/particles.min.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/particles/js/app.js?v=${#dates.createNow()}|}"></script>
-	<!--===============================================================================================-->
-	<script th:src="@{|/bootstrap-4.3.1/js/bootstrap.min.js?v=${#dates.createNow()}|}"></script>
 	<!--===============================================================================================-->
 
 </body>
