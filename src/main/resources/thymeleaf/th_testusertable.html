@@ -13,14 +13,15 @@
 
 	<div id="langid">
 		<div th:replace="fragments/headernavbar.html :: FRG_header_navbar"></div>
-	</div>	
-
+	</div>
+	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/table/bootstrap.min.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/table/bootstrap-table.min.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/table/bootstrap-table-reorder-rows.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/table/jquery.resizableColumns.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/table/dragtable.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/logines/fonts/iconic/css/material-design-iconic-font.min.css}" />
 	
+	<script th:src="@{|/bootstrap-4.3.1/js/table/bootstrap.min.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/bootstrap-4.3.1/js/table/bootstrap-table.min.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/bootstrap-4.3.1/js/table/bootstrap-table-export.min.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/bootstrap-4.3.1/js/table/bootstrap-table-reorder-columns.min.js?v=${#dates.createNow()}|}"></script>
@@ -34,7 +35,7 @@
 	<script th:src="@{|/bootstrap-4.3.1/js/table/jquery.resizableColumns.min.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/bootstrap-4.3.1/js/table/bootstrap-table-resizable.min.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/bootstrap-4.3.1/js/table/bootstrap-table-reorder-rows.min.js?v=${#dates.createNow()}|}"></script>
-	
+
 	<script th:src="@{|/jquery-3.3.1/js/jquery-ui.min.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/jquery-3.3.1/js/jquery.dragtable.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/jquery-3.3.1/js/tableExport.min.js?v=${#dates.createNow()}|}"></script>
@@ -42,134 +43,156 @@
 	<script th:src="@{|/jquery-3.3.1/js/jspdf.plugin.autotable.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/jquery-3.3.1/js/jspdf.plugin.autotable.js?v=${#dates.createNow()}|}"></script>
 
-<style> 
-	.modal-dialog 									{ max-width: max-content; }
-	.pagination > li > a, .pagination > li > span	{ background-color:#ffc107; color: #000; border-color:#fff; }
-	.pagination > li > a:hover						{ background-color:#d39e00; color: #000; border-color:#fff; }
-	.page-item.active .page-link 					{ background-color:#000; color: #d39e00; border-color:#fff; }
-	a.detail-icon									{ color: #ffc107; }
-	a:hover											{ color: #000; }	
-	.svg-inline--fa 								{ height: 19px; vertical-align: sub;}
-	.svg-inline--fa.fa-w-16 						{ width: 20px;}
+	<style>
+.modal-dialog {
+	max-width: max-content;
+}
 
+.pagination>li>a,.pagination>li>span {
+	background-color: #ffc107; color: #000; border-color: #fff;
+}
+
+.pagination>li>a:hover {
+	background-color: #d39e00; color: #000; border-color: #fff;
+}
+
+.page-item.active .page-link {
+	background-color: #000; color: #d39e00; border-color: #fff;
+}
+
+a.detail-icon {
+	color: #ffc107;
+}
+
+a:hover {
+	color: #000;
+}
+
+.svg-inline--fa {
+	height: 19px; vertical-align: sub;
+}
+
+.svg-inline--fa.fa-w-16 {
+	width: 20px;
+}
 </style>
 
-<script type="text/javascript">
-
+	<script type="text/javascript">
 		$(document).ready(function()
 			{
 				$('#dtTableID').DataTable();
 				$('.dataTables_length').addClass('bs-select');
 				$('#dtTableID').bootstrapTable();
 				$('#dtTableID').bootstrapTable('changeLocale', 'tr-TR');
-			    $(".form-control").attr("placeholder", "Ara");	
-			    $('[data-toggle="tooltip"]').tooltip();
-			    $('[rel="tooltip"]').tooltip({trigger: "hover"});
-			    
+				$(".form-control").attr("placeholder", "Ara");
+				$('[data-toggle="tooltip"]').tooltip();
+				$('[rel="tooltip"]').tooltip({
+					trigger : "hover"
+				});
 			});
-		
-		 $(document).on("click", ".deleterow", function()
+
+		$(window).on('load', function()
 			{
-		        $(this).parents("tr").remove();
-				$(".add-new").removeAttr("disabled");
-		    });
-		 
-		 $(document).on("click", "#delete", function(){
-		      var id = $(this).data("uid");
-		      alert(":"+id);
-		      $("#del").click(function(){
-		          if(id==1){
-		              $("#d1").html('');
-		          }else if(id==2){
-		              $("#d2").html('');
-		          }
-		      });
-		   });
-		 
-		 $(document).on("click", ".editrow", function()
-			{		
-		        $(this).parents("tr").find("td:not(:last-child)").each(function()
-		        	{
+				$('#modalTable').modal('show');
+			});
+
+		$(document).on("click", ".deleterow", function()
+			{
+				$(this).parents("tr").remove();
+			});
+
+		$(document).on("click", "#modalDeleteToID", function()
+			{
+				
+				$("#del").click(function()
+					{
+						var xuserid=document.getElementById("userid").value;
+						alert(xuserid);
+						$('#modalDeleteToID').modal('hide');
+						alert(document.getElementById(xuserid).innerHTML);
+					});
+			});
+
+		
+
+		$(document).on("click", ".modelDeleteFromClass", function()
+			{
+				$(".modal-body #userid").val($(this).data('userid'));
+				$(".modal-body #username").val($(this).data('username'));
+			});
+
+		$(document).on("click", ".editrow", function()
+			{
+
+				$(this).parents("tr").find("td:not(:last-child)").each(function()
+					{
+
 						$(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
-					});		
+					});
 				$(this).parents("tr").find(".addrow, .editrow").toggle();
 				$(".add-new").attr("disabled", "disabled");
-		    });
-		 
-		$(window).on('load',function()
-			{
-	        	$('#modalTable').modal('show');
-	    	});
-		
-		
-		
-		$(function() 
+			});
+
+		$(function()
 			{
 
-		    	$('#dtTableID').on('post-body.bs.table', function (e) 
-		    			{
-		      				$('[data-toggle="popover"]').popover();
-		     		    });
-		    
-		    	$('#toolbar').find('select').change(function () 
-		    			{
-		        			$('#dtTableID').bootstrapTable('destroy').bootstrapTable({
-		          			exportDataType: $(this).val(),
-		          			exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel', 'pdf'],
-		          			columns: [
-		            					{
-		              					field: 'state',
-		              					checkbox: true,
-		              					visible: $(this).val() === 'selected'
-		            					},		            
-		          					]
-		        				})
-		      			}).trigger('change');
-		    
-		    	$('#modalTable').on('shown.bs.modal', function()
-						{
-							$('#dtTableID').bootstrapTable('resetView')
-						});
-		    
-		  	});		
-		
-		function rowAttributes(row, index) 
+				$('#dtTableID').on('post-body.bs.table', function(e)
+					{
+
+						$('[data-toggle="popover"]').popover();
+					});
+				$('#toolbar').find('select').change(function()
+					{
+
+						$('#dtTableID').bootstrapTable('destroy').bootstrapTable({
+							exportDataType : $(this).val(),
+							exportTypes :
+								[ 'json', 'xml', 'csv', 'txt', 'sql', 'excel', 'pdf' ],
+							columns :
+								[ {
+									field : 'state',
+									checkbox : true,
+									visible : $(this).val() === 'selected'
+								}, ]
+						})
+					}).trigger('change');
+				$('#modalTable').on('shown.bs.modal', function()
+					{
+
+						$('#dtTableID').bootstrapTable('resetView')
+					});
+			});
+		function rowAttributes(row, index)
 			{
-		    	return {
-		      			'data-toggle': 'popover',
-		      			'data-placement': 'bottom',
-		      			'data-trigger': 'hover',
-		      			'data-content': [
-		        		'Index: ' + index,
-		        		'ID: ' + row.id,
-		        		'Name: ' + row.name,
-		      				].join(', ')
-		    			}
-		  	};
-	
-		function detailFormatter(index, row) 
+
+				return {
+					'data-toggle' : 'popover',
+					'data-placement' : 'bottom',
+					'data-trigger' : 'hover',
+					'data-content' :
+						[ 'Index: ' + index, 'ID: ' + row.id, 'Name: ' + row.name, ].join(', ')
+				}
+			};
+		function detailFormatter(index, row)
 			{
-		    	var html = []
-		    	$.each(row, function (key, value) 
-		    		{
-		    			if(!key.startsWith("_"))
-		      			html.push('<b>' + key + ':</b> ' + value + '<br>')
-		    		})
-		    	return html.join('')
+
+				var html = []
+				$.each(row, function(key, value)
+					{
+
+						if (!key.startsWith("_"))
+							html.push('<b>' + key + ':</b> ' + value + '<br>')
+					})
+				return html.join('')
 			}
-		
-
-		
-		
-		
-</script>
+	</script>
 
 
 
 	<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalTable">Users Table</button>
-	
+
 	<div id="modalTable" class="modal fade" tabindex="-1" role="dialog">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">Users table</h5>
@@ -179,62 +202,19 @@
 				</div>
 
 				<div class="modal-body">
-					<table 
-					id="dtTableID" 
-					data-show-export="true"
-					data-toggle="table" 
-					data-height="50%" 
-					data-locale="tr-TR" 
-					data-toolbar=".toolbar" 
-					data-search="true"
-					data-advanced-search="true"
- 					data-id-table="advancedTable"
-					data-search-on-enter-key="false"
-					data-strict-search="false"
-					data-trim-on-search="false"
-					data-search-align="left"
-					data-search-time-out="1000"
-					data-search-text=""
-					data-sortable="true"
-					data-show-refresh="true" 
-					data-auto-refresh="false"					
-					data-remember-order="true"
-					data-side-pagination="client"
-					data-control-name="paging" 
-					data-control-type="boot-pagination" 
-  					data-pagination="true"
-  					data-page-number="1"
-  					data-page-size="5"
-  					data-pagination-h-align="left"
-  					data-pagination-detail-h-align="right"
-  					data-pagination-pre-text="Geri"
-  					data-pagination-next-text="İleri"
-  					data-id-field="id"
-  					data-page-list="[10, 25, 50, 100, 200, All]"
-  					data-minimum-count-columns="3"
-  					data-show-pagination-switch="true"
-  					data-show-toggle="true"
-  					data-show-fullscreen="true"
-  					data-click-to-select="true"
-  					data-single-select="true"
-  					data-maintain-selected="true"
-  					data-checkbox-header="true"
-  					data-buttons-class="warning"
-  					data-detail-view="false"
-  					data-detail-formatter="detailFormatter"
-  					data-show-columns="true"
-  					data-resizable="true"
-  					data-filter-control="true"
-  					data-filter-show-clear="true"
-  					data-key-events="true"
-  					data-mobile-responsive="true"
-  					data-reorderable-rows="true"
-  					data-reorderable-columns="true"
-  					class="table table-striped table-bordered table-hover table table-sm table-responsive-sm w-auto text-nowrap "  
-					cellspacing="0" 
-					 width="100%"					
-					 >
-					  <!--data-row-attributes="rowAttributes"-->
+					<table id="dtTableID" data-show-export="true" data-toggle="table" data-height="50%" data-locale="tr-TR" data-toolbar=".toolbar"
+						data-search="true" data-advanced-search="true" data-id-table="advancedTable" data-search-on-enter-key="false" data-strict-search="false"
+						data-trim-on-search="false" data-search-align="left" data-search-time-out="1000" data-search-text="" data-sortable="true"
+						data-show-refresh="true" data-auto-refresh="false" data-remember-order="true" data-side-pagination="client" data-control-name="paging"
+						data-control-type="boot-pagination" data-pagination="true" data-page-number="1" data-page-size="5" data-pagination-h-align="left"
+						data-pagination-detail-h-align="right" data-pagination-pre-text="Geri" data-pagination-next-text="İleri" data-id-field="id"
+						data-page-list="[10, 25, 50, 100, 200, All]" data-minimum-count-columns="3" data-show-pagination-switch="true" data-show-toggle="true"
+						data-show-fullscreen="true" data-click-to-select="true" data-single-select="true" data-maintain-selected="true" data-checkbox-header="true"
+						data-buttons-class="warning" data-detail-view="false" data-detail-formatter="detailFormatter" data-show-columns="true" data-resizable="true"
+						data-filter-control="true" data-filter-show-clear="true" data-key-events="true" data-mobile-responsive="true" data-reorderable-rows="true"
+						data-reorderable-columns="true" class="table table-striped table-bordered table-hover table table-sm table-responsive-sm w-auto text-nowrap "
+						cellspacing="0" width="100%">
+						<!--data-row-attributes="rowAttributes"-->
 						<div id="toolbar" style="max-width: 200px; float: right; margin-top: 10px;">
 							<select id="save-form-control" class="form-control" style="font-size: medium; font-weight: normal; color: #000; background-color: #ffc107;">
 								<option value="">Sayfayı Kaydet</option>
@@ -243,14 +223,14 @@
 							</select>
 						</div>
 						<thead class="bg-dark text-light">
-							<tr>					
-									
+							<tr>
+
 								<th class="th-sm" data-field="state">Select</th>
 								<th class="th-sm" data-field="index" data-sortable="true">
 									<i class="fas fa-leaf mr-2 blue-text" aria-hidden="true"></i>
 								</th>
-								
-								<th class="th-sm" data-field="edit" >Edit</th>
+
+								<th class="th-sm" data-field="edit">Edit</th>
 								<th class="th-sm" data-field="userid" data-sortable="true">UserId</th>
 								<th class="th-sm" data-field="username" data-sortable="true">UserName</th>
 								<th class="th-sm" data-field="active">Active</th>
@@ -262,26 +242,34 @@
 						</thead>
 						<tbody>
 							<div th:each="user,status : ${@utilService.getAllUsers()}">
-								<tr>
-								
-									<td data-field="state" data-checkbox="true"></td>									
+								<tr id="${user.getUserId()}">
+
+									<td data-field="state" data-checkbox="true"></td>
 									<td th:text="${status.index}"></td>
-									
-									<td>  
-										<a class="addrow text-primary" title="Add Row" data-toggle="tooltip" style="cursor:pointer;"><i class="fas fa-plus-circle"></i></a>
-										<a class="editrow text-warning" title="Edit Row" data-toggle="tooltip" style="cursor:pointer;"><i class="fas fa-edit"></i></a>
-										<a class="deleterow text-danger" title="Delete Row" data-target="#delete"   data-toggle="tooltip"  style="cursor:pointer;"><i class="fas fa-minus-circle"></i></a>
-									
-									<span data-toggle="modal" data-target="#delete" data-uid="${user.getUserId()}">
-										<button type="button" data-toggle="tooltip" title="Add Row"  class="delete btn btn-primary btn-sm"><i class="fas fa-plus-circle"></i></button>
-									</span>
-									<span data-toggle="modal" data-target="#delete" data-uid="${user.getUserId()}">
-										<button type="button" data-toggle="tooltip" title="Edit Row"  class="delete btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
-									</span>
-									<span data-toggle="modal" data-target="#delete" data-uid="${user.getUserId()}">
-										<button type="button" data-toggle="tooltip" title="Delete Row"  class="delete btn btn-danger btn-sm"><i class="fas fa-minus-circle"></i></button>
-									</span>
-									
+
+									<td>
+										<a class="addrow text-primary" title="Add Row" data-toggle="tooltip" style="cursor: pointer;"><i class="fas fa-plus-circle"></i></a> <a
+											class="editrow text-warning" title="Edit Row" data-toggle="tooltip" style="cursor: pointer;"><i class="fas fa-edit"></i></a> <a
+											class="deleterow text-danger" title="Delete Row" data-toggle="tooltip" style="cursor: pointer;"><i class="fas fa-minus-circle"></i></a>
+
+										<span data-toggle="modal" data-target="#modalDeleteToID" data-uid="${user.getUserId()}">
+											<button type="button" data-toggle="tooltip" title="Add Row" class="btn btn-primary btn-sm">
+												<i class="fas fa-plus-circle"></i>
+											</button>
+										</span>
+										<span data-toggle="modal" data-target="#modalDeleteToID" data-uid="${user.getUserId()}">
+											<button type="button" data-toggle="tooltip" title="Edit Row" class="btn btn-warning btn-sm">
+												<i class="fas fa-edit"></i>
+											</button>
+										</span>
+										<span class="modelDeleteFromClass" data-toggle="modal" data-placement="top" data-target="#modalDeleteToID"
+											th:attr="data-userid=${user.getUserId()}, data-username=${user.getUsername()}">
+											<button type="button" data-toggle="tooltip" title="Delete Row" class="btn btn-danger btn-sm">
+												<i class="fas fa-minus-circle"></i>
+											</button>
+										</span>
+									</td>
+
 									<td th:text="${user.getUserId()}"></td>
 									<td th:text="${user.getUsername()}"></td>
 									<td th:text="${user.isActive()}"></td>
@@ -289,34 +277,48 @@
 									<td th:text="${user.getSurname()}"></td>
 									<td th:text="${user.getEmail()}"></td>
 									<td th:text="'***'"></td>
+
 								</tr>
 							</div>
-						</tbody>						
+						</tbody>
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size: medium; font-weight: normal; color: #000; background-color: #ffc107;">Kapat</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal"
+						style="font-size: medium; font-weight: normal; color: #000; background-color: #ffc107;">Kapat</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
-<div id="delete" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">×</button>
-        <h4 class="modal-title">Delete Data</h4>
-      </div>
-      <div class="modal-body">
-        <strong>Are you sure you want to delete this data?</strong>
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="del" class="btn btn-danger" data-dismiss="modal">Delete</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+	<div id="modalDeleteToID" class="modal fade" role="dialog" tabindex="-1">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header text-white bg-dark">
+
+					<h4 class="modal-title">Delete Data</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						<i class="fas fa-window-close"></i>
+					</button>
+
+				</div>
+
+				<div class="modal-body alert alert-danger">
+					<strong>User ID:</strong>
+					<input readonly class="alert alert-danger" type="text" name="userid" id="userid" value="" />
+					<br>
+					<strong>User Name:</strong>
+					<input readonly class="alert alert-danger" type="text" name="username" id="username" value="" />
+					<br>
+					<strong>Are you sure you want to delete this record?</strong>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" id="del" class="btn btn-danger" data-dismiss="modal">Delete</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
