@@ -118,11 +118,6 @@ a:hover {
 				$('#modalDataTable').modal('show');
 			});
 
-		$(document).on("click", ".deleterow", function()
-			{
-				$(this).parents("tr").remove();
-			});
-
 		$(document).on("click", ".modelDeleteFromClass", function(e)
 			{
 				e.preventDefault();
@@ -132,10 +127,10 @@ a:hover {
 				$(".modal-body #username").val($(this).data('username'));
 			});
 
-		$(document).on("click", "#btnDelteYes", function()
+		$(document).on("click", "#btnDeleteYes", function()
 			{
 				var id = $('#modalDeleteToID').data('id');//document.getElementById("userid").value;
-				$('[data-id=' + id + ']').remove();
+				$('[data-id=' + id + ']').remove(); // $(this).parents("tr").remove();
 				$('#modalDataTable').bootstrapTable('prevPage').bootstrapTable('refresh');
 				$('#modalDeleteToID').modal('hide');
 			});
@@ -236,10 +231,6 @@ a:hover {
 									<td th:text="${status.index}"></td>
 
 									<td>
-										<a class="addrow text-primary" title="Add Row" data-toggle="tooltip" style="cursor: pointer;"><i class="fas fa-plus-circle"></i></a> <a
-											class="editrow text-warning" title="Edit Row" data-toggle="tooltip" style="cursor: pointer;"><i class="fas fa-edit"></i></a> <a
-											class="deleterow text-danger" title="Delete Row" data-toggle="tooltip" style="cursor: pointer;"><i class="fas fa-minus-circle"></i></a>
-
 										<span data-toggle="modal" data-target="#modalDeleteToID" data-uid="${user.getUserId()}">
 											<button type="button" data-toggle="tooltip" title="Add Row" class="btn btn-primary btn-sm" style="cursor: pointer;">
 												<i class="fas fa-plus-circle"></i>
@@ -314,7 +305,7 @@ a:hover {
 				</div>
 
 				<div class="modal-footer text-white bg-dark">
-					<button type="button" id="btnDelteYes" class="btn btn-danger" href="#">Delete</button>
+					<button type="button" id="btnDeleteYes" class="btn btn-danger" href="#">Delete</button>
 					<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
 				</div>
 			</div>
