@@ -7,12 +7,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Order(value=2)
 @Configuration
-public class SecurityConfiguration_Rest extends WebSecurityConfigurerAdapter
+public class SecurityConfiguration_Rest extends AbstractSecurityConfiguration
 {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception
 	{
-		super.configure(http);
+		//super.configure(http);
 		http.antMatcher("/rest/*")
 		    .authorizeRequests()
 		    .antMatchers("/rest","/rest/*","/rest/**","/**/rest/**")

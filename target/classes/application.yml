@@ -1,18 +1,18 @@
 logging.file: logs/springbootmywebapp.log 
 logging:
   level:
-    root: error
-    org.springframework.web: error
-    org.springframework.boot: error
-    org.springframework.core: error
-    org.springframework.beans: error
-    org.springframework.webapp: error
-    org.springframework.security: error
-    org.springframework.jdbc.datasource: error
-    org.springframework.jdbc.core : error
-    org.hibernate: error
-    org.thymeleaf: error
-    web: error
+    root: info
+    org.springframework.web: info
+    org.springframework.boot: info
+    org.springframework.core: info
+    org.springframework.beans: info
+    org.springframework.webapp: info
+    org.springframework.security: info
+    org.springframework.jdbc.datasource: info
+    org.springframework.jdbc.core : info
+    org.hibernate: info
+    org.thymeleaf: info
+    web: info
   file: 
     max-history: 20
     max-size: 50MB  pattern:     console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(18971){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx"

@@ -84,7 +84,23 @@ public class UtilService
 		                                                                                                                                                       true,
 		                                                                                                                                                       grantedAuthorities),
 		                                                                                                null,grantedAuthorities);
+		// String password = authenticationToken.getCredentials().toString();
 		authenticationToken.setDetails(new WebAuthenticationDetails(request));
+		return authenticationToken;
+	}
+	
+	public UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken(com.springboot.mywebapp.model.User user)
+	{
+		List<GrantedAuthority> grantedAuthorities=authService.findAllByUserNameGrantedAuthority(user.getUsername());
+		UsernamePasswordAuthenticationToken authenticationToken=new UsernamePasswordAuthenticationToken(new org.springframework.security.core.userdetails.User(user.getUsername(),
+		                                                                                                                                                       user.getPassword(),
+		                                                                                                                                                       user.isActive(),
+		                                                                                                                                                       true,
+		                                                                                                                                                       true,
+		                                                                                                                                                       true,
+		                                                                                                                                                       grantedAuthorities),
+		                                                                                                null,grantedAuthorities);
+		// String password = authenticationToken.getCredentials().toString();
 		return authenticationToken;
 	}
 	

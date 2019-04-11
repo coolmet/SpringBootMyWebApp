@@ -121,7 +121,7 @@ public class SecurityConfiguration
 			    .deleteCookies("remember_me_cookie").logoutRequestMatcher(new AntPathRequestMatcher("/**/logout"))
 			    .logoutSuccessUrl("/login?logout").permitAll().and().requestCache().and().exceptionHandling()
 			    .accessDeniedPage("/403").and().csrf().disable();
-			 
+			
 			http.rememberMe().userDetailsService(userDetailsService).rememberMeServices(rememberMeServices());
 			http.sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry());
 			// http.httpBasic();
