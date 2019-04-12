@@ -90,7 +90,7 @@ public class RestControllerUser
 	
 	@RequestMapping(method=RequestMethod.DELETE,value="/del/{userid}")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<Void> delUser(@PathVariable("userid") Long userid)
+	public ResponseEntity<Void> delUser(@PathVariable("userid") Long userid) // http://localhost:8080/rest/user/del/1000003
 	{
 		try
 		{
@@ -110,7 +110,7 @@ public class RestControllerUser
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value="/create")
-	public ResponseEntity<URI> createUser(@RequestBody User user)
+	public ResponseEntity<URI> createUser(@RequestBody User user) // http://localhost:8080/rest/user/create
 	{
 		try
 		{
@@ -126,7 +126,7 @@ public class RestControllerUser
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT,value="/update/{userid}")
-	public ResponseEntity<?> updateUser(@PathVariable("userid") Long userid,@RequestBody User userRequest)
+	public ResponseEntity<?> updateUser(@PathVariable("userid") Long userid,@RequestBody User userRequest) // http://localhost:8080/rest/user/update
 	{
 		try
 		{

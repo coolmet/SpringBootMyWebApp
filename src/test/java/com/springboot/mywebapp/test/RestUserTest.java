@@ -1,71 +1,47 @@
 package com.springboot.mywebapp.test;
 
-import java.util.Arrays;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import java.util.List;
 import java.util.logging.Logger;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.http.client.support.BasicAuthenticationInterceptor;
-import org.springframework.http.client.support.BasicAuthorizationInterceptor;
+import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.TestingAuthenticationToken;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.context.support.WithUserDetails;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestOperations;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springboot.mywebapp.model.User;
-import com.springboot.mywebapp.service.AuthService;
+import com.springboot.mywebapp.rest.UserList;
 import com.springboot.mywebapp.service.UserService;
-import com.springboot.mywebapp.service.UtilService;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@DirtiesContext
-@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT,classes=SpringSecurityWebAuxTestConfig.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @PreAuthorize("hasRole('ADMIN')")
 
@@ -79,31 +55,53 @@ public class RestUserTest
 	int randomPort;
 	
 	@Autowired
-	private TestRestTemplate testRestTemplate;
+	private UserService userService;
 	
 	@Autowired
-	private ObjectMapper objectMapper;
+	private ObjectMapper jsonMapper;
+	// jsonMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES,true);
+	// jsonMapper.configure(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY,true);
+	// jsonMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+	
+	@Autowired
+	private MappingJackson2XmlHttpMessageConverter xmlConverter;
 	
 	@Autowired
 	private MockMvc mockMvc;
 	
+	@Autowired
+	private WebApplicationContext context;
+	
+	private MockMvc mvc;
+	
 	@Before
 	public void setUp()
 	{
-		
+		mvc=MockMvcBuilders
+		                   .webAppContextSetup(context)
+		                   .apply(springSecurity())
+		                   .build();
 	}
 	
 	@Test
-	@WithUserDetails(value="admin",userDetailsServiceBeanName="userDetailsService")
-	public void test3()
+	@WithMockUser(username="admin",password="admin",roles=
+	{"USER","ADMIN"})
+	public void getUsersJson()
 	{
 		try
 		{
-			Logger.getGlobal().severe("3_1>>>>>>: "+SecurityContextHolder.getContext().getAuthentication());
-			Logger.getGlobal().severe("3_2>>>>>>: "+SecurityContextHolder.getContext().getAuthentication().isAuthenticated()+":"+randomPort);
+			String requestbody="";
+			MvcResult mvcResult=mvc.perform(get("/rest/user/get/json/all").contentType(MediaType.APPLICATION_JSON).content(requestbody.getBytes()))
+			                       .andDo(print())
+			                       .andExpect(status().isOk())
+			                       .andReturn();
+			MatcherAssert.assertThat(mvcResult.getResponse().getStatus(),Matchers.equalTo(200));
+			Logger.getGlobal().severe("getUsersJson >>>>>>: "+mvcResult.getResponse().getContentAsString());
+			List<User> users=jsonMapper.readValue(mvcResult.getResponse().getContentAsString(),new TypeReference<List<User>>()
+			{
+			});
+			Logger.getGlobal().severe("getUsersJson >>>>>>: "+users.get(0).getUserId());
 			
-			ResponseEntity<?> resp=testRestTemplate.getForEntity("/rest/user/get/json/1000003",String.class);
-			Logger.getGlobal().severe("3_3>>>>>>: "+resp.getBody());
 		}
 		catch(Exception rt)
 		{
@@ -112,12 +110,214 @@ public class RestUserTest
 	}
 	
 	@Test
-	@WithMockUser(username="admin",password="admin",authorities="ADMIN")
-	public void test2()
+	@WithMockUser(username="admin",password="admin",roles=
+	{"USER","ADMIN"})
+	public void getUsersXML()
 	{
-		String body=testRestTemplate.getForObject("/rest/user/get/json/1000002",String.class);
-		Logger.getGlobal().severe("2>>>>>>: "+body);
-		
+		try
+		{
+			String requestbody="";
+			MvcResult mvcResult=mvc.perform(get("/rest/user/get/xml/all").contentType(MediaType.APPLICATION_XML).content(requestbody.getBytes()))
+			                       .andDo(print())
+			                       .andExpect(status().isOk())
+			                       .andReturn();
+			MatcherAssert.assertThat(mvcResult.getResponse().getStatus(),Matchers.equalTo(200));
+			Logger.getGlobal().severe("getUsersXML >>>>>>: "+mvcResult.getResponse().getContentAsString());
+			UserList<User> users=xmlConverter.getObjectMapper().readValue(mvcResult.getResponse().getContentAsString(),new TypeReference<UserList<User>>()
+			{
+			});
+			Logger.getGlobal().severe("getUsersXML >>>>>>: "+users.getUser().get(0).getUserId());
+			
+		}
+		catch(Exception rt)
+		{
+			rt.printStackTrace();
+		}
+	}
+	
+	@Test
+	@WithMockUser(username="admin",password="admin",roles=
+	{"USER","ADMIN"})
+	public void getUserByIdJson()
+	{
+		try
+		{
+			String requestbody="";
+			MvcResult mvcResult=mvc.perform(get("/rest/user/get/json/1000005").contentType(MediaType.APPLICATION_JSON).content(requestbody.getBytes()))
+			                       .andDo(print())
+			                       .andExpect(status().isOk())
+			                       .andReturn();
+			MatcherAssert.assertThat(mvcResult.getResponse().getStatus(),Matchers.equalTo(200));
+			Logger.getGlobal().severe("getUserByIdJson >>>>>>: "+mvcResult.getResponse().getContentAsString());
+			User user=jsonMapper.readValue(mvcResult.getResponse().getContentAsString(),User.class);
+			Logger.getGlobal().severe("getUserByIdJson >>>>>>: "+user.getUserId());
+			
+		}
+		catch(Exception rt)
+		{
+			rt.printStackTrace();
+		}
+	}
+	
+	@Test
+	@WithMockUser(username="admin",password="admin",roles=
+	{"USER","ADMIN"})
+	public void getUserByIdXML()
+	{
+		try
+		{
+			String requestbody="";
+			MvcResult mvcResult=mvc.perform(get("/rest/user/get/xml/1000005").contentType(MediaType.APPLICATION_XML).content(requestbody.getBytes()))
+			                       .andDo(print())
+			                       .andExpect(status().isOk())
+			                       .andReturn();
+			MatcherAssert.assertThat(mvcResult.getResponse().getStatus(),Matchers.equalTo(200));
+			Logger.getGlobal().severe("getUserByIdXML >>>>>>: "+mvcResult.getResponse().getContentAsString());
+			User user=xmlConverter.getObjectMapper().readValue(mvcResult.getResponse().getContentAsString(),User.class);
+			Logger.getGlobal().severe("getUserByIdXML >>>>>>: "+user.getUserId());
+			
+		}
+		catch(Exception rt)
+		{
+			rt.printStackTrace();
+		}
+	}
+	
+	@Test
+	@WithMockUser(username="admin",password="admin",roles=
+	{"USER","ADMIN"})
+	public void getUsersByUserNameJson()
+	{
+		try
+		{
+			String requestbody="";
+			MvcResult mvcResult=mvc.perform(get("/rest/user/get/json/?un=admin").contentType(MediaType.APPLICATION_JSON).content(requestbody.getBytes()))
+			                       .andDo(print())
+			                       .andExpect(status().isOk())
+			                       .andReturn();
+			MatcherAssert.assertThat(mvcResult.getResponse().getStatus(),Matchers.equalTo(200));
+			Logger.getGlobal().severe("getUsersByUserNameJson >>>>>>: "+mvcResult.getResponse().getContentAsString());
+			List<User> users=jsonMapper.readValue(mvcResult.getResponse().getContentAsString(),new TypeReference<List<User>>()
+			{
+			});
+			Logger.getGlobal().severe("getUsersByUserNameJson >>>>>>: "+users.get(0).getUserId());
+			
+		}
+		catch(Exception rt)
+		{
+			rt.printStackTrace();
+		}
+	}
+	
+	@Test
+	@WithMockUser(username="admin",password="admin",roles=
+	{"USER","ADMIN"})
+	public void getUsersByUserNameXML()
+	{
+		try
+		{
+			String requestbody="";
+			MvcResult mvcResult=mvc.perform(get("/rest/user/get/xml/?un=admin").contentType(MediaType.APPLICATION_XML).content(requestbody.getBytes()))
+			                       .andDo(print())
+			                       .andExpect(status().isOk())
+			                       .andReturn();
+			MatcherAssert.assertThat(mvcResult.getResponse().getStatus(),Matchers.equalTo(200));
+			Logger.getGlobal().severe("getUsersByUserNameXML >>>>>>: "+mvcResult.getResponse().getContentAsString());
+			UserList<User> users=xmlConverter.getObjectMapper().readValue(mvcResult.getResponse().getContentAsString(),new TypeReference<UserList<User>>()
+			{
+			});
+			Logger.getGlobal().severe("getUsersByUserNameXML >>>>>>: "+users.getUser().get(0).getUserId());
+			
+		}
+		catch(Exception rt)
+		{
+			rt.printStackTrace();
+		}
+	}
+	
+	@Test
+	@WithMockUser(username="admin",password="admin",roles=
+	{"USER","ADMIN"})
+	public void delUser()
+	{
+		try
+		{
+			Logger.getGlobal().severe("delUser >>>>>>: "+userService.findAll().size());
+			MvcResult mvcResult=mvc.perform(delete("/rest/user/del/1000003"))
+			                       .andDo(print())
+			                       .andExpect(status().isOk())
+			                       .andReturn();
+			MatcherAssert.assertThat(mvcResult.getResponse().getStatus(),Matchers.equalTo(200));
+			Logger.getGlobal().severe("delUser >>>>>>: "+mvcResult.getResponse().getContentAsString());
+			Logger.getGlobal().severe("delUser >>>>>>: "+userService.findAll().size());
+		}
+		catch(Exception rt)
+		{
+			rt.printStackTrace();
+		}
+	}
+	
+	@Test
+	@WithMockUser(username="admin",password="admin",roles=
+	{"USER","ADMIN"})
+	public void createUser()
+	{
+		try
+		{
+			User user=new User();
+			user.setActive(true);
+			user.setEmail("a@b.com");
+			user.setName("name");
+			user.setSurname("surname");
+			user.setUsername("username");
+			user.setPassword("password");
+			//
+			Logger.getGlobal().severe("createUser >>>>>>: "+userService.findAll().size());
+			String requestbody="";
+			MvcResult mvcResult=mvc.perform(post("/rest/user/create")
+			                                                         .header("Accept","application/json")
+			                                                         .content(jsonMapper.writeValueAsBytes(user))
+			                                                         .contentType(MediaType.APPLICATION_JSON))
+			                       .andDo(print())
+			                       .andExpect(status().isCreated())
+			                       .andReturn();
+			MatcherAssert.assertThat(mvcResult.getResponse().getStatus(),Matchers.equalTo(201));
+			Logger.getGlobal().severe("createUser >>>>>>: "+mvcResult.getResponse().getContentAsString());
+			Logger.getGlobal().severe("createUser >>>>>>: "+userService.findAll().size());
+		}
+		catch(Exception rt)
+		{
+			rt.printStackTrace();
+		}
+	}
+	
+	@Test
+	@WithMockUser(username="admin",password="admin",roles=
+	{"USER","ADMIN"})
+	public void updateUser()
+	{
+		try
+		{
+			User user=userService.findByUserId(1000003L);
+			user.setEmail("test@test.com");
+			//
+			Logger.getGlobal().severe("updateUser >>>>>>: "+userService.findByUserId(1000003L).getEmail());
+			String requestbody="";
+			MvcResult mvcResult=mvc.perform(put("/rest/user/update/1000003")
+			                                                                 .header("Accept","application/json")
+			                                                                 .content(jsonMapper.writeValueAsBytes(user))
+			                                                                 .contentType(MediaType.APPLICATION_JSON))
+			                       .andDo(print())
+			                       .andExpect(status().isOk())
+			                       .andReturn();
+			MatcherAssert.assertThat(mvcResult.getResponse().getStatus(),Matchers.equalTo(200));
+			Logger.getGlobal().severe("updateUser >>>>>>: "+mvcResult.getResponse().getContentAsString());
+			Logger.getGlobal().severe("updateUser >>>>>>: "+userService.findByUserId(1000003L).getEmail());
+		}
+		catch(Exception rt)
+		{
+			rt.printStackTrace();
+		}
 	}
 	
 	@Test
@@ -135,11 +335,9 @@ public class RestUserTest
 			Logger.getGlobal().severe("getContentType: "+mvcResult.getResponse().getContentType());
 			Logger.getGlobal().severe("getErrorMessage: "+mvcResult.getResponse().getErrorMessage());
 			Logger.getGlobal().severe("getForwardedUrl: "+mvcResult.getResponse().getForwardedUrl());
-			
 			MatcherAssert.assertThat(mvcResult.getResponse().getStatus(),Matchers.equalTo(200));
-			
 			//
-			objectMapper.readValue(mvcResult.getResponse().getContentAsString(),User.class);
+			jsonMapper.readValue(mvcResult.getResponse().getContentAsString(),User.class);
 			//
 			HttpHeaders header=new HttpHeaders();
 			header.setContentType(MediaType.APPLICATION_JSON);
