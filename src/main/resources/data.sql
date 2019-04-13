@@ -19,3 +19,8 @@ INSERT INTO DB_AUTHORITIES VALUES(default,'user3','ROLE_EDITOR');
 INSERT INTO DB_AUTHORITIES VALUES(default,'user4','ROLE_USER');
 
 
+INSERT INTO DB_IMAGES VALUES(default,'indexintro','image1',FILE_READ('E:\Proje\web\SpringBootMyWebApp\dbimages\1.jpg'));
+INSERT INTO DB_IMAGES VALUES(default,'indexintro','image2',FILE_READ('E:\Proje\web\SpringBootMyWebApp\dbimages\2.jpg'));
+INSERT INTO DB_IMAGES VALUES(default,'indexintro','image3',FILE_READ('E:\Proje\web\SpringBootMyWebApp\dbimages\3.jpg'));
+
+

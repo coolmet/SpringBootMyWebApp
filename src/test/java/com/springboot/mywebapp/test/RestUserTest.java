@@ -91,7 +91,7 @@ public class RestUserTest
 		try
 		{
 			String requestbody="";
-			MvcResult mvcResult=mvc.perform(get("/rest/user/get/json/all").contentType(MediaType.APPLICATION_JSON).content(requestbody.getBytes()))
+			MvcResult mvcResult=mvc.perform(get("/restadmin/user/get/json/all").contentType(MediaType.APPLICATION_JSON).content(requestbody.getBytes()))
 			                       .andDo(print())
 			                       .andExpect(status().isOk())
 			                       .andReturn();
@@ -117,7 +117,7 @@ public class RestUserTest
 		try
 		{
 			String requestbody="";
-			MvcResult mvcResult=mvc.perform(get("/rest/user/get/xml/all").contentType(MediaType.APPLICATION_XML).content(requestbody.getBytes()))
+			MvcResult mvcResult=mvc.perform(get("/restadmin/user/get/xml/all").contentType(MediaType.APPLICATION_XML).content(requestbody.getBytes()))
 			                       .andDo(print())
 			                       .andExpect(status().isOk())
 			                       .andReturn();
@@ -143,7 +143,7 @@ public class RestUserTest
 		try
 		{
 			String requestbody="";
-			MvcResult mvcResult=mvc.perform(get("/rest/user/get/json/1000005").contentType(MediaType.APPLICATION_JSON).content(requestbody.getBytes()))
+			MvcResult mvcResult=mvc.perform(get("/restadmin/user/get/json/1000005").contentType(MediaType.APPLICATION_JSON).content(requestbody.getBytes()))
 			                       .andDo(print())
 			                       .andExpect(status().isOk())
 			                       .andReturn();
@@ -167,7 +167,7 @@ public class RestUserTest
 		try
 		{
 			String requestbody="";
-			MvcResult mvcResult=mvc.perform(get("/rest/user/get/xml/1000005").contentType(MediaType.APPLICATION_XML).content(requestbody.getBytes()))
+			MvcResult mvcResult=mvc.perform(get("/restadmin/user/get/xml/1000005").contentType(MediaType.APPLICATION_XML).content(requestbody.getBytes()))
 			                       .andDo(print())
 			                       .andExpect(status().isOk())
 			                       .andReturn();
@@ -191,7 +191,7 @@ public class RestUserTest
 		try
 		{
 			String requestbody="";
-			MvcResult mvcResult=mvc.perform(get("/rest/user/get/json/?un=admin").contentType(MediaType.APPLICATION_JSON).content(requestbody.getBytes()))
+			MvcResult mvcResult=mvc.perform(get("/restadmin/user/get/json/?un=admin").contentType(MediaType.APPLICATION_JSON).content(requestbody.getBytes()))
 			                       .andDo(print())
 			                       .andExpect(status().isOk())
 			                       .andReturn();
@@ -217,7 +217,7 @@ public class RestUserTest
 		try
 		{
 			String requestbody="";
-			MvcResult mvcResult=mvc.perform(get("/rest/user/get/xml/?un=admin").contentType(MediaType.APPLICATION_XML).content(requestbody.getBytes()))
+			MvcResult mvcResult=mvc.perform(get("/restadmin/user/get/xml/?un=admin").contentType(MediaType.APPLICATION_XML).content(requestbody.getBytes()))
 			                       .andDo(print())
 			                       .andExpect(status().isOk())
 			                       .andReturn();
@@ -243,7 +243,7 @@ public class RestUserTest
 		try
 		{
 			Logger.getGlobal().severe("delUser >>>>>>: "+userService.findAll().size());
-			MvcResult mvcResult=mvc.perform(delete("/rest/user/del/1000003"))
+			MvcResult mvcResult=mvc.perform(delete("/restadmin/user/del/1000003"))
 			                       .andDo(print())
 			                       .andExpect(status().isOk())
 			                       .andReturn();
@@ -274,7 +274,7 @@ public class RestUserTest
 			//
 			Logger.getGlobal().severe("createUser >>>>>>: "+userService.findAll().size());
 			String requestbody="";
-			MvcResult mvcResult=mvc.perform(post("/rest/user/create")
+			MvcResult mvcResult=mvc.perform(post("/restadmin/user/create")
 			                                                         .header("Accept","application/json")
 			                                                         .content(jsonMapper.writeValueAsBytes(user))
 			                                                         .contentType(MediaType.APPLICATION_JSON))
@@ -303,7 +303,7 @@ public class RestUserTest
 			//
 			Logger.getGlobal().severe("updateUser >>>>>>: "+userService.findByUserId(1000003L).getEmail());
 			String requestbody="";
-			MvcResult mvcResult=mvc.perform(put("/rest/user/update/1000003")
+			MvcResult mvcResult=mvc.perform(put("/restadmin/user/update/1000003")
 			                                                                 .header("Accept","application/json")
 			                                                                 .content(jsonMapper.writeValueAsBytes(user))
 			                                                                 .contentType(MediaType.APPLICATION_JSON))
@@ -328,7 +328,7 @@ public class RestUserTest
 		try
 		{
 			//
-			MockHttpServletRequestBuilder requestBuilder=MockMvcRequestBuilders.get("/rest/user/get/json/1000001").accept(MediaType.APPLICATION_JSON);
+			MockHttpServletRequestBuilder requestBuilder=MockMvcRequestBuilders.get("/restadmin/user/get/json/1000001").accept(MediaType.APPLICATION_JSON);
 			ResultActions resultActions=mockMvc.perform(requestBuilder);
 			MvcResult mvcResult=resultActions.andReturn();
 			Logger.getGlobal().severe("getContentAsString: "+mvcResult.getResponse().getContentAsString());

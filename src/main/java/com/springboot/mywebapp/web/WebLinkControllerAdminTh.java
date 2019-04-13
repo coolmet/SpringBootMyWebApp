@@ -154,4 +154,14 @@ public class WebLinkControllerAdminTh
 		mav.setViewName("th_testusertable");
 		return mav;
 	}
+	
+	@RequestMapping(value=
+	{"/admin/testcarousel"})
+	public ModelAndView adminTestCarousel()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.setViewName("th_testcarousel");
+		return mav;
+	}
 }

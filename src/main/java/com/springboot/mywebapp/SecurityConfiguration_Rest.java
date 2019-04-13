@@ -13,12 +13,22 @@ public class SecurityConfiguration_Rest extends AbstractSecurityConfiguration
 	protected void configure(HttpSecurity http) throws Exception
 	{
 		//super.configure(http);
-		http.antMatcher("/rest/*")
+		http.antMatcher("/restadmin/*")
 		    .authorizeRequests()
-		    .antMatchers("/rest","/rest/*","/rest/**","/**/rest/**")
+		    .antMatchers("/restadmin","/restadmin/*","/restadmin/**","/**/restadmin/**")
 		    .access("hasRole('ADMIN')")
 		    .anyRequest()
-		    .authenticated();
+		    .authenticated()
+		    .and()
+		    .authorizeRequests()
+		    .antMatchers("/restuser","/restuser/*","/restuser/**","/**/restuser/**")
+		    .access("hasRole('USER','ADMIN')")
+		    .anyRequest()
+		    .authenticated()
+		    .and()
+		    .authorizeRequests()
+		    .antMatchers("/rest","/rest/*","/rest/**","/**/rest/**")
+		    .permitAll();
 		http.csrf().disable();
 		http.httpBasic();
 	}

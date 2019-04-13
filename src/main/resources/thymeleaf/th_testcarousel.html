@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+
+<head>
+<title>TestCarousel</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale = 0.5, maximum-scale=1.0, user-scalable=no" />
+
+</head>
+
+
+<body>
+
+	<div id="langid">
+		<div th:insert="fragments/headernavbar.html :: FRG_header_navbar"></div>
+	</div>
+
+	<style>
+.carousel-indicators .active {
+	background-color: #fff; max-width: 12px; margin: 0 3px; height: 12px;
+}
+
+.carousel-indicators li {
+	border-radius: 10px; margin: 1px 3px; height: 10px; max-width: 10px; border: 1px solid #FFF; background-color: transparent;
+}
+
+.carousel-control-prev-icon {
+     background-image: url(../custom/images/left6.png);
+     width: 64px;
+     height: 64px;
+}
+ .carousel-control-next-icon {
+     background-image: url(../custom/images/right6.png);
+     width: 64px;
+     height: 64px;
+}
+</style>
+
+
+	<!--Carousel Wrapper-->
+	<div id="carousel-example-2" class="carousel slide carousel-fade container " data-ride="carousel" data-interval="1000" style="padding-top: 5%;">
+		<!--Indicators-->
+		<ol class="carousel-indicators ">
+			<li data-target="#carousel-example-2" data-slide-to="0" class="active">0</li>
+			<li data-target="#carousel-example-2" data-slide-to="1">1</li>
+			<li data-target="#carousel-example-2" data-slide-to="2">2</li>
+		</ol>
+		<!--/.Indicators-->
+		<!--Slides-->
+		<div class="carousel-inner border border-warning rounded" role="listbox">
+
+			<div class="carousel-item active">
+				<div class="view">
+					<img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg" alt="First slide">
+					<div class="mask rgba-black-light"></div>
+				</div>
+				<div class="carousel-caption">
+					<h3 class="h3-responsive">Light mask</h3>
+					<p>First text</p>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<!--Mask color-->
+				<div class="view">
+					<img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg" alt="Second slide">
+					<div class="mask rgba-black-strong"></div>
+				</div>
+				<div class="carousel-caption">
+					<h3 class="h3-responsive">Strong mask</h3>
+					<p>Secondary text</p>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<!--Mask color-->
+				<div class="view">
+					<img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg" alt="Third slide">
+					<div class="mask rgba-black-slight"></div>
+				</div>
+				<div class="carousel-caption">
+					<h3 class="h3-responsive">Slight mask</h3>
+					<p>Third text</p>
+				</div>
+			</div>
+		</div>
+		<!--/.Slides-->
+		<!--Controls-->
+		<a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only">Previous</span>
+		</a> <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span>
+		</a>
+		<!--/.Controls-->
+	</div>
+	<!--/.Carousel Wrapper-->
+
+</body>

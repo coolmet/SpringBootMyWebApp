@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,21 +29,22 @@ import com.springboot.mywebapp.service.UserService;
 // ResponseEntity.noContent().build();
 // ResponseEntity.notFound().build();
 
+@Order(1)
 @RestController
-@RequestMapping("/rest/user")
-public class RestControllerUser
+@RequestMapping("/restadmin/user")
+public class RestControllerAdmin_User
 {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(method=RequestMethod.GET,value="/get/json/all",produces=MediaType.APPLICATION_JSON_VALUE) // http://localhost:8080/rest/user/get/json/all
+	@RequestMapping(method=RequestMethod.GET,value="/get/json/all",produces=MediaType.APPLICATION_JSON_VALUE) // http://localhost:8080/restadmin/user/get/json/all
 	public ResponseEntity<List<User>> getUsersJson()
 	{
 		List<User> users=userService.findAll();
 		return ResponseEntity.ok(users);
 	}
 	
-	@RequestMapping(method=RequestMethod.GET,value="/get/xml/all",produces=MediaType.APPLICATION_XML_VALUE) // http://localhost:8080/rest/user/get/xml/all
+	@RequestMapping(method=RequestMethod.GET,value="/get/xml/all",produces=MediaType.APPLICATION_XML_VALUE) // http://localhost:8080/restadmin/user/get/xml/all
 	public UserList<User> getUsersXML()
 	{
 		List<User> users=userService.findAll();
@@ -50,7 +52,7 @@ public class RestControllerUser
 		return listOfUsers;
 	}
 	
-	@RequestMapping(method=RequestMethod.GET,value="/get/json/{userid}",produces=MediaType.APPLICATION_JSON_VALUE) // http://localhost:8080/rest/user/get/json/1000003
+	@RequestMapping(method=RequestMethod.GET,value="/get/json/{userid}",produces=MediaType.APPLICATION_JSON_VALUE) // http://localhost:8080/restadmin/user/get/json/1000003
 	public ResponseEntity<?> getUserByIdJson(@PathVariable("userid") Long userid)
 	{
 		try
@@ -64,13 +66,13 @@ public class RestControllerUser
 		}
 	}
 	
-	@RequestMapping(method=RequestMethod.GET,value="/get/xml/{userid}",produces=MediaType.APPLICATION_XML_VALUE) // http://localhost:8080/rest/user/get/xml/1000003
+	@RequestMapping(method=RequestMethod.GET,value="/get/xml/{userid}",produces=MediaType.APPLICATION_XML_VALUE) // http://localhost:8080/restadmin/user/get/xml/1000003
 	public ResponseEntity<?> getUserByIdXML(@PathVariable("userid") Long userid)
 	{
 		return getUserByIdJson(userid);
 	}
 	
-	@RequestMapping(method=RequestMethod.GET,value="/get/json/",produces=MediaType.APPLICATION_JSON_VALUE) // http://localhost:8080/rest/user/get/json/?un=admin http://localhost:8080/rest/user/get/json/?em=user@email.com
+	@RequestMapping(method=RequestMethod.GET,value="/get/json/",produces=MediaType.APPLICATION_JSON_VALUE) // http://localhost:8080/restadmin/user/get/json/?un=admin http://localhost:8080/restadmin/user/get/json/?em=user@email.com
 	public ResponseEntity<List<User>> getUsersByUserNameJson(@RequestParam(value="un",required=false) String userName,@RequestParam(value="em",required=false) String email)
 	{
 		List<User> users=userName!=null?userService.findAllByUserName(userName)
@@ -78,7 +80,7 @@ public class RestControllerUser
 		return ResponseEntity.ok(users);
 	}
 	
-	@RequestMapping(method=RequestMethod.GET,value="/get/xml/",produces=MediaType.APPLICATION_XML_VALUE) // http://localhost:8080/rest/user/get/xml/?un=admin http://localhost:8080/rest/user/get/xml/?em=user@email.com
+	@RequestMapping(method=RequestMethod.GET,value="/get/xml/",produces=MediaType.APPLICATION_XML_VALUE) // http://localhost:8080/restadmin/user/get/xml/?un=admin http://localhost:8080/restadmin/user/get/xml/?em=user@email.com
 	public UserList<User> getUsersByUserNameXML(@RequestParam(value="un",required=false) String userName,@RequestParam(value="em",required=false) String email)
 	{
 		List<User> users=userName!=null?userService.findAllByUserName(userName)
@@ -90,7 +92,7 @@ public class RestControllerUser
 	
 	@RequestMapping(method=RequestMethod.DELETE,value="/del/{userid}")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<Void> delUser(@PathVariable("userid") Long userid) // http://localhost:8080/rest/user/del/1000003
+	public ResponseEntity<Void> delUser(@PathVariable("userid") Long userid) // http://localhost:8080/restadmin/user/del/1000003
 	{
 		try
 		{
@@ -110,7 +112,7 @@ public class RestControllerUser
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value="/create")
-	public ResponseEntity<URI> createUser(@RequestBody User user) // http://localhost:8080/rest/user/create
+	public ResponseEntity<URI> createUser(@RequestBody User user) // http://localhost:8080/restadmin/user/create
 	{
 		try
 		{
@@ -126,7 +128,7 @@ public class RestControllerUser
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT,value="/update/{userid}")
-	public ResponseEntity<?> updateUser(@PathVariable("userid") Long userid,@RequestBody User userRequest) // http://localhost:8080/rest/user/update
+	public ResponseEntity<?> updateUser(@PathVariable("userid") Long userid,@RequestBody User userRequest) // http://localhost:8080/restadmin/user/update
 	{
 		try
 		{

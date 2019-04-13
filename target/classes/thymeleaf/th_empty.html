@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 
 <head>
 <title>Empty</title>
 <meta charset="UTF-8" />
-<meta name="viewport" >
+<meta name="viewport" content="width=device-width, initial-scale = 0.5, maximum-scale=1.0, user-scalable=no" />
 
 </head>
 
 
 <body>
 
-
-
+	<div id="langid">
+		<div th:insert="fragments/headernavbar.html :: FRG_header_navbar"></div>
+	</div>
+	
 </body>
