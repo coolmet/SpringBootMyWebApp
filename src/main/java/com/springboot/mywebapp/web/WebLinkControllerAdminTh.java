@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import com.springboot.mywebapp.service.ImagesService;
 import com.springboot.mywebapp.service.LanguageService;
 import com.springboot.mywebapp.service.UserService;
 import com.springboot.mywebapp.service.UtilService;
@@ -30,6 +31,9 @@ public class WebLinkControllerAdminTh
 	
 	@Autowired
 	private LanguageService languageService;
+	
+	@Autowired
+	private ImagesService imagesService;
 	
 	@Autowired
 	private UtilService utilService;
@@ -162,6 +166,17 @@ public class WebLinkControllerAdminTh
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
 		mav.setViewName("th_testcarousel");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/testcarousel2"})
+	public ModelAndView adminTestCarousel2()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.addObject("imagesdata",imagesService.findAll());
+		mav.setViewName("th_testcarousel2");
 		return mav;
 	}
 }

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 
 <head>
-<title>TestCarousel</title>
+<title>TestCarousel-2</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale = 0.5, maximum-scale=1.0, user-scalable=no" />
 
@@ -14,6 +14,7 @@
 	<div id="langid">
 		<div th:insert="fragments/headernavbar.html :: FRG_header_navbar"></div>
 	</div>
+
 
 	<style>
 .carousel-indicators .active {
@@ -32,51 +33,32 @@
 	background-image: url(../custom/images/right6.png); width: 64px; height: 64px;
 }
 </style>
-
 	<!--Carousel Wrapper-->
 	<div id="carouselid" class="carousel slide carousel-fade container " data-ride="carousel" data-interval="2000" style="padding-top: 5%;">
 		<!--Indicators-->
 		<ol class="carousel-indicators ">
-			<li data-target="#carouselid" data-slide-to="0" class="active">0</li>
-			<li data-target="#carouselid" data-slide-to="1">1</li>
-			<li data-target="#carouselid" data-slide-to="2">2</li>
+			<th:block th:each="images,iter : ${imagesdata}">
+				<li data-target="#carouselid" th:data-slide-to="${iter.index}" th:class="${iter.first} ? 'active' "><th:block th:text="${iter.index}">
+					</th:block></li>
+			</th:block>
 		</ol>
 		<!--/.Indicators-->
 		<!--Slides-->
 		<div class="carousel-inner border border-warning rounded" role="listbox">
 
-			<div class="carousel-item active">
-				<div class="view">
-					<img class="d-block w-100" src="/rest/images/get/random/data" alt="First slide">
-					<div class="mask rgba-black-light"></div>
+			<th:block th:each="images,iter : ${imagesdata}">
+				<div th:class="${iter.first} ? 'carousel-item active' : 'carousel-item'">
+					<div class="view">
+						<img class="d-block w-100" th:src="'data:image/png;base64,'+${images.getImageBase64Data()}" alt="${iter.index}+'. slide'">
+						<div class="mask rgba-black-light"></div>
+					</div>
+					<div class="carousel-caption">
+						<h3 class="h3-responsive" th:text="${images.getName()}"></h3>
+						<p th:text="'-'+${iter.index}+'-'"></p>
+					</div>
 				</div>
-				<div class="carousel-caption">
-					<h3 class="h3-responsive">Light mask</h3>
-					<p>First text</p>
-				</div>
-			</div>
-			<div class="carousel-item">
-				<!--Mask color-->
-				<div class="view">
-					<img class="d-block w-100" src="/rest/images/get/random/data" alt="Second slide">
-					<div class="mask rgba-black-strong"></div>
-				</div>
-				<div class="carousel-caption">
-					<h3 class="h3-responsive">Strong mask</h3>
-					<p>Secondary text</p>
-				</div>
-			</div>
-			<div class="carousel-item">
-				<!--Mask color-->
-				<div class="view">
-					<img class="d-block w-100" src="/rest/images/get/random/data" alt="Third slide">
-					<div class="mask rgba-black-slight"></div>
-				</div>
-				<div class="carousel-caption">
-					<h3 class="h3-responsive">Slight mask</h3>
-					<p>Third text</p>
-				</div>
-			</div>
+			</th:block>
+
 		</div>
 		<!--/.Slides-->
 		<!--Controls-->
@@ -86,5 +68,4 @@
 		<!--/.Controls-->
 	</div>
 	<!--/.Carousel Wrapper-->
-
 </body>

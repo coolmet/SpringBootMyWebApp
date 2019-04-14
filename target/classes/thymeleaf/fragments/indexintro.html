@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport">
+<title>...</title>
+
+</head>
+
+<body>
+
+	<th:block th:fragment="FRG_index_intro">
+		<!--  
+		<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/bootstrap.min.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/bootstrap-essentials.min.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/fontawesome-5.7.2/css/all.css}" />
+		<script th:src="@{|/jquery-3.3.1/js/jquery.min.js?v=${#dates.createNow()}|}"></script>
+		<script th:src="@{|/logines/js/popper.min.js?v=${#dates.createNow()}|}"></script>
+		<script th:src="@{|/bootstrap-4.3.1/js/bootstrap.min.js?v=${#dates.createNow()}|}"></script>
+		<script th:src="@{|/bootstrap-4.3.1/js/bootstrap-essentials.min.js?v=${#dates.createNow()}|}"></script>
+		<script th:src="@{|/fontawesome-5.7.2/js/all.js?v=${#dates.createNow()}|}"></script>
+		-->
+
+		<style>
+.carousel-indicators .active {
+	background-color: #fff; max-width: 12px; margin: 0 3px; height: 12px;
+}
+
+.carousel-indicators li {
+	border-radius: 10px; margin: 1px 3px; height: 10px; max-width: 10px; border: 1px solid #FFF; background-color: transparent;
+}
+
+.carousel-control-prev-icon {
+	background-image: url(../custom/images/left6.png); width: 64px; height: 64px;
+}
+
+.carousel-control-next-icon {
+	background-image: url(../custom/images/right6.png); width: 64px; height: 64px;
+}
+</style>
+		<!--Carousel Wrapper-->
+		<div id="carouselid" class="carousel slide carousel-fade container " data-ride="carousel" data-interval="2000" style="padding-top: 5%;">
+			<!--Indicators-->
+			<ol class="carousel-indicators ">
+				<th:block th:each="images,iter : ${@imagesServiceImpl.findAll()}">
+					<li data-target="#carouselid" th:data-slide-to="${iter.index}" th:class="${iter.first} ? 'active' "><th:block th:text="${iter.index}">
+						</th:block></li>
+				</th:block>
+			</ol>
+			<!--/.Indicators-->
+			<!--Slides-->
+			<div class="carousel-inner border border-warning rounded" role="listbox">
+
+				<th:block th:each="images,iter : ${@imagesServiceImpl.findAll()}">
+					<div th:class="${iter.first} ? 'carousel-item active' : 'carousel-item'">
+						<div class="view">
+							<img class="d-block w-100" th:src="'data:image/png;base64,'+${images.getImageBase64Data()}" alt="${iter.index}+'. slide'">
+							<div class="mask rgba-black-light"></div>
+						</div>
+						<div class="carousel-caption">
+							<h3 class="h3-responsive" th:text="${images.getName()}"></h3>
+							<p th:text="'-'+${iter.index}+'-'"></p>
+						</div>
+					</div>
+				</th:block>
+
+			</div>
+			<!--/.Slides-->
+			<!--Controls-->
+			<a class="carousel-control-prev" href="#carouselid" role="button" data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only">Previous</span>
+			</a> <a class="carousel-control-next" href="#carouselid" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span>
+			</a>
+			<!--/.Controls-->
+		</div>
+		<!--/.Carousel Wrapper-->
+	</th:block>
+</body>

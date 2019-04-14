@@ -1,6 +1,7 @@
 package com.springboot.mywebapp.model;
 
 import java.util.Arrays;
+import java.util.Base64;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -71,6 +72,11 @@ public class Images
 	public void setData(byte[] data)
 	{
 		this.data=data;
+	}
+	
+	public String getImageBase64Data()
+	{
+		return Base64.getEncoder().encodeToString(data);
 	}
 	
 	@Override

@@ -30,6 +30,20 @@ public class RestControllerAnnoymus_Images
 		return ResponseEntity.ok(images);
 	}
 	
+	@RequestMapping(method=RequestMethod.GET,value="/get/random/data") // http://localhost:8080/rest/images/get/random/data
+	public ResponseEntity<byte[]> getRandomData()
+	{
+		Images images=imagesService.findRandomNative();
+		return ResponseEntity.ok(images.getData());
+	}
+	
+	@RequestMapping(method=RequestMethod.GET,value="/get/random/base64data") // http://localhost:8080/rest/images/get/random/base64data
+	public ResponseEntity<String> getRandomBase64Data()
+	{
+		Images images=imagesService.findRandomNative();
+		return ResponseEntity.ok(images.getImageBase64Data());
+	}
+	
 	@RequestMapping(method=RequestMethod.GET,value="/get/json/random/native",produces=MediaType.APPLICATION_JSON_VALUE) // http://localhost:8080/rest/images/get/json/random/native
 	public ResponseEntity<Images> getRandomNativeJson()
 	{
