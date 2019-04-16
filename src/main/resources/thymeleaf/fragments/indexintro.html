@@ -23,12 +23,13 @@
 		-->
 
 		<style>
+
 .carousel-indicators .active {
-	background-color: #fff; max-width: 12px; margin: 0 3px; height: 12px;
+	background-color: #450245; max-width: 12px; margin: 0 3px; height: 12px;
 }
 
 .carousel-indicators li {
-	border-radius: 10px; margin: 1px 3px; height: 10px; max-width: 10px; border: 1px solid #FFF; background-color: transparent;
+	border-radius: 10px; margin: 1px 3px; height: 10px; max-width: 10px; border: 1px solid #FFF; background-color: #840084;
 }
 
 .carousel-control-prev-icon {
@@ -40,7 +41,7 @@
 }
 </style>
 		<!--Carousel Wrapper-->
-		<div id="carouselid" class="carousel slide carousel-fade container " data-ride="carousel" data-interval="2000" style="padding-top: 5%;">
+		<div id="carouselid" class="carousel slide carousel-fade container " data-ride="carousel" data-interval="2000" style="padding-top: 2%; max-width: 900px; margin: 0 auto;">
 			<!--Indicators-->
 			<ol class="carousel-indicators ">
 				<th:block th:each="images,iter : ${@imagesServiceImpl.findAll()}">
@@ -50,17 +51,17 @@
 			</ol>
 			<!--/.Indicators-->
 			<!--Slides-->
-			<div class="carousel-inner border border-warning rounded" role="listbox">
+			<div class="carousel-inner border border-white rounded" role="listbox">
 
 				<th:block th:each="images,iter : ${@imagesServiceImpl.findAll()}">
 					<div th:class="${iter.first} ? 'carousel-item active' : 'carousel-item'">
 						<div class="view">
-							<img class="d-block w-100" th:src="'data:image/png;base64,'+${images.getImageBase64Data()}" alt="${iter.index}+'. slide'">
+							<img class="d-block w-100 img-fluid" th:src="'data:image/png;base64,'+${images.getImageBase64Data()}" alt="${iter.index}+'. slide'">
 							<div class="mask rgba-black-light"></div>
 						</div>
 						<div class="carousel-caption">
-							<h3 class="h3-responsive" th:text="${images.getName()}"></h3>
-							<p th:text="'-'+${iter.index}+'-'"></p>
+							<h3 class="h3-responsive" th:text="${images.getName()}" style="color: #840084; font-size: 4em;"></h3>
+							<p th:text="'-'+${iter.index}+'-'" style="color: #450245;"></p>
 						</div>
 					</div>
 				</th:block>

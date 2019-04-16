@@ -160,6 +160,16 @@ public class WebLinkControllerAdminTh
 	}
 	
 	@RequestMapping(value=
+	{"/admin/testusertable2"})
+	public ModelAndView adminTestUserTable2()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.setViewName("th_testusertable2");
+		return mav;
+	}
+	
+	@RequestMapping(value=
 	{"/admin/testcarousel"})
 	public ModelAndView adminTestCarousel()
 	{

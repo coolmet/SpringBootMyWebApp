@@ -19,8 +19,19 @@ INSERT INTO DB_AUTHORITIES VALUES(default,'user3','ROLE_EDITOR');
 INSERT INTO DB_AUTHORITIES VALUES(default,'user4','ROLE_USER');
 
 
-INSERT INTO DB_IMAGES VALUES(default,'indexintro','image1',FILE_READ('./dbimages/1.jpg'));
-INSERT INTO DB_IMAGES VALUES(default,'indexintro','image2',FILE_READ('./dbimages/2.jpg'));
-INSERT INTO DB_IMAGES VALUES(default,'indexintro','image3',FILE_READ('./dbimages/3.jpg'));
+INSERT INTO DB_IMAGES VALUES(default,'indexintro','Spring Boot',FILE_READ('./dbimages/SpringBoot.png'));
+INSERT INTO DB_IMAGES VALUES(default,'indexintro','Register User',FILE_READ('./dbimages/RegisterUser.png'));
+INSERT INTO DB_IMAGES VALUES(default,'indexintro','Register User 2',FILE_READ('./dbimages/RegisterUser2.png'));
+INSERT INTO DB_IMAGES VALUES(default,'indexintro','Thymeleaf And JSP Together',FILE_READ('./dbimages/ThymeleafAndJSPTogether.png'));
+INSERT INTO DB_IMAGES VALUES(default,'indexintro','Bootstrap & Javascript & Jquery',FILE_READ('./dbimages/BootstrapJavascriptJquery.png'));
+INSERT INTO DB_IMAGES VALUES(default,'indexintro','Thymeleaf Fragments',FILE_READ('./dbimages/ThymeleafFragments.png'));
+INSERT INTO DB_IMAGES VALUES(default,'indexintro','Google Recaptcha',FILE_READ('./dbimages/GoogleReCaptcha.png'));
+INSERT INTO DB_IMAGES VALUES(default,'indexintro','Multi Language',FILE_READ('./dbimages/MultiLanguage.png'));
+INSERT INTO DB_IMAGES VALUES(default,'indexintro','Multi Language 2',FILE_READ('./dbimages/MultiLanguage.png'));
+INSERT INTO DB_IMAGES VALUES(default,'indexintro','H2 Database',FILE_READ('./dbimages/H2Database.png'));
+INSERT INTO DB_IMAGES VALUES(default,'indexintro','Edit User Settings',FILE_READ('./dbimages/EditUserSettings.png'));
+INSERT INTO DB_IMAGES VALUES(default,'indexintro','Edit Users',FILE_READ('./dbimages/EditUsers.png'));
+INSERT INTO DB_IMAGES VALUES(default,'indexintro','Restfull Json',FILE_READ('./dbimages/RestfullJson.png'));
+INSERT INTO DB_IMAGES VALUES(default,'indexintro','Restfull XML',FILE_READ('./dbimages/RestfullXML.png'));
 
 
