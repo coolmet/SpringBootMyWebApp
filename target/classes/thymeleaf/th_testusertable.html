@@ -14,13 +14,12 @@
 	<div id="langid">
 		<div th:replace="fragments/headernavbar.html :: FRG_header_navbar"></div>
 	</div>
-	
+
 	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/table/jquery.resizableColumns.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/table/bootstrap-table.min.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/table/bootstrap-table-reorder-rows.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/table/dragtable.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/logines/fonts/iconic/css/material-design-iconic-font.min.css}" />
-	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap-4.3.1/css/bootstrap-dialog.min.css}" />
 
 	<script th:src="@{|/jquery-3.3.1/js/jquery-ui.min.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/jquery-3.3.1/js/jquery.dragtable.js?v=${#dates.createNow()}|}"></script>
@@ -37,14 +36,13 @@
 	<script th:src="@{|/bootstrap-4.3.1/js/table/bootstrap-table-locale-all.min.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/bootstrap-4.3.1/js/table/bootstrap-table-resizable.min.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/bootstrap-4.3.1/js/table/bootstrap-table-reorder-rows.min.js?v=${#dates.createNow()}|}"></script>
-	<script th:src="@{|/bootstrap-4.3.1/js/popper.min.js?v=${#dates.createNow()}|}"></script>	
-	<script th:src="@{|/bootstrap-4.3.1/js/bootstrap-dialog.min.js?v=${#dates.createNow()}|}"></script>	
+	<script th:src="@{|/bootstrap-4.3.1/js/popper.min.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/jquery-3.3.1/js/tableExport.min.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/jquery-3.3.1/js/jspdf.min.js?v=${#dates.createNow()}|}"></script>
-	<script th:src="@{|/jquery-3.3.1/js/jspdf.plugin.autotable.js?v=${#dates.createNow()}|}"></script> 
+	<script th:src="@{|/jquery-3.3.1/js/jspdf.plugin.autotable.js?v=${#dates.createNow()}|}"></script>
 	<script th:src="@{|/jquery-3.3.1/js/jspdf.plugin.autotable.js?v=${#dates.createNow()}|}"></script>
 
- 
+
 	<style>
 .modal-dialog {
 	max-width: max-content;
@@ -134,7 +132,7 @@ a:hover {
 			{
 				var id = $('#modalDeleteToID').data('id');//document.getElementById("userid").value;
 				$('[data-id=' + id + ']').remove(); // $(this).parents("tr").remove();
-				callRestUrl("DELETE","/restadmin/user/del/"+id,"application/json","");
+				callRestUrl("DELETE", "/restadmin/user/del/" + id, "application/json", "");
 				$('#modalDataTable').bootstrapTable('prevPage').bootstrapTable('refresh');
 				$('#modalDeleteToID').modal('hide');
 			});
@@ -150,8 +148,8 @@ a:hover {
 				$(this).parents("tr").find(".addrow, .editrow").toggle();
 				$(".add-new").attr("disabled", "disabled");
 			});
-		
-		function callRestUrl(METHOD,URL,CONTENTTYPE,BODY)
+
+		function callRestUrl(METHOD, URL, CONTENTTYPE, BODY)
 			{
 				var xhttp = new XMLHttpRequest();
 				xhttp.onreadystatechange = function()
@@ -159,23 +157,49 @@ a:hover {
 						if (this.readyState == 4 && this.status == 200)
 							{
 								BootstrapDialog.show({
-						            title: 'Dikkat',
-						            message: 'İşlem tamamlandı ...',
-						            onshow: function(dialog) {
-						            	dialog.setClosable(false);
-						            },
-						            buttons: [{
-						                label: 'Title 1',
-						                action: function(dialog) {
-						                    dialog.setTitle('Title 1');
-						                }
-						            }, {
-						                label: 'Title 2',
-						                action: function(dialog) {
-						                	dialog.close();
-						                }
-						            }]
-						        });
+									title : 'Dikkat',
+									message : 'İşlem tamamlandı ...',
+									type : BootstrapDialog.TYPE_DARK,
+									size : BootstrapDialog.SIZE_LARGE,
+									closeByBackdrop : false,
+									closeByKeyboard : false,
+									autospin : false,
+									draggable : true,
+									onshow : function(dialog)
+										{
+											dialog.setClosable(false);
+										},
+									onshown : function(dialog)
+										{
+										},
+									onhide : function(dialog)
+										{
+										},
+									onhidden : function(dialog)
+										{
+										},
+									callback : function(dialog)
+										{
+
+										},
+									buttons :
+										[ {
+											id : 'btn-1',
+											icon : 'glyphicon glyphicon-check',
+											label : 'Kapat',
+											title : 'Mouse over Button 3',
+											cssClass : 'btn-warning',
+											data : {
+												js : 'btn-confirm',
+												'user-id' : '3'
+											},
+											hotkey : 13, // Enter.
+											action : function(dialog)
+												{
+													dialog.close();
+												}
+										} ]
+								});
 
 							}
 					};
