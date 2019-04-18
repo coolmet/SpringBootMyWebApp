@@ -77,7 +77,11 @@ a:hover {
 }
 
 .alert-danger-open {
-	color: #721c24; background-color: #f8d7da; border-color: #f5c6cb;
+	color: #0e0e00; background-color: #f1dadc; border-color: #ffffff00;
+}
+
+.alert-warning-open {
+	color: #0e0e00; background-color: #ede9d4; border-color: #ffffff00;
 }
 </style>
 
@@ -119,6 +123,7 @@ a:hover {
 				$('#modalDataTable').modal('show');
 			});
 
+		//#################### DELETE #######################################################
 		$(document).on("click", ".modelDeleteFromClass", function(e)
 			{
 				e.preventDefault();
@@ -128,7 +133,7 @@ a:hover {
 				$(".modal-body #username").val($(this).data('username'));
 			});
 
-		$(document).on("click", "#btnDeleteYes", function()
+		$(document).on("click", "#btnDeleteConfirm", function()
 			{
 				var id = $('#modalDeleteToID').data('id');//document.getElementById("userid").value;
 				$('[data-id=' + id + ']').remove(); // $(this).parents("tr").remove();
@@ -136,18 +141,77 @@ a:hover {
 				$('#modalDataTable').bootstrapTable('prevPage').bootstrapTable('refresh');
 				$('#modalDeleteToID').modal('hide');
 			});
+		//#################### DELETE #######################################################
 
-		$(document).on("click", ".editrow", function()
+		//#################### EDIT #######################################################
+		$(document).on("click", ".modelEditFromClass", function(e)
 			{
-
-				$(this).parents("tr").find("td:not(:last-child)").each(function()
-					{
-
-						$(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
-					});
-				$(this).parents("tr").find(".addrow, .editrow").toggle();
-				$(".add-new").attr("disabled", "disabled");
+				e.preventDefault();
+				var id = $(this).closest('tr').data('id');
+				$('#modalEditToID').data('id', id).modal('show');
+				$(".modal-body #userid").val($(this).data('userid'));
+				$(".modal-body #username").val($(this).data('username'));
+				$(".modal-body #name").val($(this).data('name'));
+				$(".modal-body #surname").val($(this).data('surname'));
+				$(".modal-body #email").val($(this).data('email'));
+				$(".modal-body #password1").val($(this).data('password'));
+				$(".modal-body #password2").val($(this).data('password'));
 			});
+
+		$(document).on("click", "#btnEditConfirm", function()
+			{
+				var newusername = $(this).closest('.modal-dialog').find('input[id="username"]').val();
+				var newname = $(this).closest('.modal-dialog').find('input[id="name"]').val();
+				var newsurname = $(this).closest('.modal-dialog').find('input[id="surname"]').val();
+				var newemail = $(this).closest('.modal-dialog').find('input[id="email"]').val();
+				var newpassword1 = $(this).closest('.modal-dialog').find('input[id="password1"]').val();
+				var newpassword2 = $(this).closest('.modal-dialog').find('input[id="password2"]').val();
+
+				alert(newusername + "\n" + newpassword1);
+
+				if (newpassword1 != newpassword2)
+					{
+						BootstrapDialog.show({
+							title : 'Dikkat',
+							message : 'Şifreler eşit değil ...',
+							type : BootstrapDialog.TYPE_DANGER,
+							size : BootstrapDialog.SIZE_MEDIUM,
+							closeByBackdrop : false,
+							closeByKeyboard : false
+						});
+					}
+				else if (newpassword1 == "")
+					{
+						BootstrapDialog.show({
+							title : 'Dikkat',
+							message : 'Şifreler boş olamaz ...',
+							type : BootstrapDialog.TYPE_DANGER,
+							size : BootstrapDialog.SIZE_MEDIUM,
+							closeByBackdrop : false,
+							closeByKeyboard : false
+						});
+					}
+				else if (newusername == "")
+					{
+						BootstrapDialog.show({
+							title : 'Dikkat',
+							message : 'Kullanıcı adı boş olamaz ...',
+							type : BootstrapDialog.TYPE_DANGER,
+							size : BootstrapDialog.SIZE_MEDIUM,
+							closeByBackdrop : false,
+							closeByKeyboard : false
+						});
+					}
+				else
+					{
+						var id = $('#modalEditToID').data('id');//document.getElementById("userid").value;
+						//$('[data-id=' + id + ']').remove(); // $(this).parents("tr").remove(); //SAHALARI UPDATE
+						callRestUrl("POST", encodeURI("/restadmin/user/update/" + id + "/" + "?username=" + newusername + "&name=" + newname + "&surname=" + newsurname + "&email=" + newemail + "&password=" + newpassword1), "application/json", "");
+						$('#modalDataTable').bootstrapTable('prevPage').bootstrapTable('refresh');
+						$('#modalEditToID').modal('hide');
+					}
+			});
+		//#################### EDIT #######################################################
 
 		function callRestUrl(METHOD, URL, CONTENTTYPE, BODY)
 			{
@@ -157,10 +221,10 @@ a:hover {
 						if (this.readyState == 4 && this.status == 200)
 							{
 								BootstrapDialog.show({
-									title : 'Dikkat',
-									message : 'İşlem tamamlandı ...',
+									title : 'Dikkat, İşlem tamamlandı ...',
+									message : 'Disabled Message ...',
 									type : BootstrapDialog.TYPE_DARK,
-									size : BootstrapDialog.SIZE_LARGE,
+									size : BootstrapDialog.SIZE_MEDIUM,
 									closeByBackdrop : false,
 									closeByKeyboard : false,
 									autospin : false,
@@ -168,6 +232,11 @@ a:hover {
 									onshow : function(dialog)
 										{
 											dialog.setClosable(false);
+											dialog.getModalBody().hide();
+											dialog.getModalBody().css('background-color', '#0088cc');
+											dialog.getModalBody().css('color', '#fff');
+											dialog.getModalFooter().css('background-color', '#343a40');
+											dialog.getModalFooter().css('color', '#fff');
 										},
 									onshown : function(dialog)
 										{
@@ -188,12 +257,13 @@ a:hover {
 											icon : 'glyphicon glyphicon-check',
 											label : 'Kapat',
 											title : 'Mouse over Button 3',
-											cssClass : 'btn-warning',
+											cssClass : 'btn-info btn-block',
 											data : {
 												js : 'btn-confirm',
 												'user-id' : '3'
 											},
 											hotkey : 13, // Enter.
+											hotkey : 27, // Esc
 											action : function(dialog)
 												{
 													dialog.close();
@@ -292,7 +362,8 @@ a:hover {
 												<i class="fas fa-plus-circle"></i>
 											</button>
 										</span>
-										<span data-toggle="modal" data-target="#modalDeleteToID" data-uid="${user.getUserId()}">
+										<span class="modelEditFromClass" data-toggle="modal" data-placement="top" href=""
+											th:attr="data-userid=${user.getUserId()}, data-username=${user.getUsername()}, data-name=${user.getName()}, data-surname=${user.getSurname()},, data-email=${user.getEmail()}, data-password=${user.getPassword()}">
 											<button type="button" data-toggle="tooltip" title="Edit Row" class="btn btn-warning btn-sm" style="cursor: pointer;">
 												<i class="fas fa-edit"></i>
 											</button>
@@ -310,7 +381,9 @@ a:hover {
 									<td th:text="${user.getName()}"></td>
 									<td th:text="${user.getSurname()}"></td>
 									<td th:text="${user.getEmail()}"></td>
-									<td th:text="'***'"></td>
+									<td>
+										<input readonly type="password" id="password" name="password" value="${user.getPassword()}" style="border: none;" />
+									</td>
 
 								</tr>
 							</div>
@@ -323,19 +396,16 @@ a:hover {
 			</div>
 		</div>
 	</div>
-
+	<!-- #################### DELETE ####################################################### -->
 	<div id="modalDeleteToID" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header text-white bg-dark" id="myModalLabel">
-
 					<h4 class="modal-title">Delete Data</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 						<i class="fas fa-window-close"></i>
 					</button>
-
 				</div>
-
 				<div class="modal-body small alert-danger-open">
 					<table>
 						<tr>
@@ -359,11 +429,93 @@ a:hover {
 				</div>
 
 				<div class="modal-footer text-white bg-dark">
-					<button type="button" id="btnDeleteYes" class="btn btn-danger" href="#">Delete</button>
-					<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+					<button type="button" id="btnDeleteConfirm" class="btn btn-danger btn-block" href="#">Confirm</button>
+					<!-- <button type="button" class="btn btn-white" data-dismiss="modal">Cancel</button> -->
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- #################### DELETE ####################################################### -->
+
+	<!-- #################### EDIT ####################################################### -->
+	<div id="modalEditToID" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header text-white bg-dark" id="myModalLabel">
+					<h4 class="modal-title">Edit Data</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						<i class="fas fa-window-close"></i>
+					</button>
+				</div>
+				<div class="modal-body small alert-warning-open">
+					<table>
+						<tr>
+							<td>
+								<strong>User ID:</strong>
+							</td>
+							<td>
+								<input disabled="true" readonly class="alert-warning-open" type="text" name="userid" id="userid" value="" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>User Name:</strong>
+							</td>
+							<td>
+								<input class="alert-warning-open" type="text" name="username" id="username" value="" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>Name:</strong>
+							</td>
+							<td>
+								<input class="alert-warning-open" type="text" name="name" id="name" value="" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>SurName:</strong>
+							</td>
+							<td>
+								<input class="alert-warning-open" type="text" name="surname" id="surname" value="" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>Email:</strong>
+							</td>
+							<td>
+								<input class="alert-warning-open" type="text" name="email" id="email" value="" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>Password:</strong>
+							</td>
+							<td>
+								<input class="alert-warning-open" type="password" name="password1" id="password1" value="" autocomplete="new-password" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>Password Again:</strong>
+							</td>
+							<td>
+								<input class="alert-warning-open" type="password" name="password2" id="password2" value="" autocomplete="new-password" />
+							</td>
+						</tr>
+					</table>
+					<strong>Are you sure you want to edit this record?</strong>
+				</div>
+
+				<div class="modal-footer text-white bg-dark">
+					<button type="button" id="btnEditConfirm" class="btn btn-warning btn-block" href="#">Confirm</button>
+					<!-- <button type="button" class="btn btn-white" data-dismiss="modal">Cancel</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- #################### EDIT ####################################################### -->
 
 </body>

@@ -161,7 +161,7 @@ public class UtilService
 		if(result.getMessage().equals(""))
 		{
 			user.setActive(true);
-			user.setPassword(user.getPassword().contains("{bcrypt}")?user.getPassword():"{bcrypt}"+new BCryptPasswordEncoder().encode(user.getPassword()));
+			user.setPassword(user.getPassword().contains("{bcrypt}")||user.getPassword().contains("{nope}")?user.getPassword():"{bcrypt}"+new BCryptPasswordEncoder().encode(user.getPassword()));
 			user.setConfirmationtoken("");
 			userService.update(user);
 			result.setMessage(messageSource.getMessage("register.ok.settingssuccessful",new Object[0],LocaleContextHolder.getLocale()));
@@ -187,7 +187,7 @@ public class UtilService
 		if(result.getMessage().equals(""))
 		{
 			user.setActive(true);
-			user.setPassword(user.getPassword().contains("{bcrypt}")?user.getPassword():"{bcrypt}"+new BCryptPasswordEncoder().encode(user.getPassword()));
+			user.setPassword(user.getPassword().contains("{bcrypt}")||user.getPassword().contains("{nope}")?user.getPassword():"{bcrypt}"+new BCryptPasswordEncoder().encode(user.getPassword()));
 			user.setConfirmationtoken("");
 			userService.update(user);
 			this.authenticateUser(request,user);

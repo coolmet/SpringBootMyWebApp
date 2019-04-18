@@ -8,6 +8,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -135,6 +136,42 @@ public class RestControllerAdmin_User
 			User user=userService.findByUserId(userid);
 			user.setActive(userRequest.isActive());
 			user.setEmail(userRequest.getEmail());
+			userService.update(user);
+			return ResponseEntity.ok().build();
+		}
+		catch(UserNotFoundException ex)
+		{
+			return ResponseEntity.notFound().build();
+		}
+		catch(Exception ex)
+		{
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@RequestMapping(method=RequestMethod.POST,value="/update/{userid}/") // http://localhost:8080/restadmin/user/update/100001/?username=xusername&name=xname
+	public ResponseEntity<?> updateUser(@PathVariable("userid") Long userid,
+	                                    @RequestParam(value="username",required=false) String username,
+	                                    @RequestParam(value="name",required=false) String name,
+	                                    @RequestParam(value="surname",required=false) String surname,
+	                                    @RequestParam(value="email",required=false) String email,
+	                                    @RequestParam(value="password",required=false) String password
+	                                    )
+	{
+		try
+		{
+			User user=userService.findByUserId(userid);
+			Logger.getGlobal().severe("userid:"+userid);
+			Logger.getGlobal().severe("username:"+username);
+			Logger.getGlobal().severe("name:"+name);
+			Logger.getGlobal().severe("surname:"+surname);
+			Logger.getGlobal().severe("email:"+email);
+			Logger.getGlobal().severe("password:"+password);
+			user.setUsername(username);
+			user.setName(name);
+			user.setSurname(surname);
+			user.setEmail(username);
+			user.setPassword(password.contains("{bcrypt}")||password.contains("{nope}")?password:"{bcrypt}"+new BCryptPasswordEncoder().encode(password));
 			userService.update(user);
 			return ResponseEntity.ok().build();
 		}
