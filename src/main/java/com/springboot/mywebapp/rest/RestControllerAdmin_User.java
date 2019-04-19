@@ -170,7 +170,7 @@ public class RestControllerAdmin_User
 			user.setUsername(username);
 			user.setName(name);
 			user.setSurname(surname);
-			user.setEmail(username);
+			user.setEmail(email);
 			user.setPassword(password.contains("{bcrypt}")||password.contains("{nope}")?password:"{bcrypt}"+new BCryptPasswordEncoder().encode(password));
 			userService.update(user);
 			return ResponseEntity.ok().build();
