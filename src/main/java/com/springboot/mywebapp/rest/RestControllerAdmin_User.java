@@ -128,6 +128,32 @@ public class RestControllerAdmin_User
 		}
 	}
 	
+	@RequestMapping(method=RequestMethod.POST,value="/create")
+	public ResponseEntity<Long> createUser(@RequestParam(value="username",required=false) String username,
+	                                         @RequestParam(value="name",required=false) String name,
+	                                         @RequestParam(value="surname",required=false) String surname,
+	                                         @RequestParam(value="email",required=false) String email,
+	                                         @RequestParam(value="password",required=false) String password) // http://localhost:8080/restadmin/user/create/?username=xusername&name=xname
+	{
+		try
+		{
+			User user=new User();
+			user.setUsername(username);
+			user.setName(name);
+			user.setSurname(surname);
+			user.setEmail(email);
+			user.setPassword(password.contains("{bcrypt}")||password.contains("{nope}")?password:"{bcrypt}"+new BCryptPasswordEncoder().encode(password));
+			//
+			userService.create(user);
+			Long id=user.getUserId();
+			return new ResponseEntity<>(id,HttpStatus.OK);
+		}
+		catch(Exception ex)
+		{
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
 	@RequestMapping(method=RequestMethod.PUT,value="/update/{userid}")
 	public ResponseEntity<?> updateUser(@PathVariable("userid") Long userid,@RequestBody User userRequest) // http://localhost:8080/restadmin/user/update
 	{
@@ -155,18 +181,11 @@ public class RestControllerAdmin_User
 	                                    @RequestParam(value="name",required=false) String name,
 	                                    @RequestParam(value="surname",required=false) String surname,
 	                                    @RequestParam(value="email",required=false) String email,
-	                                    @RequestParam(value="password",required=false) String password
-	                                    )
+	                                    @RequestParam(value="password",required=false) String password)
 	{
 		try
 		{
 			User user=userService.findByUserId(userid);
-			Logger.getGlobal().severe("userid:"+userid);
-			Logger.getGlobal().severe("username:"+username);
-			Logger.getGlobal().severe("name:"+name);
-			Logger.getGlobal().severe("surname:"+surname);
-			Logger.getGlobal().severe("email:"+email);
-			Logger.getGlobal().severe("password:"+password);
 			user.setUsername(username);
 			user.setName(name);
 			user.setSurname(surname);
