@@ -8,19 +8,21 @@ public class Language
 	private String imagePath;
 	private String displayName;
 	private String localeName;
+	private String localeLongName;
 	private Locale locale;
 	
 	public Language()
 	{
 	}
 	
-	public Language(int id,String imagePath,String displayName,String localeName,Locale locale)
+	public Language(int id,String imagePath,String displayName,String localeName,String localeLongName,Locale locale)
 	{
 		super();
 		this.id=id;
 		this.imagePath=imagePath;
 		this.displayName=displayName;
 		this.localeName=localeName;
+		this.localeLongName=localeLongName;
 		this.locale=locale;
 	}
 	
@@ -62,6 +64,16 @@ public class Language
 	public void setLocaleName(String localeName)
 	{
 		this.localeName=localeName;
+	}
+	
+	public String getLocaleLongName()
+	{
+		return localeLongName;
+	}
+	
+	public void setLocaleLongName(String localeLongName)
+	{
+		this.localeLongName=localeLongName;
 	}
 	
 	public Locale getLocale()

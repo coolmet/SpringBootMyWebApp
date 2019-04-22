@@ -43,7 +43,7 @@ legend {
 					<div th:text="#{test.locale.chooseLang}"></div>
 				</label>
 				<select id="locales">
-					<option th:each="language : ${@languageService.getLanguages()}" th:value="${language.localeName}" th:text="${language.displayName}"></option>
+					<option th:each="language : ${@languageService.getLanguages()}" th:value="${language.localeLongName}" th:text="${language.displayName}"></option>
 				</select>
 			</p>
 		</fieldset>
