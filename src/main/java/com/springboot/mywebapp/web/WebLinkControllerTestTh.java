@@ -1,0 +1,161 @@
+package com.springboot.mywebapp.web;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import com.springboot.mywebapp.service.ImagesService;
+import com.springboot.mywebapp.service.LanguageService;
+
+@Controller
+public class WebLinkControllerTestTh
+{
+	@Autowired
+	private SessionRegistry sessionRegistry;
+	
+	@Autowired
+	private LanguageService languageService;
+	
+	@Autowired
+	private ImagesService imagesService;
+	
+	@RequestMapping(value=
+	{"/admin/testloggedinusers"})
+	public ModelAndView adminUsers()
+	{
+		List<String> usersString=sessionRegistry.getAllPrincipals().stream()
+		                                        .filter(u->!sessionRegistry.getAllSessions(u,false).isEmpty())
+		                                        .map(Object::toString)
+		                                        .collect(Collectors.toList());
+		List<UserDetails> users=sessionRegistry.getAllPrincipals().stream()
+		                                       .filter(u->!sessionRegistry.getAllSessions(u,false).isEmpty())
+		                                       .map(u->(UserDetails)u)
+		                                       .collect(Collectors.toList());
+		UserDetails userDetail=(UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("usersString",usersString);
+		mav.addObject("users",users);
+		mav.addObject("userDetail",userDetail);
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.addObject("languages",languageService.getLanguages());
+		mav.setViewName("th_testloggedinusers");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/testlogin"})
+	public ModelAndView adminTestLogin()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("th_testlogin");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/testloginbasic"})
+	public ModelAndView adminTestLoginBasic()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("th_testloginbasic");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/testparticles"})
+	public ModelAndView adminParticle()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("th_testparticles");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/testloginparticles"})
+	public ModelAndView adminTestLoginParticles()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.addObject("languages",languageService.getLanguages());
+		mav.setViewName("th_testloginparticles");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/testloginregister"})
+	public ModelAndView adminTestRegister()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.addObject("languages",languageService.getLanguages());
+		mav.setViewName("th_testloginregister");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/testlocale"})
+	public ModelAndView adminTestLocale()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.addObject("languages",languageService.getLanguages());
+		mav.setViewName("th_testlocale");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/testfragmentslayouts"})
+	public ModelAndView adminTestFragmentsLocales()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("th_testfragmentslayouts");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/testusertable"})
+	public ModelAndView adminTestUserTable()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.setViewName("th_testusertable");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/testusertable2"})
+	public ModelAndView adminTestUserTable2()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.setViewName("th_testusertable2");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/testcarousel"})
+	public ModelAndView adminTestCarousel()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.setViewName("th_testcarousel");
+		return mav;
+	}
+	
+	@RequestMapping(value=
+	{"/admin/testcarousel2"})
+	public ModelAndView adminTestCarousel2()
+	{
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("deflangimagepath",languageService.getLanguageImagePathByLocaleName(LocaleContextHolder.getLocale().getLanguage()));
+		mav.addObject("imagesdata",imagesService.findAll());
+		mav.setViewName("th_testcarousel2");
+		return mav;
+	}
+}
